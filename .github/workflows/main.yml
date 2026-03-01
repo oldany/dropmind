@@ -30,22 +30,24 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push backend
+      - name: Build and push backend (multi-arch)
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           platforms: linux/amd64,linux/arm64
           push: true
+          provenance: false
           tags: |
             ghcr.io/oldany/dropmind-backend:latest
             ghcr.io/oldany/dropmind-backend:${{ github.ref_name }}
 
-      - name: Build and push frontend
+      - name: Build and push frontend (multi-arch)
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           platforms: linux/amd64,linux/arm64
           push: true
+          provenance: false
           tags: |
             ghcr.io/oldany/dropmind-frontend:latest
             ghcr.io/oldany/dropmind-frontend:${{ github.ref_name }}
