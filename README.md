@@ -80,6 +80,84 @@ Designed to be lightweight, portable and easy to deploy on:
 
 ------------------------------------------------------------------------
 
+## 🐳 Deploy with Prebuilt Docker Images (Recommended)
+
+DropMind provides official multi-architecture Docker images (amd64 +
+arm64) published on GitHub Container Registry.
+
+This is the recommended way to deploy in production.
+
+### Backend
+
+``` bash
+docker pull ghcr.io/oldany/dropmind-backend:latest
+```
+
+### Frontend
+
+``` bash
+docker pull ghcr.io/oldany/dropmind-frontend:latest
+```
+
+------------------------------------------------------------------------
+
+### Example docker-compose (Production)
+
+``` yaml
+version: "3.9"
+
+services:
+  backend:
+    image: ghcr.io/oldany/dropmind-backend:latest
+    container_name: dropmind_backend
+    volumes:
+      - ./data/db:/data/db
+      - ./data/attachments:/data/attachments
+    ports:
+      - "8000:8000"
+    environment:
+      - DROPMIND_API_TOKEN=your-secure-token
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/oldany/dropmind-frontend:latest
+    container_name: dropmind_frontend
+    volumes:
+      # Optional: external config.js
+      - ./frontend/config.js:/usr/share/nginx/html/config.js
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+```
+
+------------------------------------------------------------------------
+
+### 🔐 config.js Example
+
+Create a `config.js` file:
+
+``` js
+window.DROPMIND_CONFIG = {
+  API_BASE_URL: "http://localhost:8000",
+  API_TOKEN: "your-secure-token"
+};
+```
+
+------------------------------------------------------------------------
+
+### 🚀 Multi-Architecture Support
+
+Images are built for:
+
+-   linux/amd64
+-   linux/arm64 (Raspberry Pi compatible)
+
+No manual build required.
+
+------------------------------------------------------------------------
+
 ## 🚀 Installation (Docker)
 
 ``` bash
