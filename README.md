@@ -4,7 +4,7 @@
 ![Multi-Arch](https://img.shields.io/badge/arch-amd64%20%7C%20arm64-success)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-red)
 ![Self Hosted](https://img.shields.io/badge/self--hosted-yes-green)
-![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind?style=social)
+![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind)
 
 DropMind is a self-hosted memory cache for your digital thoughts.
 
