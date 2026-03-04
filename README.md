@@ -4,6 +4,9 @@
 
 DropMind is a self-hosted memory cache for your digital thoughts.
 
+Designed to be lightweight, private and easy to deploy --- even on a
+Raspberry Pi.
+
 Save links, notes, files, images and locations in one place --- fully
 under your control.
 
@@ -71,13 +74,34 @@ This project embraces AI as a tool --- not as an autonomous creator.
 -   Frontend: Vanilla HTML / CSS / JS\
 -   Containerized: Docker
 
+### Lightweight by Design
+
+DropMind intentionally avoids complex infrastructure.
+
+There are no external services such as Redis, message queues or
+background workers.
+
+The entire stack is:
+
+FastAPI backend\
+SQLite database\
+Static frontend\
+Docker container
+
+This makes DropMind extremely lightweight and ideal for:
+
+-   Raspberry Pi
+-   Small home servers
+-   Low-power homelabs
+-   Single-node deployments
+
 Designed to be lightweight, portable and easy to deploy on:
 
 -   Raspberry Pi
 -   Home server
 -   VPS
 -   NAS
-
+  
 ------------------------------------------------------------------------
 
 ## 🐳 Deploy with Prebuilt Docker Images (Recommended)
@@ -213,6 +237,24 @@ After installation:
 You're ready.
 
 Fully local. Fully yours.
+
+------------------------------------------------------------------------
+
+## 🧭 Project Roadmap
+
+DropMind intentionally keeps a minimal scope.
+
+Future development focuses on improving reliability, maintainability and
+lightweight operation rather than adding heavy features.
+
+Possible future directions include:
+
+-   Improved offline mode and synchronization
+-   Optional browser extension for faster capture
+-   Codebase cleanup and modularization of the frontend (planned for a
+    future major version)
+
+The goal is to keep DropMind small, fast and easy to self-host.
 
 ------------------------------------------------------------------------
 
