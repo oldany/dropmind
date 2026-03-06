@@ -167,7 +167,7 @@ services:
 Create a `config.js` file:
 
 ``` js
-window.DROPMIND_CONFIG = {
+window.DM_CONFIG = {
   API_BASE_URL: "http://localhost:8000",
   API_TOKEN: "your-secure-token"
 };
