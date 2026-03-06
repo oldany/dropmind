@@ -281,4 +281,8 @@ changes under the same license.
 
 ------------------------------------------------------------------------
 
+⭐ If you like Dropmind, consider starring the repo to support the project!
+
+------------------------------------------------------------------------
+
 ## 🌊 Drop it. Own it. Move on.
