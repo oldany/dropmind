@@ -1403,6 +1403,8 @@ select {
 </style>
 
 <link rel="icon" type="image/x-icon" href="favicon-rounded.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#020617">
 
 </head>
 
@@ -2072,7 +2074,7 @@ if (m.filename && m.filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
 
     if(m.filename){
       if(m.filename.match(/\.(jpg|jpeg|png|gif)$/i)){
-  const displayName = m.original_filename || m.filename;
+    const displayName = m.original_filename ?? m.filename ?? "";
 
 content.innerHTML = `
   <div class="image-wrapper">
@@ -2696,8 +2698,14 @@ function handleSharedContent(){
 
   const params = new URLSearchParams(window.location.search);
 
-  const shared = params.get("share");
-  const sharedFile = params.get("shared_file");
+  const shared =
+    params.get("share") ||
+    params.get("text") ||
+    params.get("url");
+
+  const sharedFile =
+    params.get("shared_file") ||
+    params.get("file");
 
   const input = document.getElementById("text");
 

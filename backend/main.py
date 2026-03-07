@@ -495,13 +495,16 @@ async def create_message_file_direct(
 # ANDROID SHARE TARGET
 # ============================================================
 
-@app.post("/share")
+@app.api_route("/share", methods=["GET","POST"])
 async def android_share(
+    request: Request,
     title: str = Form(None),
     text: str = Form(None),
     url: str = Form(None),
     file: UploadFile = File(None)
 ):
+
+    clipboard_id = 1
 
     if file:
 
@@ -509,14 +512,35 @@ async def android_share(
 
         original_name = os.path.basename(file.filename or "file")
 
-        ext = os.path.splitext(original_name)[1]
+        ext = os.path.splitext(original_name)[1].lower()
+        if not ext:
+            ext = ".bin"
 
         safe_name = f"{uuid.uuid4().hex}{ext}"
 
         file_location = f"/data/attachments/{safe_name}"
 
+        data = await file.read()
+
+        if not data:
+            return RedirectResponse("/", status_code=303)
+
         with open(file_location, "wb") as f:
-            f.write(await file.read())
+            f.write(data)
+
+        db = get_db()
+
+        now = datetime.utcnow().isoformat()
+
+        db.execute(
+            """
+            INSERT INTO messages (text, filename, clipboard_id, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            ("", safe_name, clipboard_id, now, now)
+        )
+
+        db.commit()
 
         return RedirectResponse(
             url=f"/?shared_file={safe_name}",
