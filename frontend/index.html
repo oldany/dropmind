@@ -2685,11 +2685,43 @@ async function deleteMessage(id){
   load();
 }
 
+// ==============================
+// ANDROID SHARE HANDLER
+// ==============================
+
+function handleSharedContent(){
+
+  if(window.__dropmindShareHandled) return;
+  window.__dropmindShareHandled = true;
+
+  const params = new URLSearchParams(window.location.search);
+
+  const shared = params.get("share");
+  const sharedFile = params.get("shared_file");
+
+  const input = document.getElementById("text");
+
+  // text or link shared
+  if(shared && input){
+    input.value = decodeURIComponent(shared);
+    send();
+  }
+
+  // file shared (immage or document)
+  if(sharedFile){
+    load();
+  }
+
+  // clean URL
+  history.replaceState({}, document.title, window.location.pathname);
+}
+
 /* =========================
    INIT
 ========================= */
 (async ()=>{
   await loadClipboards();
+  handleSharedContent();
   load();
 })();
 

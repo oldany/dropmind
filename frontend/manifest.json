@@ -2,11 +2,36 @@
   "name": "DropMind",
   "short_name": "DropMind",
   "start_url": "/",
+  "scope": "/",
+  "id": "/",
   "display": "standalone",
   "display_override": ["standalone", "fullscreen"],
   "orientation": "any",
   "background_color": "#020617",
   "theme_color": "#020617",
+
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "image/*",
+            "application/pdf",
+            "text/plain",
+            "*/*"
+          ]
+        }
+      ]
+    }
+  },
+
   "icons": [
     {
       "src": "/icon-192.png",
