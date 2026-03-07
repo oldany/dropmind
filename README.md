@@ -244,6 +244,47 @@ Fully local. Fully yours.
 
 ------------------------------------------------------------------------
 
+## 🤖 Android Share Integration
+
+DropMind supports the Android **Share Menu** when installed as a PWA.
+
+This allows quick capture from almost any Android app.
+
+You can share:
+
+- Links from browsers  
+- Selected text from apps  
+- Images  
+- Files  
+
+### How to use
+
+1. Install DropMind as a **PWA** from your browser
+2. Open any app and tap **Share**
+3. Select **DropMind**
+
+The content will be captured automatically.
+
+No extra apps. No extensions.
+
+Fully local. Fully yours.
+
+### Android Testing Feedback
+
+Android support is new in **DropMind 1.1.0**.
+
+If you use Android, feedback is very welcome.
+
+Please report:
+
+- Android version  
+- Browser used (Chrome, Firefox, Samsung Internet, etc.)
+- What worked or didn't work
+
+Your feedback helps improve compatibility across devices.
+
+------------------------------------------------------------------------
+
 ## 🧭 Project Roadmap
 
 DropMind intentionally keeps a minimal scope.
