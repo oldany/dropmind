@@ -36,7 +36,7 @@ from fastapi import (
     APIRouter,
 )
 
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 
 # ============================================================
@@ -490,6 +490,56 @@ async def create_message_file_direct(
         "updated_at": now,
         "pinned": 0
     }
+
+# ============================================================
+# ANDROID SHARE TARGET
+# ============================================================
+
+@app.post("/share")
+async def android_share(
+    title: str = Form(None),
+    text: str = Form(None),
+    url: str = Form(None),
+    file: UploadFile = File(None)
+):
+
+    if file:
+
+        os.makedirs("/data/attachments", exist_ok=True)
+
+        original_name = os.path.basename(file.filename or "file")
+
+        ext = os.path.splitext(original_name)[1]
+
+        safe_name = f"{uuid.uuid4().hex}{ext}"
+
+        file_location = f"/data/attachments/{safe_name}"
+
+        with open(file_location, "wb") as f:
+            f.write(await file.read())
+
+        return RedirectResponse(
+            url=f"/?shared_file={safe_name}",
+            status_code=303
+        )
+
+    content = ""
+
+    if url:
+        content += url
+
+    if text:
+        if content:
+            content += "\n---\n"
+        content += text
+
+    if title and not content:
+        content = title
+
+    return RedirectResponse(
+        url=f"/?share={content}",
+        status_code=303
+    )
 
 app.include_router(api_router)
 
