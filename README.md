@@ -51,11 +51,11 @@ Typical things you can drop into DropMind:
 
 ### Desktop
 
-![Desktop](docs/images/desktop.png)
+![Desktop UI](docs/desktop.png)
 
-### Mobile (PWA)
+### Mobile
 
-![Mobile](docs/images/mobile.png)
+![Mobile UI](docs/mobile.png)
 
 ------------------------------------------------------------------------
 
