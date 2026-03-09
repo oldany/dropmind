@@ -92,9 +92,9 @@ Fully local. Fully yours.
 
 ## 💡 Typical Workflow
 
-1.  Find something interesting on your phone\
-2.  **Drop it into DropMind**\
-3.  Later open it on your computer\
+1.  Find something interesting on your phone
+2.  **Drop it into DropMind**
+3.  Later open it on your computer
 4.  Keep it, move it elsewhere, or delete it
 
 DropMind is **not a note‑taking system**.
