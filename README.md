@@ -129,6 +129,8 @@ window.DM_CONFIG = {
 };
 ```
 
+If running behind HTTPS (reverse proxy), use `https://` for the API URL.
+
 Open your browser:
 
     http://localhost:8080
@@ -201,6 +203,8 @@ window.DM_CONFIG = {
   API_TOKEN: "your-secure-token"
 };
 ```
+
+If running behind HTTPS (reverse proxy), use `https://` for the API URL.
 
 ------------------------------------------------------------------------
 
