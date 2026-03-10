@@ -120,7 +120,7 @@ Start the stack:
 docker compose up -d
 ```
 
-Create a `config.js` file:
+Create a `config.js` file inside the `frontend` folder:
 
 ``` js
 window.DM_CONFIG = {
@@ -193,7 +193,7 @@ services:
 
 ### 🔐 config.js Example
 
-Create a `config.js` file:
+Create a `config.js` file inside the `frontend` folder:
 
 ``` js
 window.DM_CONFIG = {
