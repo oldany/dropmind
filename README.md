@@ -19,6 +19,10 @@ server.
 
 ------------------------------------------------------------------------
 
+📖 **Documentation:** https://github.com/oldany/dropmind/wiki
+
+------------------------------------------------------------------------
+
 ## ✨ Features
 
 DropMind focuses on one simple idea:
