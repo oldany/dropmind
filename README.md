@@ -243,12 +243,21 @@ decisions were human‑driven**.
 
 ## 🛣 Roadmap
 
-Possible future improvements:
+DropMind is developed in spare time.  
+The roadmap below reflects ideas and planned improvements, but timelines are not guaranteed.
 
--   stronger offline support
--   browser extensions
--   UI improvements
--   performance optimizations
+Planned improvements:
+
+• UX polish and speed improvements  
+• Link preview for URLs  
+• Multi-select actions  
+• Temporary clipboard  
+• Review / Inbox mode  
+• Drag & drop support on desktop  
+
+Future direction:
+
+• Frontend refactor (split monolithic index.html into modular components)
 
 ------------------------------------------------------------------------
 
