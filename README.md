@@ -246,18 +246,22 @@ decisions were human‑driven**.
 DropMind is developed in spare time.  
 The roadmap below reflects ideas and planned improvements, but timelines are not guaranteed.
 
-Planned improvements:
+### Planned improvements
 
-• UX polish and speed improvements
-• Keyboard Shortcuts
-• Link preview for URLs  
-• Multi-select actions  
-• Temporary clipboard   
-• Drag & drop support on desktop  
+- UX polish and speed improvements
+- Keyboard shortcuts
+- Link preview for URLs
+- Multi-select actions
+- Temporary clipboard
+- Drag & drop support on desktop
 
-Future direction:
+### Possible future additions
 
-• Frontend refactor (split monolithic index.html into modular components)
+- Browser extension for quick capture from web pages
+
+### Future direction
+
+- Frontend refactor (split monolithic index.html into modular components)
 
 ------------------------------------------------------------------------
 
