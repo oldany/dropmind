@@ -248,11 +248,11 @@ The roadmap below reflects ideas and planned improvements, but timelines are not
 
 Planned improvements:
 
-• UX polish and speed improvements  
+• UX polish and speed improvements
+• Keyboard Shortcuts
 • Link preview for URLs  
 • Multi-select actions  
-• Temporary clipboard  
-• Review / Inbox mode  
+• Temporary clipboard   
 • Drag & drop support on desktop  
 
 Future direction:
