@@ -297,4 +297,14 @@ changes under the same license.
 
 ------------------------------------------------------------------------
 
+## Support
+
+DropMind is developed in spare time.
+
+If you find it useful, you can support development:
+
+☕ https://ko-fi.com/oldany
+
+------------------------------------------------------------------------
+
 ## 🌊 Drop it. Own it. Move on.
