@@ -247,25 +247,32 @@ decisions were human‑driven**.
 
 ## 🛣 Roadmap
 
-DropMind is developed in spare time.  
-The roadmap below reflects ideas and planned improvements, but timelines are not guaranteed.
+DropMind is developed in my free time, primarily to solve my own personal workflow needs.
 
-### Planned improvements
+Because of this, there are no fixed timelines or guaranteed features.
+Development happens when time and ideas align.
 
-- UX polish and speed improvements
-- Keyboard shortcuts
-- Link preview for URLs
-- Multi-select actions
-- Temporary clipboard
-- Drag & drop support on desktop
+That said, these are some areas and ideas I would like to explore in the future:
 
-### Possible future additions
+### Capture & workflow improvements
 
-- Browser extension for quick capture from web pages
+- Multi-select actions (move / delete multiple items)
+- Temporary clipboards with automatic expiration
+- Faster quick-capture shortcuts
+- Improved link parsing and smart cards
 
-### Future direction
+### Integrations
+- API / webhook ingestion for external tools
+-  Automation integrations (Shortcuts, scripts, etc.)
+- Lightweight bookmarklet for quick capture from the browser
 
-- Frontend refactor (split monolithic index.html into modular components)
+### UI improvements
+- Drag & drop support for desktop uploads
+- Live drop / quick file capture
+- Additional keyboard shortcuts and small UX improvements
+
+### Architecture
+At some point the frontend will likely be refactored to split the current single index.html into smaller modular files to make the codebase easier to maintain.
 
 ------------------------------------------------------------------------
 
