@@ -258,7 +258,7 @@ That said, these are some areas and ideas I would like to explore in the future:
 
 - Multi-select actions (move / delete multiple items)
 - Temporary clipboards with automatic expiration
-- Faster quick-capture shortcuts
+- ~~Faster quick-capture shortcuts~~ — Done
 - Improved link parsing and smart cards
 
 ### Integrations
@@ -269,7 +269,7 @@ That said, these are some areas and ideas I would like to explore in the future:
 ### UI improvements
 - Drag & drop support for desktop uploads
 - Live drop / quick file capture
-- Additional keyboard shortcuts and small UX improvements
+- ~~Additional keyboard shortcuts and small UX improvements~~ — Done
 
 ### Architecture
 At some point the frontend will likely be refactored to split the current single index.html into smaller modular files to make the codebase easier to maintain.
