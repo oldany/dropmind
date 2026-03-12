@@ -12,8 +12,9 @@
 
 <style>
 
-/* ================= BASE ================= */
-
+/*========================================
+  DROP MIND — BASE / RESET
+========================================*/
 
 body {
   margin: 0;
@@ -55,6 +56,10 @@ html, body {
     padding-top: env(safe-area-inset-top);
     padding-bottom: 0;
 }
+
+/*========================================
+  DROP MIND — APP LAYOUT
+========================================*/
 
 /* ================= HEADER ================= */
 
@@ -248,7 +253,7 @@ header select:focus{
   animation: spin 0.6s linear;
 }
 
-/* Rimuove focus visivo iOS sul refresh */
+/* Remove iOS focus on refresh */
 #refreshBtn:focus,
 #refreshBtn:focus-visible {
   outline: none !important;
@@ -288,7 +293,7 @@ input[type="checkbox"] {
   flex: 0 0 18px;
 }
 
-/* Quadrato reale */
+/* Real square */
 input[type="checkbox"]::before {
   content: "";
   position: absolute;
@@ -300,13 +305,13 @@ input[type="checkbox"]::before {
   box-sizing: border-box;
 }
 
-/* Stato checked */
+/* checked */
 input[type="checkbox"]:checked::before {
   background: #2563eb;
   border-color: #2563eb;
 }
 
-/* Spunta */
+/* check */
 input[type="checkbox"]:checked::after {
   content: "✓";
   position: absolute;
@@ -360,6 +365,10 @@ input[type="checkbox"]:checked {
   gap: 10px;
 }
 
+/*========================================
+  DROP MIND — MESSAGE CARDS
+========================================*/
+
 /* ================= MESSAGES ================= */
 
 .messages{
@@ -367,10 +376,12 @@ input[type="checkbox"]:checked {
   min-height:0;
   overflow-y:auto;
   padding:14px;
+  padding-bottom: 80px;
   display:flex;
   flex-direction:column;
   gap:12px;
   position: relative;
+  scroll-behavior: smooth;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
@@ -379,12 +390,19 @@ input[type="checkbox"]:checked {
   position: relative;
   flex: 1;
   overflow: hidden;
+  padding-bottom: calc(28px + env(safe-area-inset-bottom));
   isolation: isolate;
 }
 
 .messages {
   height: 100%;
   overflow-y: auto;
+}
+
+/* disable hover while scrolling */
+.messages.scrolling .message:hover .message-actions{
+  opacity:0 !important;
+  pointer-events:none !important;
 }
 
 /* ================= SCROLL SHADOW ================= */
@@ -418,15 +436,39 @@ input[type="checkbox"]:checked {
     );
 }
 
+/* scrollbar invisibile but scroll active */
+
+.messages{
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.messages.scrolling{
+  scrollbar-color:#334155 transparent;
+}
+
 .messages::-webkit-scrollbar{
-  width:8px;
+  width:6px;
 }
+
+.messages::-webkit-scrollbar-track{
+  background:transparent;
+}
+
 .messages::-webkit-scrollbar-thumb{
-  background:#1e293b;
+  background:transparent;
   border-radius:8px;
+  transition:background .2s;
 }
-.messages::-webkit-scrollbar-thumb:hover{
+
+/* show only on scroll */
+.messages.scrolling::-webkit-scrollbar-thumb{
   background:#334155;
+}
+
+/* hover on scrollbar */
+.messages::-webkit-scrollbar-thumb:hover{
+  background:#475569;
 }
 
 /* ================= MESSAGE CARD ================= */
@@ -437,6 +479,9 @@ input[type="checkbox"]:checked {
     background: #1e293b;
     border-radius: 14px;
     border: 1px solid #334155;
+
+    content-visibility: auto;
+    contain-intrinsic-size: 120px;
 
     box-shadow:
         inset 0 0 0 1px rgba(255,255,255,0.02),
@@ -474,7 +519,7 @@ input[type="checkbox"]:checked {
   background:#243049;
 }
 
-/* PIN anche per image e link */
+/* PIN also for image and link */
 .message.image.pinned,
 .message.link.pinned {
   border-left: 4px solid #3b82f6;
@@ -661,28 +706,31 @@ input[type="checkbox"]:checked {
 /* compressed */
 .message-text {
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* mostra 4 righe max */
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  max-height: 5.5em;
+
   white-space: pre-line;
   word-break: break-word;
   overflow-wrap: anywhere;
 
-}
-
-.message-text {
-  transition: all 0.25s ease;
+  transition: max-height 0.28s cubic-bezier(.4,0,.2,1);
+  will-change: max-height;
 }
 
 /* expanded */
 .message-text.expanded {
   -webkit-line-clamp: unset;
+  max-height: 1000px;
 }
 
 .expand-btn {
   margin-top: 8px;
   padding: 6px 12px;
   font-size: 13px;
+  font-weight: 500;
   border-radius: 8px;
   border: 1px solid #334155;
   background: rgba(255,255,255,0.04);
@@ -742,6 +790,10 @@ input[type="checkbox"]:checked {
 .move-select .confirm-move:hover {
   transform: translateY(-1px);
 }
+
+/*========================================
+  DROP MIND — CARD ACTIONS
+========================================*/
 
 /* ================= ACTIONS ================= */
 
@@ -813,6 +865,15 @@ input[type="checkbox"]:checked {
   transform: scale(1.05);
 }
 
+.message.editing {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.4);
+}
+
+.message.editing .message-actions {
+  display: none !important;
+}
+
 .img-overlay{
     position:fixed;
     inset:0;
@@ -838,6 +899,10 @@ input[type="checkbox"]:checked {
     to{transform:scale(1);opacity:1;}
 }
 
+/*========================================
+  DROP MIND — INPUT BAR
+========================================*/
+
 /* ================= INPUT ================= */
 
 .input {
@@ -852,14 +917,64 @@ input[type="checkbox"]:checked {
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
-.input input[type="text"]{
+.input textarea{
   flex:1;
+
   height:44px;
-  padding:0 18px;
-  border-radius:999px;
+  min-height:44px;
+  max-height:160px;
+
+  padding:10px 18px;
+
+  border-radius:14px;
   border:1px solid #334155;
   background:#0f172a;
   color:#e5e7eb;
+
+  resize:none;
+  overflow-y:auto;
+
+  font-family:inherit;
+  font-size:14px;
+  line-height:1.4;
+
+  box-sizing:border-box;
+}
+
+textarea::-webkit-scrollbar{
+  width:6px;
+}
+
+textarea::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+textarea::-webkit-scrollbar-thumb{
+  background:transparent;
+  border-radius:8px;
+  transition:background .2s;
+}
+
+/* appare solo se hover o scroll */
+textarea:hover::-webkit-scrollbar-thumb{
+  background:#334155;
+}
+
+textarea:active::-webkit-scrollbar-thumb{
+  background:#334155;
+}
+
+textarea{
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+textarea:hover{
+  scrollbar-color:#334155 transparent;
+}
+
+textarea::-webkit-scrollbar-thumb:hover{
+  background:#475569;
 }
 
 .input button{
@@ -1408,6 +1523,10 @@ select {
 
 </head>
 
+<!-- ============================= -->
+<!--        HTML STRUCTURE         -->
+<!-- ============================= -->
+
 <body>
 
 <div id="offline-banner" class="offline-banner">
@@ -1415,6 +1534,10 @@ select {
 </div>
 
 <div class="chat">
+
+<!-- ============================= -->
+<!--           UI ELEMENTS         -->
+<!-- ============================= -->
 
 <header>
   <div class="header-top">
@@ -1562,7 +1685,7 @@ select {
 
   <div id="filePreview" style="display:none; font-size:12px; opacity:.7;"></div>
 
-  <input type="text" id="text" placeholder="What's on your mind?">
+  <textarea id="text" placeholder="What's on your mind?" rows="1"></textarea>
 
   <button id="sendBtn" onclick="send()">Send</button>
 </div>
@@ -1571,8 +1694,16 @@ select {
     <img id="imgOverlayContent">
 </div>
 
+<!-- ============================= -->
+<!--         APP SCRIPT            -->
+<!-- ============================= -->
+
 <script src="config.js"></script>
 <script>
+
+/* =================================
+   APP INITIALIZATION
+================================= */
 
 const API="/api";
 
@@ -1973,6 +2104,10 @@ function parseAppleMaps(url) {
   }
 }
 
+/* =================================
+   CORE FUNCTIONS
+================================= */
+
 async function load(){
 
   const clipboardId = document.getElementById("clipboardSelect").value;
@@ -2007,22 +2142,22 @@ if(!isGlobal){
   const messages=await res.json();
   let filtered = messages;
 
-// filtro pinned
+// pinned filter
 if(document.getElementById("filterPinned").checked){
   filtered = filtered.filter(m => m.pinned === 1);
 }
 
-// filtro file
+// file filter
 if(document.getElementById("filterFiles").checked){
   filtered = filtered.filter(m => m.filename);
 }
 
-// filtro text
+// text filter
 if(document.getElementById("filterText").checked){
   filtered = filtered.filter(m => !m.filename);
 }
 
-// ricerca
+// search
 const searchValue = document.getElementById("search").value.trim().toLowerCase();
 if(searchValue){
   filtered = filtered.filter(m => 
@@ -2058,6 +2193,10 @@ if(activeLabels.length > 0){
 
   const container=document.getElementById("messages");
   container.innerHTML="";
+
+/*========================================
+  MESSAGE RENDERING
+========================================*/
 
   filtered.forEach(m=>{
     const div = document.createElement("div");
@@ -2196,32 +2335,44 @@ content.innerHTML = `
 
     content.appendChild(textElem);
 
-    if (text.length > 220) {
+    setTimeout(() => {
 
-      const expandBtn = document.createElement("button");
-      expandBtn.classList.add("expand-btn");
-      expandBtn.textContent = "Show more";
+      if (textElem.scrollHeight > textElem.clientHeight) {
 
-      expandBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        textElem.classList.toggle("expanded");
-        expandBtn.textContent =
-          textElem.classList.contains("expanded")
-            ? "Show less"
-            : "Show more";
-      });
+        const expandBtn = document.createElement("button");
+        expandBtn.classList.add("expand-btn");
+        expandBtn.textContent = "Expand";
 
-      content.appendChild(expandBtn);
-    }
+        expandBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          textElem.classList.toggle("expanded");
+
+          expandBtn.textContent =
+            textElem.classList.contains("expanded")
+              ? "Collapse"
+              : "Expand";
+        });
+
+        content.appendChild(expandBtn);
+
+      }
+
+    }, 0);
   }
 }
 
     div.appendChild(content);
 
-// Desktop doppio click sulla card
+/*========================================
+  CARD INTERACTIONS
+========================================*/
+
+// Desktop double click on card
 let clickTimer = null;
 
 div.addEventListener("click", (e) => {
+
+  if (clickTimer) clearTimeout(clickTimer);
 
   if (div.querySelector("textarea")) return;
   if (div.classList.contains("move-active")) return;
@@ -2229,13 +2380,16 @@ div.addEventListener("click", (e) => {
   if (clickTimer) {
     clearTimeout(clickTimer);
     clickTimer = null;
-    enterEditMode(m, content);
+
+    if (!div.classList.contains("image")) {
+      enterEditMode(m, content);
+    }
+
   } else {
     clickTimer = setTimeout(() => {
       clickTimer = null;
 
-// Apri link SOLO su desktop (mouse)
-// Apri link SOLO su desktop (mouse)
+// Open link only on desktop (mouse)
 if (
     (div.classList.contains("link") || div.classList.contains("location")) &&
     window.matchMedia("(hover: hover) and (pointer: fine)").matches
@@ -2255,6 +2409,7 @@ let startY = 0;
 let isScrolling = false;
 
 content.addEventListener("touchstart", (e) => {
+  if (div.classList.contains("image")) return;  
 
   isScrolling = false;
 
@@ -2262,10 +2417,10 @@ content.addEventListener("touchstart", (e) => {
   startY = e.touches[0].clientY;
 
   pressTimer = setTimeout(() => {
-    if (!isScrolling) {
+    if (!isScrolling && !div.classList.contains("image")) {
       enterEditMode(m, content);
     }
-  }, 600); // leggermente più lungo = più sicuro
+  }, 600);
 });
 
 content.addEventListener("touchmove", (e) => {
@@ -2276,7 +2431,7 @@ content.addEventListener("touchmove", (e) => {
   const diffX = Math.abs(moveX - startX);
   const diffY = Math.abs(moveY - startY);
 
-  // Se movimento > 10px → consideralo scroll
+  // if movement > 10px → is scroll
   if (diffX > 10 || diffY > 10) {
     isScrolling = true;
     clearTimeout(pressTimer);
@@ -2430,6 +2585,7 @@ response = await apiFetch(`${API}/messages`, {
 
     // Reset input solo se OK
     textInput.value = "";
+    textInput.style.height = "44px"; 
     fileInput.value = "";
     document.getElementById("filePreview").style.display = "none";
 
@@ -2565,15 +2721,19 @@ messageCard.appendChild(wrapper);
 };
 }
 
-/*============================
+/* ============================
        Edit Mode
-===========================*/
+=========================== */
 
 async function enterEditMode(m, contentDiv){
 
 const card = contentDiv.closest(".message");
+
+if (card && card.classList.contains("image")) return;
+
 if (card) {
   card.classList.remove("show-actions");
+  card.classList.add("editing");
 }
 
 let originalText = m.text || "";
@@ -2597,14 +2757,43 @@ if (card && (card.classList.contains("link") || card.classList.contains("locatio
 
   const textarea = document.createElement("textarea");
   textarea.value = descriptionPart;
+
   textarea.style.width = "100%";
-  textarea.style.minHeight = "80px";
+  textarea.style.height = "44px";
+  textarea.style.minHeight = "44px";
+  textarea.style.maxHeight = "160px";
+
   textarea.style.background = "#0f172a";
   textarea.style.color = "#e5e7eb";
   textarea.style.border = "1px solid #334155";
-  textarea.style.borderRadius = "8px";
-  textarea.style.padding = "8px";
-  textarea.style.resize = "vertical";
+  textarea.style.borderRadius = "14px";
+  textarea.style.padding = "10px 18px";
+
+  textarea.style.fontFamily = "inherit";
+  textarea.style.fontSize = "14px";
+  textarea.style.lineHeight = "1.4";
+
+  textarea.style.resize = "none";
+  textarea.style.overflowY = "auto";
+  textarea.style.boxSizing = "border-box";
+
+  const autoResize = () => {
+
+    if (!textarea.value.trim()) {
+      textarea.style.height = "44px";
+      return;
+    }
+
+    textarea.style.height = "auto";
+
+    const newHeight = Math.min(textarea.scrollHeight, 160);
+
+    textarea.style.height = newHeight + "px";
+  };
+
+  textarea.addEventListener("input", autoResize);
+
+  setTimeout(autoResize, 0);
 
   const actions = document.createElement("div");
   actions.style.marginTop = "8px";
@@ -2724,6 +2913,32 @@ function handleSharedContent(){
   history.replaceState({}, document.title, window.location.pathname);
 }
 
+// ==============================
+// TEXTAREA AUTO EXPAND
+// ==============================
+
+const textInput = document.getElementById("text");
+
+if (textInput) {
+
+  const autoGrow = () => {
+
+    if (!textInput.value.trim()) {
+      textInput.style.height = "44px";
+      return;
+    }
+
+    textInput.style.height = "auto";
+
+    const newHeight = Math.min(textInput.scrollHeight, 160);
+
+    textInput.style.height = newHeight + "px";
+  };
+
+  textInput.addEventListener("input", autoGrow);
+
+}
+
 /* =========================
    INIT
 ========================= */
@@ -2731,7 +2946,176 @@ function handleSharedContent(){
   await loadClipboards();
   handleSharedContent();
   load();
+
+  // autofocus input on start
+  const textInput = document.getElementById("text");
+  if (textInput) {
+    setTimeout(() => textInput.focus(), 100);
+  }
+
 })();
+
+/* ===============================
+   QUICK PASTE (CTRL+V)
+================================ */
+
+let lastPaste = 0;
+let pasteFromOutside = false;
+
+document.addEventListener("keydown", (e) => {
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+
+    const textInput = document.getElementById("text");
+
+    pasteFromOutside = document.activeElement !== textInput;
+    lastPaste = Date.now();
+
+  }
+
+});
+
+// if input change after CTRL+V → send
+document.getElementById("text").addEventListener("input", () => {
+
+  const textInput = document.getElementById("text");
+
+  if (pasteFromOutside && Date.now() - lastPaste < 400) {
+
+    if (textInput.value.trim() !== "") {
+
+      send();
+      textInput.value = "";
+
+    }
+
+  }
+
+});
+
+/* =================================
+   KEYBOARD SHORTCUTS
+================================= */
+
+// ESC removes focus from textarea
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const textInput = document.getElementById("text");
+    if (textInput) {
+      textInput.blur();
+    }
+  }
+});
+
+// CTRL+K focuses the input
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+
+    const textInput = document.getElementById("text");
+    if (textInput) {
+      textInput.focus();
+    }
+  }
+});
+
+// CTRL+ENTER sends message
+document.addEventListener("keydown", (e) => {
+
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+
+    const textInput = document.getElementById("text");
+
+    if (textInput && document.activeElement === textInput) {
+
+      e.preventDefault();
+
+      send();
+
+    }
+
+  }
+
+});
+
+// N focuses the input (new note)
+document.addEventListener("keydown", (e) => {
+
+  if (
+    e.key.toLowerCase() === "n" &&
+    !e.ctrlKey &&
+    !e.metaKey &&
+    !e.altKey
+  ) {
+
+    const active = document.activeElement;
+
+    if (
+      active.tagName !== "INPUT" &&
+      active.tagName !== "TEXTAREA"
+    ) {
+
+      e.preventDefault();
+
+      const textInput = document.getElementById("text");
+      if (textInput) {
+        textInput.focus();
+      }
+
+    }
+
+  }
+
+});
+
+// / focuses the search
+document.addEventListener("keydown", (e) => {
+
+  if (
+    (e.key === "/" || e.code === "Slash") &&
+    !e.ctrlKey &&
+    !e.metaKey &&
+    !e.altKey
+  ) {
+
+    const active = document.activeElement;
+
+    if (
+      active.tagName !== "INPUT" &&
+      active.tagName !== "TEXTAREA"
+    ) {
+
+      e.preventDefault();
+
+      const searchInput = document.getElementById("search");
+      if (searchInput) {
+        searchInput.focus();
+      }
+
+    }
+
+  }
+
+});
+
+// CTRL/CMD + V forces focus on input (Windows Chromium workaround)
+window.addEventListener("keydown", (e) => {
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+
+    const input = document.getElementById("text");
+
+    if (input && document.activeElement !== input) {
+      input.focus();
+    }
+
+  }
+
+});
+
+/* =================================
+   CARD INTERACTIONS
+================================= */
 
 // close image overlay
 document.getElementById("imgOverlay").addEventListener("click", () => {
@@ -2740,14 +3124,27 @@ document.getElementById("imgOverlay").addEventListener("click", () => {
 
 document.getElementById("order").addEventListener("change", load);
 document.getElementById("clipboardSelect").addEventListener("change", load);
-document.getElementById("search").addEventListener("input", load);
+
+let searchTimer;
+
+document.getElementById("search").addEventListener("input", () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(load, 250);
+});
+
 document.getElementById("searchGlobal").addEventListener("change", load);
 
 document.getElementById("filterPinned").addEventListener("change", load);
 document.getElementById("filterFiles").addEventListener("change", load);
 document.getElementById("filterText").addEventListener("change", load);
 
-// blocca menu contestuale su immagini (iOS long press)
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    document.activeElement.blur();
+  }
+});
+
+// inibit contextual menu on images (iOS long press)
 document.addEventListener("contextmenu", function(e){
   if (e.target.closest(".message.image")) {
     e.preventDefault();
@@ -2775,11 +3172,20 @@ document.addEventListener("click", (e) => {
 
     if (e.target.closest(".message-actions")) return;
 
+    // Close all others card
+    document.querySelectorAll(".message.show-actions")
+      .forEach(el => {
+        if (el !== card) {
+          el.classList.remove("show-actions");
+        }
+      });
+
+    // Activate this card
     card.classList.toggle("show-actions");
     return;
   }
 
-  // Click out → closa everything
+  // Click out → close everything
   if (!card) {
     document.querySelectorAll(".message.show-actions")
       .forEach(el => el.classList.remove("show-actions"));
@@ -2871,6 +3277,33 @@ function updateOnlineStatus() {
 
 window.addEventListener("online", updateOnlineStatus);
 window.addEventListener("offline", updateOnlineStatus);
+
+// ==============================
+// CLOSE ACTIONS ON SCROLL
+// ==============================
+
+const messagesContainer = document.getElementById("messages");
+
+if (messagesContainer) {
+
+  let scrollTimer;
+
+  messagesContainer.addEventListener("scroll", () => {
+
+    messagesContainer.classList.add("scrolling");
+
+    document.querySelectorAll(".message.show-actions")
+      .forEach(el => el.classList.remove("show-actions"));
+
+    clearTimeout(scrollTimer);
+
+    scrollTimer = setTimeout(() => {
+      messagesContainer.classList.remove("scrolling");
+    }, 120);
+
+  });
+
+}
 
 updateOnlineStatus();
 
