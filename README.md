@@ -6,34 +6,52 @@
 ![Self Hosted](https://img.shields.io/badge/self--hosted-yes-green)
 ![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind)
 
-DropMind is a self-hosted memory cache for your digital thoughts.
+A lightweight **self-hosted capture inbox** for links, notes,
+screenshots and files across your devices.
 
-Designed to be lightweight, private and easy to deploy --- even on a
-Raspberry Pi.
+An alternative to **Telegram "Saved Messages"** for quickly sending
+links, notes and files between your own devices.
 
-Save links, notes, files, images and locations in one place --- fully
-under your control.
+**Drop something now. Organize it later.**
 
-No cloud lock-in. No external accounts. Just your server.
+Think of DropMind as a **personal memory cache** running on your own
+server.
+
+------------------------------------------------------------------------
+
+📖 **Documentation:** https://github.com/oldany/dropmind/wiki
 
 ------------------------------------------------------------------------
 
 ## ✨ Features
 
--   📌 Pin important messages
--   📎 File & image upload
--   🔗 Smart link cards
--   📍 Map / GPS location detection
--   🗂 Multiple clipboards
--   ⭐ Favorite clipboard
--   🔍 Local & global search
--   🌙 Clean dark UI
--   📱 Fully mobile responsive
--   🐳 Docker-ready backend
+DropMind focuses on one simple idea:
+
+**capture things quickly and retrieve them later.**
+
+Typical things you can drop into DropMind:
+
+- links to read later
+- screenshots from mobile
+- temporary files between devices
+- quick notes
+- ideas or reminders
+
+### Core capabilities
+
+- simple message-style interface
+- send **text, links, images and files**
+- **multi-clipboard organization**
+- global search
+- installable **PWA** (mobile & desktop)
+- **Android share support**
+- **Apple Shortcut support for instant sharing**
+- extremely lightweight
+- **Docker deployment**
 
 ------------------------------------------------------------------------
 
-## 📸 Interface Preview
+## 📸 Screenshots
 
 ### Desktop
 
@@ -45,67 +63,84 @@ No cloud lock-in. No external accounts. Just your server.
 
 ------------------------------------------------------------------------
 
-## 🧠 Philosophy
+## 🍎 Apple Shortcut
 
-DropMind was born from a simple idea:
+DropMind can integrate with **Apple Shortcuts** to quickly send:
 
-Your thoughts are personal.\
-Your memory system should be too.
+-   links
+-   text
+-   images
+-   files
 
-This is not a cloud service.\
-It is a self-hosted digital extension of your mind.
+directly from **iOS and iPadOS**.
+
+This makes DropMind behave like a **personal cross‑device inbox**.
+
+### Install the Shortcut
+
+👉 **Download here:**  
+[Add DropMind Shortcut](https://www.icloud.com/shortcuts/8f39d178512145918c7d1fda03d31c43)
+
+After installation:
+
+1. Open the Shortcut once to grant permissions  
+2. Set your DropMind server URL  
+3. Insert your API token  
+4. Choose your default clipboard  
+
+You're ready.
+
+Fully local. Fully yours.
 
 ------------------------------------------------------------------------
 
-## 👤 Human + AI Development
+## 💡 Typical Workflow
 
-DropMind was conceived, designed and architected by a human.
+1.  Find something interesting on your phone
+2.  **Drop it into DropMind**
+3.  Later open it on your computer
+4.  Keep it, move it elsewhere, or delete it
 
-The implementation was developed with the support of AI tools, under
-direct human supervision and decision-making.
+DropMind is **not a note‑taking system**.
 
-Every architectural choice, feature direction and philosophy belongs to
-the project author.
+It is a **temporary capture space** for your digital thoughts.
 
-This project embraces AI as a tool --- not as an autonomous creator.
+Use it as the **front door for your ideas and resources**.
 
 ------------------------------------------------------------------------
 
-## 🏗 Architecture
+## 🚀 Quick Start
 
--   Backend: FastAPI\
--   Database: SQLite\
--   Frontend: Vanilla HTML / CSS / JS\
--   Containerized: Docker
+Clone the repository:
 
-### Lightweight by Design
+``` bash
+git clone https://github.com/oldany/dropmind
+cd dropmind
+```
 
-DropMind intentionally avoids complex infrastructure.
+Start the stack:
 
-There are no external services such as Redis, message queues or
-background workers.
+``` bash
+docker compose up -d
+```
 
-The entire stack is:
+Create a `config.js` file inside the `frontend` folder:
 
-FastAPI backend\
-SQLite database\
-Static frontend\
-Docker container
+``` js
+window.DM_CONFIG = {
+  API_BASE_URL: "http://localhost:8000",
+  API_TOKEN: "your-secure-token"
+};
+```
 
-This makes DropMind extremely lightweight and ideal for:
+If running behind HTTPS (reverse proxy), use `https://` for the API URL.
 
--   Raspberry Pi
--   Small home servers
--   Low-power homelabs
--   Single-node deployments
+Open your browser:
 
-Designed to be lightweight, portable and easy to deploy on:
+    http://localhost:8080
 
--   Raspberry Pi
--   Home server
--   VPS
--   NAS
-  
+That's it.
+
 ------------------------------------------------------------------------
 
 ## 🐳 Deploy with Prebuilt Docker Images (Recommended)
@@ -164,7 +199,7 @@ services:
 
 ### 🔐 config.js Example
 
-Create a `config.js` file:
+Create a `config.js` file inside the `frontend` folder:
 
 ``` js
 window.DM_CONFIG = {
@@ -173,133 +208,71 @@ window.DM_CONFIG = {
 };
 ```
 
-------------------------------------------------------------------------
-
-### 🚀 Multi-Architecture Support
-
-Images are built for:
-
--   linux/amd64
--   linux/arm64 (Raspberry Pi compatible)
-
-No manual build required.
+If running behind HTTPS (reverse proxy), use `https://` for the API URL.
 
 ------------------------------------------------------------------------
 
-## 🚀 Installation (Docker)
-
-``` bash
-git clone https://github.com/oldany/dropmind.git
-cd dropmind
-docker compose up -d
-```
-
-Then open:
-
-    http://localhost:8000
+⭐ If you like DropMind, consider starring the repo to support the project!
 
 ------------------------------------------------------------------------
 
-## ⚙ Configuration
+## 🧠 Philosophy
 
-Create a `config.js` file in the frontend root:
+Your thoughts are personal.\
+Your memory system should be too.
 
-``` js
-window.DM_CONFIG = {
-  API_TOKEN: "your-secure-token"
-};
-```
+Many people use:
 
-Set the same token in backend environment variables.
+-   Telegram "Saved Messages"
+-   email
+-   cloud notes
 
-------------------------------------------------------------------------
+to move things between devices.
 
-## 🍎 iOS / iPadOS Shortcut
+DropMind provides a **self‑hosted alternative focused on quick
+capture**.
 
-DropMind integrates with Apple Shortcuts for a seamless mobile workflow.
-
-Using the official Shortcut, you can:
-
-- Share links directly from Safari  
-- Save selected text from any app  
-- Upload images to DropMind
-- Upload files from any app that support share menu
-- Send content to a specific clipboard ( 1 is the default main )
-
-### Install the Shortcut
-
-👉 **Download here:**  
-[Add DropMind Shortcut](https://www.icloud.com/shortcuts/8f39d178512145918c7d1fda03d31c43)
-
-After installation:
-
-1. Open the Shortcut once to grant permissions  
-2. Set your DropMind server URL  
-3. Insert your API token  
-4. Choose your default clipboard  
-
-You're ready.
-
-Fully local. Fully yours.
+Simple. Private. Always available.
 
 ------------------------------------------------------------------------
 
-## 🤖 Android Share Integration
+## 🤖 Human + AI Development
 
-DropMind supports the Android **Share Menu** when installed as a PWA.
+DropMind was created by a human with the assistance of AI tools.
 
-This allows quick capture from almost any Android app.
-
-You can share:
-
-- Links from browsers  
-- Selected text from apps  
-- Images  
-- Files  
-
-### How to use
-
-1. Install DropMind as a **PWA** from your browser
-2. Open any app and tap **Share**
-3. Select **DropMind**
-
-The content will be captured automatically.
-
-No extra apps. No extensions.
-
-Fully local. Fully yours.
-
-### Android Testing Feedback
-
-Android support is new in **DropMind 1.1.0**.
-
-If you use Android, feedback is very welcome.
-
-Please report:
-
-- Android version  
-- Browser used (Chrome, Firefox, Samsung Internet, etc.)
-- What worked or didn't work
-
-Your feedback helps improve compatibility across devices.
+AI helped accelerate development, but the **idea, direction and design
+decisions were human‑driven**.
 
 ------------------------------------------------------------------------
 
-## 🧭 Project Roadmap
+## 🛣 Roadmap
 
-DropMind intentionally keeps a minimal scope.
+DropMind is developed in my free time, primarily to solve my own personal workflow needs.
 
-Future development focuses on improving reliability, maintainability and
-lightweight operation rather than adding heavy features.
+Because of this, there are no fixed timelines or guaranteed features.
+Development happens when time and ideas align.
 
-Possible future directions include:
+That said, these are some areas and ideas I would like to explore in the future:
 
--   Improved offline mode and synchronization
--   Optional browser extension for faster capture
--   Codebase cleanup and modularization of the frontend (planned for a
-    future major version)
+### Capture & workflow improvements
 
-The goal is to keep DropMind small, fast and easy to self-host.
+- Multi-select actions (move / delete multiple items)
+- Temporary clipboards with automatic expiration
+- Faster quick-capture shortcuts
+- Improved link parsing and smart cards
+
+### Integrations
+- API / webhook ingestion for external tools
+-  Automation integrations (Shortcuts, scripts, etc.)
+- Lightweight bookmarklet for quick capture from the browser
+
+### UI improvements
+- Drag & drop support for desktop uploads
+- Live drop / quick file capture
+- Additional keyboard shortcuts and small UX improvements
+
+### Architecture
+At some point the frontend will likely be refactored to split the current single index.html into smaller modular files to make the codebase easier to maintain.
 
 ------------------------------------------------------------------------
 
@@ -307,6 +280,8 @@ The goal is to keep DropMind small, fast and easy to self-host.
 
 To ensure that DropMind remains open if modified and offered as a public
 service.
+To prevent closed commercial forks of DropMind while keeping the project
+fully open.
 
 ------------------------------------------------------------------------
 
@@ -322,7 +297,13 @@ changes under the same license.
 
 ------------------------------------------------------------------------
 
-⭐ If you like Dropmind, consider starring the repo to support the project!
+## Support
+
+DropMind is developed in spare time.
+
+If you find it useful, you can support development:
+
+☕ https://ko-fi.com/oldany
 
 ------------------------------------------------------------------------
 
