@@ -24,9 +24,9 @@ DropMind is a personal capture inbox.
 When you find something on one device and want to use it later on another,
 just drop it into DropMind.
 
-Phone → Drop  
-Computer → Review  
-Archive elsewhere → Done
+Phone → drop link / note / file  
+DropMind → temporary inbox  
+Desktop → review or archive
 
 ------------------------------------------------------------------------
 
