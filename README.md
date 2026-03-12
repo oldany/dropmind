@@ -17,6 +17,17 @@ links, notes and files between your own devices.
 Think of DropMind as a **personal memory cache** running on your own
 server.
 
+## The idea
+
+DropMind is a personal capture inbox.
+
+When you find something on one device and want to use it later on another,
+just drop it into DropMind.
+
+Phone → Drop  
+Computer → Review  
+Archive elsewhere → Done
+
 ------------------------------------------------------------------------
 
 📖 **Documentation:** https://github.com/oldany/dropmind/wiki
