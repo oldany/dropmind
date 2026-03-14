@@ -34,6 +34,16 @@ Desktop → review or archive
 
 ------------------------------------------------------------------------
 
+💬 **How are people using DropMind?**
+
+I'm curious how others are integrating DropMind into their workflows.
+
+If you're trying it or already using it, feel free to share your setup or ideas in the discussion:
+
+👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
+
+------------------------------------------------------------------------
+
 ## ✨ Features
 
 DropMind focuses on one simple idea:
