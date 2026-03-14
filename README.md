@@ -72,6 +72,16 @@ Typical things you can drop into DropMind:
 
 ------------------------------------------------------------------------
 
+💡 **Ideas or feedback welcome**
+
+DropMind is intentionally minimal and focused on doing one thing well: capturing things quickly.
+
+If you have ideas, workflow suggestions, or integrations that could make it more useful, feel free to open an issue or join the discussion.
+
+👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
+
+------------------------------------------------------------------------
+
 ## 📸 Screenshots
 
 ### Desktop
