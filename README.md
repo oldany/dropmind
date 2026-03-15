@@ -110,7 +110,7 @@ This makes DropMind behave like a **personal cross‑device inbox**.
 ### Install the Shortcut
 
 👉 **Download here:**  
-[Add DropMind Shortcut](https://www.icloud.com/shortcuts/8f39d178512145918c7d1fda03d31c43)
+[Add DropMind Shortcut](https://www.icloud.com/shortcuts/7e7c85fdd6a642058ca5cd0d76d69cd9)
 
 After installation:
 
