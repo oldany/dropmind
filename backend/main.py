@@ -37,6 +37,7 @@ from fastapi import (
 )
 
 from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # ============================================================
@@ -54,7 +55,15 @@ API_TOKEN = os.getenv("DROPMIND_API_TOKEN")
 if not API_TOKEN:
     raise RuntimeError("DROPMIND_API_TOKEN environment variable not set")
 
-def verify_token(authorization: str = Header(None)):
+def verify_token(
+    authorization: str = Header(None),
+    request: Request = None
+):
+    # ✅ 1. Allow CORS preflight
+    if request and request.method == "OPTIONS":
+        return
+
+    # 🔐 2. Standard token control
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing token")
 
@@ -71,6 +80,18 @@ api_router = APIRouter(
 app = FastAPI(
     title="DropMind API",
     version="2.0"
+)
+
+# ============================================================
+# CORS (required for browser integrations like bookmarklets)
+# ============================================================
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow requests from any site
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ============================================================
@@ -152,10 +173,31 @@ class MessageOut(BaseModel):
 @api_router.get("/clipboards")
 def list_clipboards():
     conn = get_db()
-    rows = conn.execute("SELECT * FROM clipboards ORDER BY name").fetchall()
-    conn.close()
-    return [dict(r) for r in rows]
 
+    rows = conn.execute("""
+        SELECT
+            clipboards.id,
+            clipboards.name,
+            clipboards.created_at,
+            COUNT(messages.id) as count
+        FROM clipboards
+        LEFT JOIN messages
+        ON messages.clipboard_id = clipboards.id
+        GROUP BY clipboards.id
+        ORDER BY clipboards.name
+    """).fetchall()
+
+    conn.close()
+
+    return [
+        {
+            "id": r["id"],
+            "name": r["name"],
+            "created_at": r["created_at"],
+            "count": r["count"]
+        }
+        for r in rows
+    ]
 
 @api_router.post("/clipboards")
 def create_clipboard(name: str = Form(...)):
@@ -309,7 +351,6 @@ def create_message(msg: MessageIn):
         "pinned": 0,
         "file_size": None
     }
-
 
 @api_router.post("/messages/{message_id}/pin")
 def pin_message(message_id: int, pinned: bool):
@@ -482,7 +523,7 @@ async def create_message_file_direct(
 
     return {
         "id": msg_id,
-        "text": text,
+        "text": "",
         "filename": filename,
         "original_filename": original_filename,
         "clipboard_id": clipboard_id,

@@ -1,1525 +1,1653 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-<meta charset="UTF-8">
-<title>DropMind</title>
+  <meta charset="UTF-8">
+  <title>DropMind</title>
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 
+  <meta name="color-scheme" content="dark light">
 
-<style>
-
-/*========================================
+  <style>
+    /*========================================
   DROP MIND — BASE / RESET
 ========================================*/
 
-body {
-  margin: 0;
-  font-family: system-ui,-apple-system,BlinkMacSystemFont;
-  background: #0f172a;
-  color: #e5e7eb;
-}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
 
-* {
-  -webkit-tap-highlight-color: transparent;
-}
+    :root {
+      color-scheme: dark;
+    }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-html, body {
-  overscroll-behavior: none;
-}
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-.chat {
-    width: 100%;
-    max-width: 840px;
-    margin: auto;
+    html,
+    body {
+      overscroll-behavior: none;
+    }
 
-    display: flex;
-    flex-direction: column;
+    .chat {
+      width: 100%;
+      max-width: 840px;
+      margin: auto;
 
-    height: 100%;
-    overflow: hidden;      /* già messo, resta */
-    overscroll-behavior: contain;
-    background: #020617;
+      display: flex;
+      flex-direction: column;
 
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,.5);
+      height: 100%;
+      overflow: hidden;
+      /* già messo, resta */
+      overscroll-behavior: contain;
+      background: #020617;
 
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: 0;
-}
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
 
-/*========================================
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: 0;
+    }
+
+    /*========================================
   DROP MIND — APP LAYOUT
 ========================================*/
 
-/* ================= HEADER ================= */
+    /* ================= HEADER ================= */
 
-header {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
+    header {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
 
-    background: rgba(2, 6, 23, 0.75);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(148,163,184,0.12);
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 
-}
+      position: relative;
+      z-index: 50;
+      overflow: visible;
 
-.header-top,
-.header-bottom{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:10px;
-  flex-wrap:wrap;
-}
+    }
 
-header strong {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.header-top{
-  border-bottom:1px solid #1e293b;
-}
-
-#refreshBtn {
-  font-size: 26px;
-  line-height: 1;
-}
-
-#refreshBtn {
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-#refreshBtn:focus,
-#refreshBtn:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
-
-/* Rimuove stato active iOS */
-#refreshBtn:active {
-  background: rgba(255,255,255,0.04) !important;
-  transform: none !important;
-}
-
-#refreshBtn {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-left:auto;
-}
-
-header input,
-header select{
-  height: 38px;
-  padding: 0 14px;
-
-  background: rgba(255,255,255,0.04);
-  color: #e5e7eb;
-
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-
-  font-size: 14px;
-
-  backdrop-filter: blur(6px);
-  transition: all .15s ease;
-}
-
-header select:hover,
-header select:focus{
-  border-color: rgba(59,130,246,0.5);
-  background: rgba(59,130,246,0.08);
-  outline: none;
-}
-
-#search{
-  width:150px;
-  border-radius:999px;
-  padding:4px 10px;
-}
-
-#search:focus{
-  outline:none;
-  border-color:#2563eb;
-}
-
-/* SOLO DESKTOP */
-@media (min-width: 769px) {
-
+    .header-top,
     .header-bottom {
-        flex-wrap: nowrap;   /* niente andare a capo */
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+    header strong {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .header-top {
+      border-bottom: 1px solid #1e293b;
+    }
+
+    #refreshBtn {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    #refreshBtn {
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #refreshBtn:focus,
+    #refreshBtn:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    /* Rimuove stato active iOS */
+    #refreshBtn:active {
+      background: rgba(255, 255, 255, 0.04) !important;
+      transform: none !important;
+    }
+
+    #refreshBtn {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    header input,
+    header select {
+      height: 38px;
+      padding: 0 14px;
+
+      background: rgba(255, 255, 255, 0.04);
+      color: #e5e7eb;
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+
+      font-size: 14px;
+
+      backdrop-filter: blur(6px);
+      transition: all .15s ease;
+    }
+
+    header select:hover,
+    header select:focus {
+      border-color: rgba(59, 130, 246, 0.5);
+      background: rgba(59, 130, 246, 0.08);
+      outline: none;
     }
 
     #search {
-        margin-left: auto;   /* spinge tutto a destra */
+      width: 150px;
+      border-radius: 999px;
+      padding: 4px 10px;
     }
 
-}
+    #search:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
 
-/* ================= HEADER BUTTONS ================= */
+    /* DESKTOP ONLY */
+    @media (min-width: 769px) {
 
-.header-top button {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      .header-bottom {
+        flex-wrap: nowrap;
+        /* niente andare a capo */
+      }
 
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e5e7eb;
-  border-radius: 10px;
+      #search {
+        margin-left: auto;
+        /* spinge tutto a destra */
+      }
 
-  backdrop-filter: blur(6px);
+    }
 
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.15s ease;
-}
+    /* ================= HEADER BUTTONS ================= */
 
-/* Refresh come header button anche se è div */
-#refreshBtn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    .header-top button {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e5e7eb;
-  border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      border-radius: 10px;
 
-  backdrop-filter: blur(6px);
-  transition: all 0.15s ease;
+      backdrop-filter: blur(6px);
 
-  cursor: pointer;
-}
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
 
-#refreshBtn:hover {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.4);
-  transform: scale(1.05);
-}
+    /* Refresh come header button anche se è div */
+    #refreshBtn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-.header-top button:focus,
-.header-top button:focus-visible {
-  outline: none;
-  box-shadow: none;
-}
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e5e7eb;
+      border-radius: 10px;
 
-.header-top button:hover {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.4);
-  transform: scale(1.05);
-}
+      backdrop-filter: blur(6px);
+      transition: all 0.15s ease;
 
-#favoriteClipboardBtn.favorite-active {
-  background: rgba(59,130,246,0.25);
-  border-color: rgba(59,130,246,0.6);
-  color: #60a5fa;
-}
+      cursor: pointer;
+    }
 
-#refreshBtn svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+    #refreshBtn:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: scale(1.05);
+    }
 
-#refreshBtn.spinning svg {
-  animation: spin 0.6s linear;
-}
+    .header-top button:focus,
+    .header-top button:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
 
-/* Remove iOS focus on refresh */
-#refreshBtn:focus,
-#refreshBtn:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-}
+    .header-top button:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: scale(1.05);
+    }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+    #favoriteClipboardBtn.favorite-active {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: rgba(59, 130, 246, 0.6);
+      color: #60a5fa;
+    }
 
-#mobileMenuBtn {
-   display: none;
- }
+    #refreshBtn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
-#mobileMenuBtn {
-  -webkit-tap-highlight-color: transparent;
-}
+    #refreshBtn.spinning svg {
+      animation: spin 0.6s linear;
+    }
 
-/* ================= CHECKBOX STYLE ================= */
+    /* Remove iOS focus on refresh */
+    #refreshBtn:focus,
+    #refreshBtn:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+    }
 
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
 
-  width: 18px;
-  height: 18px;
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-  position: relative;
-  cursor: pointer;
+    #mobileMenuBtn {
+      display: none;
+    }
 
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
+    #mobileMenuBtn {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  flex: 0 0 18px;
-}
+    /* ================= CHECKBOX STYLE ================= */
 
-/* Real square */
-input[type="checkbox"]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
 
-  border: 1px solid #334155;
-  border-radius: 5px;
-  background: #0f172a;
-  box-sizing: border-box;
-}
+      width: 18px;
+      height: 18px;
 
-/* checked */
-input[type="checkbox"]:checked::before {
-  background: #2563eb;
-  border-color: #2563eb;
-}
+      position: relative;
+      cursor: pointer;
 
-/* check */
-input[type="checkbox"]:checked::after {
-  content: "✓";
-  position: absolute;
-  inset: 0;
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 0;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      flex: 0 0 18px;
+    }
 
-  font-size: 13px;
-  color: white;
-}
+    /* Real square */
+    input[type="checkbox"]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
 
-.check-toggle{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+      border: 1px solid #334155;
+      border-radius: 5px;
+      background: #0f172a;
+      box-sizing: border-box;
+    }
 
-input[type="checkbox"]:checked {
-  background: #2563eb;
-  border-color: #2563eb;
-}
+    /* checked */
+    input[type="checkbox"]:checked::before {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
 
-.check-icon {
-  width:18px;
-  height:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:.7;
-}
+    /* check */
+    input[type="checkbox"]:checked::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
 
-.check-icon svg {
-  width:16px;
-  height:16px;
-  stroke: currentColor;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-/* ================= GLOBAL CHECKBOX ALIGN ================= */
+      font-size: 13px;
+      color: white;
+    }
 
-.global-toggle {
-  display:flex;
-  align-items: center;
-  gap: 6px;
-}
+    .check-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.filters-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    input[type="checkbox"]:checked {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
 
-/*========================================
+    .check-icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .7;
+    }
+
+    .check-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* ================= GLOBAL CHECKBOX ALIGN ================= */
+
+    .global-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ===============================
+   CUSTOM DROPDOWN
+================================ */
+
+    .dm-dropdown {
+      position: relative;
+      z-index: 200;
+    }
+
+    .dm-dropdown-btn {
+      height: 38px;
+      padding: 0 14px;
+
+      background: rgba(255, 255, 255, 0.04);
+      color: #e5e7eb;
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+
+      font-size: 14px;
+
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      min-width: 140px;
+      justify-content: space-between;
+    }
+
+    .dm-dropdown-menu {
+
+      position: absolute;
+      top: 110%;
+      left: 0;
+
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 12px;
+
+      min-width: 160px;
+
+      display: none;
+      overflow: hidden;
+
+      z-index: 9999;
+    }
+
+    .dm-dropdown-menu {
+      transition: all .15s ease;
+    }
+
+    .dm-dropdown-menu.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #orderDropdown .dm-dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+
+    .dm-dropdown-menu div {
+
+      padding: 10px 14px;
+      cursor: pointer;
+
+      color: #e5e7eb;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dm-dropdown-menu div:hover {
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    /*========================================
   DROP MIND — MESSAGE CARDS
 ========================================*/
 
-/* ================= MESSAGES ================= */
-
-.messages{
-  flex:1;
-  min-height:0;
-  overflow-y:auto;
-  padding:14px;
-  padding-bottom: 80px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  position: relative;
-  scroll-behavior: smooth;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-.messages-wrapper {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-  padding-bottom: calc(28px + env(safe-area-inset-bottom));
-  isolation: isolate;
-}
-
-.messages {
-  height: 100%;
-  overflow-y: auto;
-}
-
-/* disable hover while scrolling */
-.messages.scrolling .message:hover .message-actions{
-  opacity:0 !important;
-  pointer-events:none !important;
-}
-
-/* ================= SCROLL SHADOW ================= */
-
-.messages-wrapper::before,
-.messages-wrapper::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 22px;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.messages-wrapper::before {
-    top: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(2,6,23,0.85),
-        rgba(2,6,23,0)
-    );
-}
-
-.messages-wrapper::after {
-    bottom: 0;
-    background: linear-gradient(
-        to top,
-        rgba(2,6,23,0.85),
-        rgba(2,6,23,0)
-    );
-}
-
-/* scrollbar invisibile but scroll active */
-
-.messages{
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-.messages.scrolling{
-  scrollbar-color:#334155 transparent;
-}
-
-.messages::-webkit-scrollbar{
-  width:6px;
-}
-
-.messages::-webkit-scrollbar-track{
-  background:transparent;
-}
-
-.messages::-webkit-scrollbar-thumb{
-  background:transparent;
-  border-radius:8px;
-  transition:background .2s;
-}
-
-/* show only on scroll */
-.messages.scrolling::-webkit-scrollbar-thumb{
-  background:#334155;
-}
-
-/* hover on scrollbar */
-.messages::-webkit-scrollbar-thumb:hover{
-  background:#475569;
-}
-
-/* ================= MESSAGE CARD ================= */
-
-.message{
-    position: relative;
-    padding: 14px 90px 14px 14px;
-    background: #1e293b;
-    border-radius: 14px;
-    border: 1px solid #334155;
-
-    content-visibility: auto;
-    contain-intrinsic-size: 120px;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.02),
-        0 4px 14px rgba(0,0,0,0.25);
-
-    transition: background .15s ease, transform .12s ease;
-
-    animation: messageFadeIn .28s cubic-bezier(.4,0,.2,1);
-
-}
-
-.message:hover{
-  background:#223049;
-  transform: translateY(-1px);
-  transition: all .15s ease;
-}
-
-@keyframes messageFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.message.pinned{
-  background:#1f2a44;
-  border-left:4px solid #3b82f6;
-}
-
-.message.pinned:hover{
-  background:#243049;
-}
-
-/* PIN also for image and link */
-.message.image.pinned,
-.message.link.pinned {
-  border-left: 4px solid #3b82f6;
-}
-
-.message.image.pinned {
-  background: #1f2a44;
-}
-
-.message.link.pinned {
-  background: linear-gradient(135deg, #1f2a44, #1c2b4a);
-}
-
-.message.file{
-  background:#1e293b;
-  border:1px dashed #334155;
-}
-
-.message.image {
-    min-height: 260px;
-    max-height: 260px;
-    box-sizing: border-box;
-
-    /* Layout */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Spazio pulsanti */
-    padding: 12px 90px 12px 12px;
-
-    background: #1e293b;
-    border: 1px solid #334155;
-    position: relative;
-    overflow: hidden;
-}
-
-.message.image:hover {
-    background: #223049;
-}
-
-.image-wrapper{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-}
-
-.image-wrapper .file-text{
-  margin-top:12px;
-  font-size:14px;
-  opacity:.85;
-  text-align:center;
-}
-
-.message.image > div:first-child {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.message.image img{
-    max-width:100%;
-    max-height:210px;   /* 260 - padding */
-    object-fit:contain;
-    border-radius:10px;
-    display:block;
-    margin:auto;
-    transition: transform .25s ease, filter .25s ease;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-}
-
-.message.image.move-active img {
-  box-shadow: none !important;
-}
-
-.message.image img {
-    -webkit-touch-callout: none;
-}
-
-.message.image:hover img{
-    transform: scale(1.01);
-    filter: brightness(1.05);
-}
-
-.message.move-active .message-actions {
-  display: none !important;
-}
-
-.file-card{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.file-icon{
-  font-size:18px;
-  opacity:.7;
-}
-
-.file-text {
-    margin-top: 8px;
-    font-size: 14px;
-    opacity: 0.85;
-}
-
-.file-name{
-  flex:1;
-  font-weight:500;
-  color:#e5e7eb;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.file-download{
-  width:32px;
-  height:32px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  background:#0f172a;
-  border:1px solid #334155;
-  color:#94a3b8;
-  text-decoration:none;
-  transition:all .15s ease;
-}
-
-.file-download:hover{
-  background:#1e293b;
-  border-color:#3b82f6;
-  color:#60a5fa;
-  transform:scale(1.05);
-}
-
-.message.location {
-    background: linear-gradient(135deg, #1e293b, #1c2b4a);
-    border: 1px solid #334155;
-}
-
-.message.location.pinned {
-    border-left: 4px solid #3b82f6;
-}
-
-/* ================= LINK CARD ================= */
-
-.message.link {
-    background: linear-gradient(135deg, #1e293b, #1b2a4a);
-    border: 1px solid #334155;
-    cursor: pointer;
-}
-
-.link-card {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.link-icon {
-    font-size: 20px;
-    opacity: 0.8;
-}
-
-.link-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.link-domain {
-    font-weight: 600;
-    color: #60a5fa;
-}
-
-.link-url {
-    font-size: 12px;
-    opacity: 0.7;
-    word-break: break-all;
-}
-
-/* ================= TEXT EXPAND ================= */
-
-/* compressed */
-.message-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  max-height: 5.5em;
-
-  white-space: pre-line;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-
-  transition: max-height 0.28s cubic-bezier(.4,0,.2,1);
-  will-change: max-height;
-}
-
-/* expanded */
-.message-text.expanded {
-  -webkit-line-clamp: unset;
-  max-height: 1000px;
-}
-
-.expand-btn {
-  margin-top: 8px;
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: rgba(255,255,255,0.04);
-  color: #94a3b8;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.expand-btn:hover {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.4);
-  color: #60a5fa;
-}
-
-/* ================= MOVE UI ================= */
-
-.move-select {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.move-select select {
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid #334155;
-  background: #0f172a;
-  color: #e5e7eb;
-  font-size: 14px;
-  min-width: 120px;
-  max-width: 160px;
-}
-
-.move-select button {
-  padding: 8px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.05);
-  color: #e5e7eb;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.move-select button:hover {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.4);
-  color: #60a5fa;
-}
-
-.move-select .confirm-move {
-  background: linear-gradient(135deg, #4f8cff, #2563eb);
-  border: none;
-  color: white;
-}
-
-.move-select .confirm-move:hover {
-  transform: translateY(-1px);
-}
-
-/*========================================
+    /* ================= MESSAGES ================= */
+
+    .messages {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 14px;
+      padding-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .messages-wrapper {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+      padding-bottom: calc(28px + env(safe-area-inset-bottom));
+      z-index: 0;
+    }
+
+    .messages {
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    /* disable hover while scrolling */
+    .messages.scrolling .message:hover .message-actions {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* ================= SCROLL SHADOW ================= */
+
+    .messages-wrapper::before,
+    .messages-wrapper::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 22px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .messages-wrapper::before {
+      top: 0;
+      background: linear-gradient(to bottom,
+          rgba(2, 6, 23, 0.85),
+          rgba(2, 6, 23, 0));
+    }
+
+    .messages-wrapper::after {
+      bottom: 0;
+      background: linear-gradient(to top,
+          rgba(2, 6, 23, 0.85),
+          rgba(2, 6, 23, 0));
+    }
+
+    /* scrollbar invisibile but scroll active */
+
+    .messages {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+
+    .messages.scrolling {
+      scrollbar-color: #334155 transparent;
+    }
+
+    .messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .messages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .messages::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 8px;
+      transition: background .2s;
+    }
+
+    /* show only on scroll */
+    .messages.scrolling::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+
+    /* hover on scrollbar */
+    .messages::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* ================= MESSAGE CARD ================= */
+
+    .message {
+      position: relative;
+      padding: 14px 90px 14px 14px;
+      background: #1e293b;
+      border-radius: 14px;
+      border: 1px solid #334155;
+
+      content-visibility: auto;
+      contain-intrinsic-size: 120px;
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+        0 4px 14px rgba(0, 0, 0, 0.25);
+
+      transition: background .15s ease, transform .12s ease;
+
+      animation: messageFadeIn .28s cubic-bezier(.4, 0, .2, 1);
+
+    }
+
+    .message:hover {
+      background: #223049;
+      transform: translateY(-1px);
+      transition: all .15s ease;
+    }
+
+    @keyframes messageFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.pinned {
+      background: #1f2a44;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .message.pinned:hover {
+      background: #243049;
+    }
+
+    /* PIN also for image and link */
+    .message.image.pinned,
+    .message.link.pinned {
+      border-left: 4px solid #3b82f6;
+    }
+
+    .message.image.pinned {
+      background: #1f2a44;
+    }
+
+    .message.link.pinned {
+      background: linear-gradient(135deg, #1f2a44, #1c2b4a);
+    }
+
+    .message.file {
+      background: #1e293b;
+      border: 1px dashed #334155;
+    }
+
+    .message.image {
+      min-height: 260px;
+      max-height: 260px;
+      box-sizing: border-box;
+
+      /* Layout */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Spazio pulsanti */
+      padding: 12px 90px 12px 12px;
+
+      background: #1e293b;
+      border: 1px solid #334155;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message.image:hover {
+      background: #223049;
+    }
+
+    .image-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .image-wrapper .file-text {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: .85;
+      text-align: center;
+    }
+
+    .message.image>div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .message.image img {
+      max-width: 100%;
+      max-height: 210px;
+      /* 260 - padding */
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      margin: auto;
+      transition: transform .25s ease, filter .25s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .message.image.move-active img {
+      box-shadow: none !important;
+    }
+
+    .message.image img {
+      -webkit-touch-callout: none;
+    }
+
+    .message.image:hover img {
+      transform: scale(1.01);
+      filter: brightness(1.05);
+    }
+
+    .message.move-active .message-actions {
+      display: none !important;
+    }
+
+    .file-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-icon {
+      font-size: 18px;
+      opacity: .7;
+    }
+
+    .file-text {
+      margin-top: 8px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .file-name {
+      flex: 1;
+      font-weight: 500;
+      color: #e5e7eb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-download {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all .15s ease;
+    }
+
+    .file-download:hover {
+      background: #1e293b;
+      border-color: #3b82f6;
+      color: #60a5fa;
+      transform: scale(1.05);
+    }
+
+    .message.location {
+      background: linear-gradient(135deg, #1e293b, #1c2b4a);
+      border: 1px solid #334155;
+    }
+
+    .message.location.pinned {
+      border-left: 4px solid #3b82f6;
+    }
+
+    /* ================= LINK CARD ================= */
+
+    .message.link {
+      background: linear-gradient(135deg, #1e293b, #1b2a4a);
+      border: 1px solid #334155;
+      cursor: pointer;
+    }
+
+    .link-card {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .link-icon {
+      font-size: 20px;
+      opacity: 0.8;
+    }
+
+    .link-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .link-domain {
+      font-weight: 600;
+      color: #60a5fa;
+    }
+
+    .link-url {
+      font-size: 12px;
+      opacity: 0.7;
+      word-break: break-all;
+    }
+
+    /* ================= TEXT EXPAND ================= */
+
+    /* compressed */
+    .message-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      max-height: 5.5em;
+
+      white-space: pre-line;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+
+      transition: max-height 0.28s cubic-bezier(.4, 0, .2, 1);
+      will-change: max-height;
+    }
+
+    /* expanded */
+    .message-text.expanded {
+      -webkit-line-clamp: unset;
+      max-height: 1000px;
+    }
+
+    .expand-btn {
+      margin-top: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: rgba(255, 255, 255, 0.04);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .expand-btn:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #60a5fa;
+    }
+
+    /* ================= MOVE UI ================= */
+
+    .move-select {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .move-select select {
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e5e7eb;
+      font-size: 14px;
+      min-width: 120px;
+      max-width: 160px;
+    }
+
+    .move-select button {
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .move-select button:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #60a5fa;
+    }
+
+    .move-select .confirm-move {
+      background: linear-gradient(135deg, #4f8cff, #2563eb);
+      border: none;
+      color: white;
+    }
+
+    .move-select .confirm-move:hover {
+      transform: translateY(-1px);
+    }
+
+    /*========================================
   DROP MIND — CARD ACTIONS
 ========================================*/
 
-/* ================= ACTIONS ================= */
+    /* ================= ACTIONS ================= */
 
-.message-actions{
-  position:absolute;
-  top:50%;
-  right:10px;
-  transform: translateY(-50%) translateX(8px);
-  display:flex;
-  gap:6px;
-  padding-left:10px;
-  border-left:1px solid #334155;
-  opacity:0;
-  pointer-events: none;
-  transition: opacity .25s ease, transform .25s cubic-bezier(.4,0,.2,1);
-}
+    .message-actions {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%) translateX(8px);
+      display: flex;
+      gap: 6px;
+      padding-left: 10px;
+      border-left: 1px solid #334155;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s cubic-bezier(.4, 0, .2, 1);
+    }
 
-.message.show-actions .message-actions{
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-  pointer-events: auto;
-}
+    .message.show-actions .message-actions {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+      pointer-events: auto;
+    }
 
-.message.actions-vertical .message-actions{
-  flex-direction: column;
-}
+    .message.actions-vertical .message-actions {
+      flex-direction: column;
+    }
 
-.message.actions-horizontal .message-actions{
-  flex-direction: row;
-}
+    .message.actions-horizontal .message-actions {
+      flex-direction: row;
+    }
 
-@media (hover: hover) and (pointer: fine) {
+    @media (hover: hover) and (pointer: fine) {
 
-  .message:not(.show-actions):hover .message-actions{
-    opacity:1;
-    transform: translateY(-50%) translateX(0);
-    pointer-events: auto;
-  }
+      .message:not(.show-actions):hover .message-actions {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+        pointer-events: auto;
+      }
 
-}
+    }
 
-.message-actions button {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .message-actions button {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    background: rgba(8, 15, 28, 0.85);    /* sfondo più scuro */
-    backdrop-filter: blur(6px);           /* blur leggero */
-    -webkit-backdrop-filter: blur(6px);
+      background: rgba(8, 15, 28, 0.85);
+      /* sfondo più scuro */
+      backdrop-filter: blur(6px);
+      /* blur leggero */
+      -webkit-backdrop-filter: blur(6px);
 
-    border: 1px solid rgba(255,255,255,0.18);
-    color: #e5e7eb;
-    border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e5e7eb;
+      border-radius: 10px;
 
-    box-shadow:
-    0 6px 18px rgba(0,0,0,0.45),
-    inset 0 0 0 1px rgba(255,255,255,0.05);
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.45),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 
-    cursor: pointer;
-    font-size: 15px;
-    transition: all 0.15s ease;
-}
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.15s ease;
+    }
 
-.message-actions button:hover {
-  background: rgba(59,130,246,0.15);
-  border-color: rgba(59,130,246,0.4);
-  transform: scale(1.05);
-}
+    .message-actions button:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: scale(1.05);
+    }
 
-.message.editing {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px rgba(59,130,246,0.4);
-}
+    .message.editing {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+    }
 
-.message.editing .message-actions {
-  display: none !important;
-}
+    .message.editing .message-actions {
+      display: none !important;
+    }
 
-.img-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(6px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    cursor:zoom-out;
-}
+    .img-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+    }
 
-.img-overlay img{
-    max-width:90vw;
-    max-height:90vh;
-    border-radius:16px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.6);
-    animation:zoomIn .2s ease;
-}
+    .img-overlay img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      animation: zoomIn .2s ease;
+    }
 
-@keyframes zoomIn{
-    from{transform:scale(.9);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
+    @keyframes zoomIn {
+      from {
+        transform: scale(.9);
+        opacity: 0;
+      }
 
-/*========================================
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /*========================================
   DROP MIND — INPUT BAR
 ========================================*/
 
-/* ================= INPUT ================= */
+    /* ================= INPUT ================= */
 
-.input {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    .input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
 
-    padding: 12px;
-    border-top: 1px solid rgba(148,163,184,0.15);
+      padding: 12px;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
 
-    flex-shrink: 0;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-}
+      flex-shrink: 0;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
 
-.input textarea{
-  flex:1;
+    .input textarea {
+      flex: 1;
 
-  height:44px;
-  min-height:44px;
-  max-height:160px;
+      height: 44px;
+      min-height: 44px;
+      max-height: 160px;
 
-  padding:10px 18px;
+      padding: 10px 18px;
 
-  border-radius:14px;
-  border:1px solid #334155;
-  background:#0f172a;
-  color:#e5e7eb;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e5e7eb;
 
-  resize:none;
-  overflow-y:auto;
+      resize: none;
+      overflow-y: auto;
 
-  font-family:inherit;
-  font-size:14px;
-  line-height:1.4;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.4;
 
-  box-sizing:border-box;
-}
+      box-sizing: border-box;
+    }
 
-textarea::-webkit-scrollbar{
-  width:6px;
-}
+    textarea::-webkit-scrollbar {
+      width: 6px;
+    }
 
-textarea::-webkit-scrollbar-track{
-  background:transparent;
-}
+    textarea::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-textarea::-webkit-scrollbar-thumb{
-  background:transparent;
-  border-radius:8px;
-  transition:background .2s;
-}
+    textarea::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 8px;
+      transition: background .2s;
+    }
 
-/* appare solo se hover o scroll */
-textarea:hover::-webkit-scrollbar-thumb{
-  background:#334155;
-}
+    /* appare solo se hover o scroll */
+    textarea:hover::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
 
-textarea:active::-webkit-scrollbar-thumb{
-  background:#334155;
-}
+    textarea:active::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
 
-textarea{
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
+    textarea {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
 
-textarea:hover{
-  scrollbar-color:#334155 transparent;
-}
+    textarea:hover {
+      scrollbar-color: #334155 transparent;
+    }
 
-textarea::-webkit-scrollbar-thumb:hover{
-  background:#475569;
-}
+    textarea::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
 
-.input button{
-  background: linear-gradient(135deg, #4f8cff, #2563eb);
-  border: none;
-  height: 44px;
-  padding: 0 20px;
-  min-width: 78px;
-  border-radius: 999px;
-  color: white;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
+    .input button {
+      background: linear-gradient(135deg, #4f8cff, #2563eb);
+      border: none;
+      height: 44px;
+      padding: 0 20px;
+      min-width: 78px;
+      border-radius: 999px;
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
 
-  box-shadow: 
-    inset 0 1px 0 rgba(255,255,255,0.25),
-    0 4px 14px rgba(37,99,235,0.35);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 4px 14px rgba(37, 99, 235, 0.35);
 
-  transition: all 0.18s ease;
-}
+      transition: all 0.18s ease;
+    }
 
-.input button:hover{
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    0 6px 18px rgba(37,99,235,0.45);
-}
+    .input button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 6px 18px rgba(37, 99, 235, 0.45);
+    }
 
-.input button:active{
-  transform: translateY(0);
-  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
-}
+    .input button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
 
-.input button:disabled{
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-}
+    .input button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
 
-#filePreview {
-  max-width: 120px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    #filePreview {
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.input {
-  flex-wrap: nowrap;
-}
+    .input {
+      flex-wrap: nowrap;
+    }
 
-.input input[type="text"] {
-  min-width: 0;
-}
+    .input input[type="text"] {
+      min-width: 0;
+    }
 
-mark{
-  background: #facc15;
-  color: #000;
-  padding: 0 3px;
-  border-radius: 4px;
-  font-weight: 600;
-}
+    mark {
+      background: #facc15;
+      color: #000;
+      padding: 0 3px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
 
-.file-btn{
-  width:44px;
-  height:44px;
-  border-radius:50%;
+    .file-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
 
-  background:#0f172a;
-  border:1px solid #334155;
+      background: #0f172a;
+      border: 1px solid #334155;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  cursor:pointer;
-  transition: all .15s ease;
-}
+      cursor: pointer;
+      transition: all .15s ease;
+    }
 
-.file-btn:hover{
-  background:#1e293b;
-  border-color:#3b82f6;
-  transform: scale(1.05);
-}
+    .file-btn:hover {
+      background: #1e293b;
+      border-color: #3b82f6;
+      transform: scale(1.05);
+    }
 
-.plus-icon{
-  width:20px;
-  height:20px;
-  color:#e5e7eb;
-}
+    .plus-icon {
+      width: 20px;
+      height: 20px;
+      color: #e5e7eb;
+    }
 
-.mobile-action {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e6edf7;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
+    .mobile-action {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e6edf7;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
 
-.mobile-action:active {
-  background: rgba(255,255,255,0.12);
-  transform: scale(0.98);
-}
+    .mobile-action:active {
+      background: rgba(255, 255, 255, 0.12);
+      transform: scale(0.98);
+    }
 
-.mobile-action:hover {
-    background: #223049;
-}
+    .mobile-action:hover {
+      background: #223049;
+    }
 
-.mobile-action svg {
-  transform: translateY(-1px);
-}
+    .mobile-action svg {
+      transform: translateY(-1px);
+    }
 
-/* PIN ATTIVO */
-.message-actions button.pin-active {
-    background: rgba(59,130,246,0.25) !important;
-    border-color: rgba(59,130,246,0.6) !important;
-    color: #60a5fa !important;
-}
+    /* PIN ATTIVO */
+    .message-actions button.pin-active {
+      background: rgba(59, 130, 246, 0.25) !important;
+      border-color: rgba(59, 130, 246, 0.6) !important;
+      color: #60a5fa !important;
+    }
 
-/* Offline Banner */
-.offline-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #ffcc00;
-  color: #000;
-  text-align: center;
-  padding: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  display: none;
-  z-index: 9999;
-}
+    /* Offline Banner */
+    .offline-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #ffcc00;
+      color: #000;
+      text-align: center;
+      padding: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      z-index: 9999;
+    }
 
-@media(max-width:1200px){
+    @media(max-width:1200px) {
 
-  .chat{
-    width:100vw;
-    max-width:none;
-    margin:0;
-    border-radius:0;
-    box-shadow:none;
-  }
+      .chat {
+        width: 100vw;
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
 
-}
+    }
 
-/* ================= List in iOS ================= */
+    /* ================= List in iOS ================= */
 
-select {
-  background-color: #0b1220;
-  color: #e5e7eb;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 14px;
+    select {
+      background-color: #0b1220;
+      color: #e5e7eb;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 14px;
 
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23cbd5e1' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5l4.75 4.75L14.75 7.5' stroke='%23cbd5e1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 16px;
-  padding-right: 32px;
-}
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23cbd5e1' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5l4.75 4.75L14.75 7.5' stroke='%23cbd5e1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 32px;
+    }
 
-/* ===============================
+    /* ===============================
    Mobile layout
 ================================ */
 
-@media (max-width: 767px) {
+    @media (max-width: 767px) {
 
-.chat {
-    height: 100%;
-}
+      .chat {
+        height: 100%;
+      }
 
-#mobileMenuBtn {
-    display: flex;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-}
+      #mobileMenuBtn {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+      }
 
-/* ===== Mobile header ===== */
+      /* ===== Mobile header ===== */
 
-/* HEADER TOP Mobile */
+      /* HEADER TOP Mobile */
 
-.header-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+      .header-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-.header-top select {
-    flex: 1;
-    min-width: 0;
-}
+      .header-top select {
+        flex: 1;
+        min-width: 0;
+      }
 
-/* REFRESH before menu */
-#refreshBtn {
-    order: 2;
-    width: 40px;
-    height: 40px;
-    font-size: 26px;
-    line-height: 1;
-    border-radius: 10px;
-}
+      /* REFRESH before menu */
+      #refreshBtn {
+        order: 2;
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+        line-height: 1;
+        border-radius: 10px;
+      }
 
-#mobileMenuBtn {
-    order: 3;
-    margin-left: 0;
-}
+      #mobileMenuBtn {
+        order: 3;
+        margin-left: 0;
+      }
 
-/* Nascondiamo azioni desktop */
-#createClipboardBtn,
-#renameClipboard,
-#deleteClipboard,
-#favoriteClipboardBtn {
-    display: none !important;
-}
+      .dm-dropdown-btn {
+        min-width: 0;
+        width: auto;
+        padding: 0 10px;
+        font-size: 14px;
+      }
 
-.header-right select {
-    display: none !important;
-}
+      #clipboardDropdown {
+        flex: 1;
+      }
 
-/* Titolo più compatto */
-.header-top strong {
-    font-size: 16px;
-    white-space: nowrap;
-}
+      #orderDropdown {
+        display: none;
+      }
 
-/* Clipboard centrale */
-#clipboardSelect {
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: 55%;
-    font-size: 16px;
-}
+      #clipboardDropdown {
+        flex: 1;
+        min-width: 0;
+      }
 
-/* Bottone menu sempre visibile */
-#mobileMenuBtn {
-    display: flex;
-}
+      #clipboardDropdown .dm-dropdown-btn {
+        width: 100%;
+        pointer-events: auto;
+      }
 
-/* Header bottom visibile */
+      /* Hyde desktop actions */
+      #createClipboardBtn,
+      #renameClipboard,
+      #deleteClipboard,
+      #favoriteClipboardBtn {
+        display: none !important;
+      }
 
-.header-bottom {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+      .header-right select {
+        display: none !important;
+      }
 
-.header-bottom #search {
-  flex: 1;
-  min-width: 0;
-}
+      /* Titolo più compatto */
+      .header-top strong {
+        font-size: 16px;
+        white-space: nowrap;
+      }
 
-.header-bottom .global-toggle {
-  flex-shrink: 0;
-}
+      /* Clipboard centrale */
+      #clipboardSelect {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 55%;
+        font-size: 16px;
+      }
 
-.filters-row {
-  display: none;
-}
+      /* Bottone menu sempre visibile */
+      #mobileMenuBtn {
+        display: flex;
+      }
 
-/* Search prende spazio */
-#search {
-    flex: 1;
-    font-size: 16px;
-}
+      /* Header bottom visibile */
 
-.messages {
-    flex: 1;
-    overflow-y: auto;
-}
+      .header-bottom {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-    /* CARD NORMALI */
-    .message {
+      .header-bottom #search {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .header-bottom .global-toggle {
+        flex-shrink: 0;
+      }
+
+      .filters-row {
+        display: none;
+      }
+
+      /* Search prende spazio */
+      #search {
+        flex: 1;
+        font-size: 16px;
+      }
+
+      .messages {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      /* CARD NORMALI */
+      .message {
         padding: 14px 70px 14px 14px;
         margin: 0 12px 14px 12px;
         border-radius: 18px;
         overflow: visible;
+      }
+
+      /* CARD IMAGE */
+      .message.image {
+        min-height: 260px;
+        max-height: 330px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 16px 70px 16px 16px;
+        box-sizing: border-box;
+      }
+
+      .card-actions button svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+      }
+
+      .message.image img {
+        max-height: 220px;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+
+        margin: 16px 0;
+      }
+
+      .image-wrapper {
+        max-height: 240px;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .image-wrapper img {
+        max-height: 200px;
+        width: auto;
+        object-fit: contain;
+      }
+
     }
-
-    /* CARD IMAGE */
-    .message.image {
-    min-height: 260px;
-    max-height: 330px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 16px 70px 16px 16px;
-    box-sizing: border-box;
-}
-
-.card-actions button svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-}
-
-    .message.image img {
-    max-height: 220px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-
-    margin: 16px 0;
-}
-
-.image-wrapper {
-      max-height: 240px;
-      overflow: visible;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .image-wrapper img {
-      max-height: 200px;
-      width: auto;
-      object-fit: contain;
-  }
-
-}
 
     /* BUTTONS LATERAL */
     .message-actions {
-        right: 8px;
-        transform: translateY(-50%) translateX(4px);
+      right: 8px;
+      transform: translateY(-50%) translateX(4px);
     }
 
     .message-actions button {
-        width: 44px;
-        height: 44px;
-        border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
     }
 
 
     /* INPUT BAR */
 
-.input {
-    padding: 12px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    flex-shrink: 0;
-}
+    .input {
+      padding: 12px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      flex-shrink: 0;
+    }
 
     .input input[type="text"] {
-        font-size: 16px;
+      font-size: 16px;
     }
 
     .input button {
-        height: 44px;
-        min-width: 90px;
+      height: 44px;
+      min-width: 90px;
     }
-}
 
-/* Dark select */
-.mobile-menu select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    /* Dark select */
+    .mobile-menu select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
 
-    width: 100%;
-    padding: 10px 14px;
+      width: 100%;
+      padding: 10px 14px;
 
-    border-radius: 12px;
-    border: 1px solid #334155;
+      border-radius: 12px;
+      border: 1px solid #334155;
 
-    background-color: #0f172a;
-    color: #e5e7eb;
+      background-color: #0f172a;
+      color: #e5e7eb;
 
-    font-size: 14px;
-}
+      font-size: 14px;
+    }
 
-.mobile-menu select {
-    background-image: url("data:image/svg+xml;utf8,\
+    .mobile-menu select {
+      background-image: url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23cbd5e1'>\
 <path fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.24 4.5a.75.75 0 01-1.08 0l-4.24-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/>\
 </svg>");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px;
-    padding-right: 36px;
-}
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
 
-.mobile-menu select option {
-    background-color: #0b1220;
-    color: #e5e7eb;
-}
+    .mobile-menu select option {
+      background-color: #0b1220;
+      color: #e5e7eb;
+    }
 
-.mobile-menu input[type="checkbox"] {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.05);
-  cursor: pointer;
-  position: relative;
-}
+    .mobile-menu input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      position: relative;
+    }
 
-.mobile-menu input[type="checkbox"]:checked {
-  background: #4e7cff;
-  border-color: #4e7cff;
-}
+    .mobile-menu input[type="checkbox"]:checked {
+      background: #4e7cff;
+      border-color: #4e7cff;
+    }
 
-.mobile-menu input[type="checkbox"]:checked::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 5px;
-  width: 4px;
-  height: 8px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
+    .mobile-menu input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
 
-.mobile-menu h3 {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.6;
-  margin-bottom: 12px;
-}
+    .mobile-menu h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+      margin-bottom: 12px;
+    }
 
-.mobile-menu select {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #e6edf7;
-  font-size: 15px;
-}
+    .mobile-menu select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e6edf7;
+      font-size: 16px;
+      height: 48px;
+    }
 
-.mobile-filter {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  color: #e6edf7;
-}
+    .mobile-filter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: #e6edf7;
+    }
 
-.mobile-filter input[type="checkbox"] {
-  flex-shrink: 0;
-}
+    .mobile-filter input[type="checkbox"] {
+      flex-shrink: 0;
+    }
 
-.mobile-filter .filter-icon {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.8;
-}
+    .mobile-filter .filter-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+    }
 
-.mobile-filter .filter-icon svg {
-  width: 18px;
-  height: 18px;
-}
+    .mobile-filter .filter-icon svg {
+      width: 18px;
+      height: 18px;
+    }
 
-.active-filters {
-  padding: 8px 14px;
-  font-size: 13px;
-  background: rgba(59,130,246,0.12);
-  border-bottom: 1px solid rgba(59,130,246,0.25);
-  color: #93c5fd;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    .active-filters {
+      padding: 8px 14px;
+      font-size: 13px;
+      background: rgba(59, 130, 246, 0.12);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.25);
+      color: #93c5fd;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-.active-filters span {
-  background: rgba(59,130,246,0.25);
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-}
+    .active-filters span {
+      background: rgba(59, 130, 246, 0.25);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
 
-/* ============================
+    /* ============================
    MOBILE BOTTOM SHEET
 ============================ */
 
-.mobile-menu {
-    position: fixed;
-    inset: 0;    
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(6px);
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(6px);
 
-    display: flex;
-    align-items: flex-end;
+      display: flex;
+      align-items: flex-end;
 
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .38s cubic-bezier(.4,0,.2,1);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .38s cubic-bezier(.4, 0, .2, 1);
 
-    z-index: 1000;
-}
+      z-index: 1000;
+    }
 
-.mobile-menu.open {
-    opacity: 1;
-    pointer-events: auto;
-}
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-/* Bottom sheet */
-.mobile-menu-content {
-    background: #0b1220;
-    width: 100%;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
-}
+    /* Bottom sheet */
+    .mobile-menu-content {
+      background: #0b1220;
+      width: 100%;
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+    }
 
-.mobile-menu-content {
-    transform: translateY(100%);
-    transition: transform .38s cubic-bezier(.4,0,.2,1);
-}
+    .mobile-menu-content {
+      transform: translateY(100%);
+      transition: transform .38s cubic-bezier(.4, 0, .2, 1);
+    }
 
-.mobile-menu.open .mobile-menu-content {
-    transform: translateY(0);
-}
+    .mobile-menu.open .mobile-menu-content {
+      transform: translateY(0);
+    }
+  </style>
 
-</style>
-
-<link rel="icon" type="image/x-icon" href="favicon-rounded.ico">
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#020617">
+  <link rel="icon" type="image/x-icon" href="favicon-rounded.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#020617">
 
 </head>
 
@@ -1529,85 +1657,111 @@ select {
 
 <body>
 
-<div id="offline-banner" class="offline-banner">
-  ⚠ You are offline
-</div>
-
-<div class="chat">
-
-<!-- ============================= -->
-<!--           UI ELEMENTS         -->
-<!-- ============================= -->
-
-<header>
-  <div class="header-top">
-    <strong>DropMind</strong>
-
-    <select id="clipboardSelect" onchange="load()"></select>
-    <button id="createClipboardBtn"></button>
-<button id="renameClipboard"></button>
-<button id="deleteClipboard"></button>
-<button id="favoriteClipboardBtn"></button>
-    <button id="mobileMenuBtn">☰</button>
-
-    <div class="header-right">
-
-    <div id="refreshBtn" role="button" title="Refresh messages">
-  <svg class="refresh-icon" viewBox="0 0 24 24">
-    <path d="M21 12a9 9 0 1 1-3-6.7"/>
-    <polyline points="21 3 21 9 15 9"/>
-  </svg>
-</div>
-
-      <select id="order">
-        <option value="recent">Most recent</option>
-        <option value="oldest">Older first</option>
-        <option value="activity">Recent activity</option>
-      </select>
-    </div>
+  <div id="offline-banner" class="offline-banner">
+    ⚠ You are offline
   </div>
 
-  <div class="header-bottom">
-    <span>
-      <div class="filters-row">
+  <div class="chat">
 
-  <div class="check-toggle">
-    <input type="checkbox" id="filterPinned">
-    <span class="check-icon check-pin"></span>
-  </div>
+    <!-- ============================= -->
+    <!--           UI ELEMENTS         -->
+    <!-- ============================= -->
 
-  <div class="check-toggle">
-    <input type="checkbox" id="filterFiles">
-    <span class="check-icon check-file"></span>
-  </div>
+    <header>
+      <div class="header-top">
+        <strong>DropMind</strong>
 
-  <div class="check-toggle">
-    <input type="checkbox" id="filterText">
-    <span class="check-icon check-text"></span>
-  </div>
+        <div class="dm-dropdown" id="clipboardDropdown">
 
-</div>
-    </span>
+          <button class="dm-dropdown-btn" id="clipboardBtn">
+            Inbox ▾
+          </button>
 
-    <input type="search" id="search" placeholder="Search...">
+          <div class="dm-dropdown-menu" id="clipboardMenu"></div>
 
-<label>
-  <div class="global-toggle">
-    <input type="checkbox" id="searchGlobal">
-    <span>global</span>
-  </div>
-</label>
+          <!-- invisibile select for JS compatibility -->
+          <select id="clipboardSelect" style="display:none" onchange="load()"></select>
 
-  </div>
-</header>
+        </div>
+        <button id="createClipboardBtn"></button>
+        <button id="renameClipboard"></button>
+        <button id="deleteClipboard"></button>
+        <button id="favoriteClipboardBtn"></button>
+        <button id="mobileMenuBtn">☰</button>
 
-  <div id="mobileMenu" class="mobile-menu">
-  <div class="mobile-menu-content">
+        <div class="header-right">
 
-    <h3 style="margin-top:0;">Menu</h3>
+          <div id="refreshBtn" role="button" title="Refresh messages">
+            <svg class="refresh-icon" viewBox="0 0 24 24">
+              <path d="M21 12a9 9 0 1 1-3-6.7" />
+              <polyline points="21 3 21 9 15 9" />
+            </svg>
+          </div>
 
-<button id="closeMobileMenuBtn" 
-        style="
+          <div class="dm-dropdown" id="orderDropdown">
+
+            <button class="dm-dropdown-btn" id="orderBtn">
+              Most recent ▾
+            </button>
+
+            <div class="dm-dropdown-menu" id="orderMenu">
+
+              <div data-value="recent">Most recent</div>
+              <div data-value="oldest">Older first</div>
+              <div data-value="activity">Recent activity</div>
+
+            </div>
+
+            <select id="order" style="display:none">
+              <option value="recent">Most recent</option>
+              <option value="oldest">Older first</option>
+              <option value="activity">Recent activity</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="header-bottom">
+        <span>
+          <div class="filters-row">
+
+            <div class="check-toggle">
+              <input type="checkbox" id="filterPinned">
+              <span class="check-icon check-pin"></span>
+            </div>
+
+            <div class="check-toggle">
+              <input type="checkbox" id="filterFiles">
+              <span class="check-icon check-file"></span>
+            </div>
+
+            <div class="check-toggle">
+              <input type="checkbox" id="filterText">
+              <span class="check-icon check-text"></span>
+            </div>
+
+          </div>
+        </span>
+
+        <input type="search" id="search" placeholder="Search...">
+
+        <label>
+          <div class="global-toggle">
+            <input type="checkbox" id="searchGlobal">
+            <span>global</span>
+          </div>
+        </label>
+
+      </div>
+    </header>
+
+    <div id="mobileMenu" class="mobile-menu">
+      <div class="mobile-menu-content">
+
+        <h3 style="margin-top:0;">Menu</h3>
+
+        <button id="closeMobileMenuBtn" style="
         position:absolute;
         top:16px;
         right:16px;
@@ -1616,102 +1770,102 @@ select {
         color:#e5e7eb;
         font-size:20px;
         cursor:pointer;">
-✕
-</button>
+          ✕
+        </button>
 
-    <!-- Ordine -->
-    <label style="display:block; margin-top:16px; font-size:14px; opacity:.7;">
-      Order
-    </label>
+        <!-- Ordine -->
+        <label style="display:block; margin-top:16px; font-size:14px; opacity:.7;">
+          Order
+        </label>
 
-    <select id="order-mobile" style="width:100%; margin-top:6px;">
-      <option value="recent">Most recent</option>
-      <option value="oldest">Older first</option>
-      <option value="activity">Recent activity</option>
-    </select>
+        <select id="order-mobile" style="width:100%; margin-top:6px;">
+          <option value="recent">Most recent</option>
+          <option value="oldest">Older first</option>
+          <option value="activity">Recent activity</option>
+        </select>
 
-<!-- Clipboard Management -->
-<div style="margin-top:24px; display:flex; flex-direction:column; gap:12px;">
+        <!-- Clipboard Management -->
+        <div style="margin-top:24px; display:flex; flex-direction:column; gap:12px;">
 
-<button id="mobileCreateClipboard" class="mobile-action"></button>
-<button id="mobileRenameClipboard" class="mobile-action"></button>
-<button id="mobileDeleteClipboard" class="mobile-action"></button>
-<button id="mobileFavoriteClipboard" class="mobile-action"></button>
+          <button id="mobileCreateClipboard" class="mobile-action"></button>
+          <button id="mobileRenameClipboard" class="mobile-action"></button>
+          <button id="mobileDeleteClipboard" class="mobile-action"></button>
+          <button id="mobileFavoriteClipboard" class="mobile-action"></button>
 
-</div>
+        </div>
 
-    <!-- Filters -->
-<label style="display:block; margin-top:24px; font-size:14px; opacity:.7;">
-    Filters
-</label>
+        <!-- Filters -->
+        <label style="display:block; margin-top:24px; font-size:14px; opacity:.7;">
+          Filters
+        </label>
 
-<div style="margin-top:24px; display:flex; flex-direction:column; gap:14px;">
+        <div style="margin-top:24px; display:flex; flex-direction:column; gap:14px;">
 
-  <label class="mobile-filter">
-    <input type="checkbox" id="filterPinnedMobile">
-    <span class="filter-icon filter-pin"></span>
-    <span>Only pinned</span>
-  </label>
+          <label class="mobile-filter">
+            <input type="checkbox" id="filterPinnedMobile">
+            <span class="filter-icon filter-pin"></span>
+            <span>Only pinned</span>
+          </label>
 
-  <label class="mobile-filter">
-    <input type="checkbox" id="filterFilesMobile">
-    <span class="filter-icon filter-file"></span>
-    <span>Only file</span>
-  </label>
+          <label class="mobile-filter">
+            <input type="checkbox" id="filterFilesMobile">
+            <span class="filter-icon filter-file"></span>
+            <span>Only file</span>
+          </label>
 
-  <label class="mobile-filter">
-    <input type="checkbox" id="filterTextMobile">
-    <span class="filter-icon filter-text"></span>
-    <span>Only text</span>
-  </label>
+          <label class="mobile-filter">
+            <input type="checkbox" id="filterTextMobile">
+            <span class="filter-icon filter-text"></span>
+            <span>Only text</span>
+          </label>
 
-</div>
+        </div>
 
-  </div>
-</div>
+      </div>
+    </div>
 
-<div class="messages-wrapper">
-  <div id="activeFiltersBar" class="active-filters" style="display:none;"></div>
-  <div id="messages" class="messages"></div>
-</div>
+    <div class="messages-wrapper">
+      <div id="activeFiltersBar" class="active-filters" style="display:none;"></div>
+      <div id="messages" class="messages"></div>
+    </div>
 
-<div class="input">
-  <label class="file-btn">
-  <svg viewBox="0 0 24 24" class="plus-icon">
-    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-  </svg>
-  <input type="file" id="file" hidden>
-</label>
+    <div class="input">
+      <label class="file-btn">
+        <svg viewBox="0 0 24 24" class="plus-icon">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <input type="file" id="file" hidden>
+      </label>
 
-  <div id="filePreview" style="display:none; font-size:12px; opacity:.7;"></div>
+      <div id="filePreview" style="display:none; font-size:12px; opacity:.7;"></div>
 
-  <textarea id="text" placeholder="What's on your mind?" rows="1"></textarea>
+      <textarea id="text" placeholder="What's on your mind?" rows="1"></textarea>
 
-  <button id="sendBtn" onclick="send()">Send</button>
-</div>
+      <button id="sendBtn" onclick="send()">Send</button>
+    </div>
 
-<div id="imgOverlay" class="img-overlay" style="display:none;">
-    <img id="imgOverlayContent">
-</div>
+    <div id="imgOverlay" class="img-overlay" style="display:none;">
+      <img id="imgOverlayContent">
+    </div>
 
-<!-- ============================= -->
-<!--         APP SCRIPT            -->
-<!-- ============================= -->
+    <!-- ============================= -->
+    <!--         APP SCRIPT            -->
+    <!-- ============================= -->
 
-<script src="config.js"></script>
-<script>
+    <script src="config.js"></script>
+    <script>
 
-/* =================================
-   APP INITIALIZATION
-================================= */
+      /* =================================
+         APP INITIALIZATION
+      ================================= */
 
-const API="/api";
+      const API = "/api";
 
-const API_TOKEN = window.DM_CONFIG?.API_TOKEN || "";
+      const API_TOKEN = window.DM_CONFIG?.API_TOKEN || "";
 
-const ICONS = {
+      const ICONS = {
 
-  pin: `
+        pin: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1720,7 +1874,7 @@ const ICONS = {
     <path d="M9 18h6"></path>
   </svg>`,
 
-  edit: `
+        edit: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1728,7 +1882,7 @@ const ICONS = {
     <path d="M14 4l2 2"></path>
   </svg>`,
 
-  delete: `
+        delete: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1737,7 +1891,7 @@ const ICONS = {
     <path d="M6 6l1 14h10l1-14"></path>
   </svg>`,
 
-  copy: `
+        copy: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1745,7 +1899,7 @@ const ICONS = {
     <rect x="5" y="5" width="10" height="10" rx="2"></rect>
   </svg>`,
 
-  move: `
+        move: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1754,21 +1908,21 @@ const ICONS = {
     <path d="M9 8l-4 4 4 4"></path>
   </svg>`,
 
-plus: `
+        plus: `
 <svg viewBox="0 0 24 24" width="18" height="18"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round">
  <path d="M12 5v14M5 12h14"/>
 </svg>`,
 
-star: `
+        star: `
 <svg viewBox="0 0 24 24" width="18" height="18"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
  <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/>
 </svg>`,
 
-link: `
+        link: `
 <svg viewBox="0 0 24 24" width="20" height="20"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round">
@@ -1776,7 +1930,7 @@ link: `
  <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l2-2"/>
 </svg>`,
 
-  map: `
+        map: `
   <svg viewBox="0 0 24 24" width="18" height="18"
        stroke="currentColor" fill="none"
        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1785,7 +1939,7 @@ link: `
     <path d="M15 6v14"></path>
   </svg>`,
 
-compass: `
+        compass: `
 <svg viewBox="0 0 24 24" width="20" height="20"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1793,7 +1947,7 @@ compass: `
   <polygon points="14 10 10 14 12 12 14 10"></polygon>
 </svg>`,
 
-file: `
+        file: `
 <svg viewBox="0 0 24 24" width="18" height="18"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round">
@@ -1801,7 +1955,7 @@ file: `
  <polyline points="14 2 14 8 20 8"/>
 </svg>`,
 
-download: `
+        download: `
 <svg viewBox="0 0 24 24" width="18" height="18"
      stroke="currentColor" fill="none"
      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1809,441 +1963,499 @@ download: `
   <path d="M8 11l4 4 4-4"></path>
   <path d="M5 21h14"></path>
 </svg>`
-};
+      };
 
-document.getElementById("createClipboardBtn").innerHTML = `
+      document.getElementById("createClipboardBtn").innerHTML = `
 <svg viewBox="0 0 24 24" width="18" height="18"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round">
  <path d="M12 5v14M5 12h14"/>
 </svg>`;
 
-document.getElementById("renameClipboard").innerHTML = ICONS.edit;
-document.getElementById("deleteClipboard").innerHTML = ICONS.delete;
+      document.getElementById("renameClipboard").innerHTML = ICONS.edit;
+      document.getElementById("deleteClipboard").innerHTML = ICONS.delete;
 
-document.getElementById("favoriteClipboardBtn").innerHTML = `
+      document.getElementById("favoriteClipboardBtn").innerHTML = `
 <svg viewBox="0 0 24 24" width="18" height="18"
  stroke="currentColor" fill="none"
  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
  <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/>
 </svg>`;
 
-document.querySelector(".check-pin").innerHTML = ICONS.pin;
-document.querySelector(".check-file").innerHTML = ICONS.file;
-document.querySelector(".check-text").innerHTML = ICONS.edit;
+      document.querySelector(".check-pin").innerHTML = ICONS.pin;
+      document.querySelector(".check-file").innerHTML = ICONS.file;
+      document.querySelector(".check-text").innerHTML = ICONS.edit;
 
-// === MOBILE MENU ICONS ===
+      // === MOBILE MENU ICONS ===
 
-document.getElementById("mobileCreateClipboard").innerHTML =
-ICONS.plus + " New clipboard";
+      document.getElementById("mobileCreateClipboard").innerHTML =
+        ICONS.plus + " New clipboard";
 
-document.getElementById("mobileRenameClipboard").innerHTML =
-ICONS.edit + " Rename";
+      document.getElementById("mobileRenameClipboard").innerHTML =
+        ICONS.edit + " Rename";
 
-document.getElementById("mobileDeleteClipboard").innerHTML =
-ICONS.delete + " Delete";
+      document.getElementById("mobileDeleteClipboard").innerHTML =
+        ICONS.delete + " Delete";
 
-document.getElementById("mobileFavoriteClipboard").innerHTML =
-ICONS.star + " Starred";
+      document.getElementById("mobileFavoriteClipboard").innerHTML =
+        ICONS.star + " Starred";
 
-document.querySelector(".filter-pin").innerHTML = ICONS.pin;
-document.querySelector(".filter-file").innerHTML = ICONS.file;
-document.querySelector(".filter-text").innerHTML = ICONS.edit;
+      document.querySelector(".filter-pin").innerHTML = ICONS.pin;
+      document.querySelector(".filter-file").innerHTML = ICONS.file;
+      document.querySelector(".filter-text").innerHTML = ICONS.edit;
 
-function formatFileSize(bytes) {
-  if (!bytes && bytes !== 0) return "";
+      function formatFileSize(bytes) {
+        if (!bytes && bytes !== 0) return "";
 
-  const kb = bytes / 1024;
-  const mb = kb / 1024;
+        const kb = bytes / 1024;
+        const mb = kb / 1024;
 
-  if (mb >= 1) {
-    return mb.toFixed(2) + " MB";
-  } else {
-    return kb.toFixed(1) + " KB";
-  }
-}
+        if (mb >= 1) {
+          return mb.toFixed(2) + " MB";
+        } else {
+          return kb.toFixed(1) + " KB";
+        }
+      }
 
-async function apiFetch(url, options = {}) {
+      async function apiFetch(url, options = {}) {
 
-  options.headers = {
-    ...(options.headers || {}),
-    "Authorization": `Bearer ${API_TOKEN}`
-  };
+        options.headers = {
+          ...(options.headers || {}),
+          "Authorization": `Bearer ${API_TOKEN}`
+        };
 
-  return fetch(url, options);
-}
+        return fetch(url, options);
+      }
 
-let CLIPBOARDS=[];
+      let CLIPBOARDS = [];
 
-/* =========================
-   LOAD CLIPBOARDS
-========================= */
-async function loadClipboards(forceSelectId = null){
-  const res = await apiFetch(`${API}/clipboards`);
-  if(!res.ok) return;
+      /* =========================
+         LOAD CLIPBOARDS
+      ========================= */
+      async function loadClipboards(forceSelectId = null) {
+        const res = await apiFetch(`${API}/clipboards`);
+        if (!res.ok) return;
 
-  CLIPBOARDS = await res.json();
+        CLIPBOARDS = await res.json();
 
-const favoriteId = localStorage.getItem("dm_favorite_clipboard");
+        const favoriteId = localStorage.getItem("dm_favorite_clipboard");
 
-CLIPBOARDS.sort((a, b) => {
+        CLIPBOARDS.sort((a, b) => {
 
-  // 1️⃣ Starred first
-  if (a.id == favoriteId) return -1;
-  if (b.id == favoriteId) return 1;
+          // 1️⃣ Starred first
+          if (a.id == favoriteId) return -1;
+          if (b.id == favoriteId) return 1;
 
-  // 2️⃣ Or alphabetic order
-  return a.name.localeCompare(b.name, "it", { sensitivity: "base" });
+          // 2️⃣ Or alphabetic order
+          return a.name.localeCompare(b.name, "it", { sensitivity: "base" });
 
-});
+        });
 
-  const select = document.getElementById("clipboardSelect");
-  select.innerHTML = "";
+        const select = document.getElementById("clipboardSelect");
+        const menu = document.getElementById("clipboardMenu");
 
-  CLIPBOARDS.forEach(c=>{
-    const opt = document.createElement("option");
-    opt.value = c.id;
-    opt.textContent = c.name;
-    select.appendChild(opt);
-  });
+        const currentClipboard = select.value;
 
-// Keep previous selection if possible
-const currentValue = select.value;
+        select.innerHTML = "";
+        menu.innerHTML = "";
 
-if (forceSelectId) {
-  select.value = forceSelectId;
-} else if (currentValue && CLIPBOARDS.some(c => c.id == currentValue)) {
-  select.value = currentValue;
-} else if (CLIPBOARDS.length > 0) {
-  select.value = CLIPBOARDS[0].id;
-}
-const desktopFavoriteBtn = document.getElementById("favoriteClipboardBtn");
+        CLIPBOARDS.forEach(c => {
 
-if (desktopFavoriteBtn) {
-  desktopFavoriteBtn.classList.toggle(
-    "favorite-active",
-    select.value == favoriteId
-  );
-}
+          // select invisibile
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.name;
+          select.appendChild(opt);
 
-}
+          // dropdown UI
+          const item = document.createElement("div");
 
-async function createClipboard(){
-  const name = prompt("New clipboard name:");
-  if(!name) return;
+          const count = c.count || "";
 
-  const res = await apiFetch(`${API}/clipboards`,{
-    method:"POST",
-    body:new URLSearchParams({ name })
-  });
+          item.dataset.value = c.id;
 
-  if(!res.ok) return;
+          item.innerHTML = `
+  <span class="clipboard-name">
+  ${c.id == favoriteId ? "☆ " : ""}
+  ${c.name}
+  </span>
 
-  const newClipboard = await res.json();
+  <span class="clipboard-count">
+  ${count ? `(${count})` : ""}
+  </span>
+  `;
 
-  await loadClipboards();
+          item.onclick = () => {
 
-  const created = CLIPBOARDS.find(c => c.name === newClipboard.name);
+            select.value = c.id;
 
-  if (created) {
-    const select = document.getElementById("clipboardSelect");
-    select.value = created.id;
-  }
+            document.getElementById("clipboardBtn").textContent =
+              c.name + " ▾";
 
-  await load();
-}
+            document.querySelectorAll("#clipboardMenu div")
+              .forEach(el => el.style.background = "");
 
-async function handleRenameClipboard() {
+            item.style.background = "rgba(59,130,246,0.15)";
 
-  const select = document.getElementById("clipboardSelect");
-  const id = select.value;
+            menu.style.display = "none";
 
-  const current = CLIPBOARDS.find(c => c.id == id);
-  if (!current) return;
+            load();
+          };
 
-  const newName = prompt("New name:", current.name);
-  if (!newName || newName.trim() === "") return;
+          menu.appendChild(item);
 
-  await apiFetch(`${API}/clipboards/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      name: newName.trim()
-    })
-  });
+        });
 
-  await loadClipboards(id);
-  await load();
-}
+        // Keep previous selection if possible
+        const currentValue = select.value;
 
-document.getElementById("renameClipboard").onclick = handleRenameClipboard;
+        if (forceSelectId) {
+          select.value = forceSelectId;
+        } else if (currentValue && CLIPBOARDS.some(c => c.id == currentValue)) {
+          select.value = currentValue;
+        } else if (CLIPBOARDS.length > 0) {
+          select.value = CLIPBOARDS[0].id;
+        }
+        const selectedClipboard = CLIPBOARDS.find(c => c.id == select.value);
 
-async function handleDeleteClipboard() {
+        document.querySelectorAll("#clipboardMenu div").forEach(el => {
+          if (el.dataset.value == select.value) {
+            el.style.background = "rgba(59,130,246,0.15)";
+          }
+        });
 
-  const select = document.getElementById("clipboardSelect");
-  const id = select.value;
+        if (selectedClipboard) {
+          document.getElementById("clipboardBtn").textContent =
+            selectedClipboard.name + " ▾";
+        }
 
-  const current = CLIPBOARDS.find(c => c.id == id);
-  if (!current) return;
+        const desktopFavoriteBtn = document.getElementById("favoriteClipboardBtn");
 
-  if (current.name === "main") {
-    alert("You cannot delete the main clipboard");
-    return;
-  }
+        if (desktopFavoriteBtn) {
+          desktopFavoriteBtn.classList.toggle(
+            "favorite-active",
+            select.value == favoriteId
+          );
+        }
 
-  if (!confirm(`Delete "${current.name}"?`)) return;
+      }
 
-  await apiFetch(`${API}/clipboards/${id}`, {
-    method: "DELETE"
-  });
+      async function createClipboard() {
+        const name = prompt("New clipboard name:");
+        if (!name) return;
 
-  await loadClipboards();
+        const res = await apiFetch(`${API}/clipboards`, {
+          method: "POST",
+          body: new URLSearchParams({ name })
+        });
 
-  // Torna a main
-  const mainClipboard = CLIPBOARDS.find(c => c.name === "main");
-  if (mainClipboard) {
-    select.value = mainClipboard.id;
-  }
+        if (!res.ok) return;
 
-  load();
-}
+        const newClipboard = await res.json();
 
-document.getElementById("deleteClipboard").onclick = handleDeleteClipboard;
-document.getElementById("createClipboardBtn").onclick = createClipboard;
+        await loadClipboards();
 
-/* ===========================
-   MOBILE MENU CLIPBOARD ACTIONS
-=========================== */
+        const created = CLIPBOARDS.find(c => c.name === newClipboard.name);
 
-  const mobileCreate = document.getElementById("mobileCreateClipboard");
-  const mobileRename = document.getElementById("mobileRenameClipboard");
-  const mobileDelete = document.getElementById("mobileDeleteClipboard");
-  const mobileFavorite = document.getElementById("mobileFavoriteClipboard");
+        if (created) {
+          const select = document.getElementById("clipboardSelect");
+          select.value = created.id;
+        }
 
-const desktopFavorite = document.getElementById("favoriteClipboardBtn");
+        await load();
+      }
 
-if (desktopFavorite) {
-  desktopFavorite.onclick = () => {
+      async function handleRenameClipboard() {
 
-    const id = document.getElementById("clipboardSelect").value;
+        const select = document.getElementById("clipboardSelect");
+        const id = select.value;
 
-    localStorage.setItem("dm_favorite_clipboard", id);
+        const current = CLIPBOARDS.find(c => c.id == id);
+        if (!current) return;
 
-    loadClipboards();
-    load();
-  };
-}
+        const newName = prompt("New name:", current.name);
+        if (!newName || newName.trim() === "") return;
 
-if (mobileFavorite) {
-  mobileFavorite.onclick = () => {
+        await apiFetch(`${API}/clipboards/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({
+            name: newName.trim()
+          })
+        });
 
-    const id = document.getElementById("clipboardSelect").value;
+        await loadClipboards(id);
+        await load();
+      }
 
-    localStorage.setItem("dm_favorite_clipboard", id);
+      document.getElementById("renameClipboard").onclick = handleRenameClipboard;
 
-    document.getElementById("mobileMenu").classList.remove("open");
+      async function handleDeleteClipboard() {
 
-    loadClipboards();
-    load();
-   };
-}
-  
-  if (mobileCreate) {
-    mobileCreate.onclick = () => {
-      document.getElementById("mobileMenu").classList.remove("open");
-      createClipboard();
-    };
-  }
+        const select = document.getElementById("clipboardSelect");
+        const id = select.value;
 
-  if (mobileRename) {
-  mobileRename.onclick = async () => {
-    await handleRenameClipboard();
-    document.getElementById("mobileMenu").classList.remove("open");
-  };
-}
+        const current = CLIPBOARDS.find(c => c.id == id);
+        if (!current) return;
 
-  if (mobileDelete) {
-    mobileDelete.onclick = () => {
-      document.getElementById("mobileMenu").classList.remove("open");
-      handleDeleteClipboard();
-    };
-  }
+        if (current.name === "main") {
+          alert("You cannot delete the main clipboard");
+          return;
+        }
 
-/* =========================
-   LOAD MESSAGES
-========================= */
-function highlight(text, search){
-  if(!search) return text;
+        if (!confirm(`Delete "${current.name}"?`)) return;
 
-  const escaped = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`(${escaped})`, "gi");
+        await apiFetch(`${API}/clipboards/${id}`, {
+          method: "DELETE"
+        });
 
-  return text.replace(regex, "<mark>$1</mark>");
-}
+        await loadClipboards();
 
-function isMapUrl(url) {
-  return url.includes("maps.apple.com") ||
-         url.includes("maps.app.goo.gl") ||
-         url.includes("google.com/maps");
-}
+        // Torna a main
+        const mainClipboard = CLIPBOARDS.find(c => c.name === "main");
+        if (mainClipboard) {
+          select.value = mainClipboard.id;
+        }
 
-function parseAppleMaps(url) {
-  try {
-    const u = new URL(url);
-    const name = u.searchParams.get("name");
-    const ll = u.searchParams.get("ll");
+        load();
+      }
 
-    return {
-      name: name ? decodeURIComponent(name) : "Posizione",
-      coords: ll || null
-    };
-  } catch {
-    return null;
-  }
-}
-
-/* =================================
-   CORE FUNCTIONS
-================================= */
-
-async function load(){
-
-  const clipboardId = document.getElementById("clipboardSelect").value;
+      document.getElementById("deleteClipboard").onclick = handleDeleteClipboard;
+      document.getElementById("createClipboardBtn").onclick = createClipboard;
 
-  const favoriteId = localStorage.getItem("dm_favorite_clipboard");
-const desktopFavoriteBtn = document.getElementById("favoriteClipboardBtn");
-
-if (!navigator.onLine) {
-  console.log("Offline: skip load");
-  return;
-}
+      /* ===========================
+         MOBILE MENU CLIPBOARD ACTIONS
+      =========================== */
 
-if (desktopFavoriteBtn) {
-  desktopFavoriteBtn.classList.toggle(
-    "favorite-active",
-    clipboardId == favoriteId
-  );
-}
+      const mobileCreate = document.getElementById("mobileCreateClipboard");
+      const mobileRename = document.getElementById("mobileRenameClipboard");
+      const mobileDelete = document.getElementById("mobileDeleteClipboard");
+      const mobileFavorite = document.getElementById("mobileFavoriteClipboard");
 
-  const order=document.getElementById("order").value;
-  const isGlobal = document.getElementById("searchGlobal").checked;
+      const desktopFavorite = document.getElementById("favoriteClipboardBtn");
 
-let url = `${API}/messages?order=${order}`;
+      if (desktopFavorite) {
+        desktopFavorite.onclick = () => {
 
-if(!isGlobal){
-  url += `&clipboard_id=${clipboardId}`;
-}
+          const id = document.getElementById("clipboardSelect").value;
 
-  const res=await apiFetch(url);
-  if(!res.ok) return;
+          localStorage.setItem("dm_favorite_clipboard", id);
 
-  const messages=await res.json();
-  let filtered = messages;
+          loadClipboards();
+          load();
+        };
+      }
 
-// pinned filter
-if(document.getElementById("filterPinned").checked){
-  filtered = filtered.filter(m => m.pinned === 1);
-}
+      if (mobileFavorite) {
+        mobileFavorite.onclick = () => {
 
-// file filter
-if(document.getElementById("filterFiles").checked){
-  filtered = filtered.filter(m => m.filename);
-}
+          const id = document.getElementById("clipboardSelect").value;
 
-// text filter
-if(document.getElementById("filterText").checked){
-  filtered = filtered.filter(m => !m.filename);
-}
+          localStorage.setItem("dm_favorite_clipboard", id);
 
-// search
-const searchValue = document.getElementById("search").value.trim().toLowerCase();
-if(searchValue){
-  filtered = filtered.filter(m => 
-    (m.text && m.text.toLowerCase().includes(searchValue)) ||
-    (m.filename && m.filename.toLowerCase().includes(searchValue))
-  );
-}
+          document.getElementById("mobileMenu").classList.remove("open");
 
-const activeFiltersBar = document.getElementById("activeFiltersBar");
+          loadClipboards();
+          load();
+        };
+      }
 
-let activeLabels = [];
+      if (mobileCreate) {
+        mobileCreate.onclick = () => {
+          document.getElementById("mobileMenu").classList.remove("open");
+          createClipboard();
+        };
+      }
 
-if(document.getElementById("filterPinned").checked){
-  activeLabels.push("Pinned only");
-}
+      if (mobileRename) {
+        mobileRename.onclick = async () => {
+          await handleRenameClipboard();
+          document.getElementById("mobileMenu").classList.remove("open");
+        };
+      }
 
-if(document.getElementById("filterFiles").checked){
-  activeLabels.push("Files only");
-}
+      if (mobileDelete) {
+        mobileDelete.onclick = () => {
+          document.getElementById("mobileMenu").classList.remove("open");
+          handleDeleteClipboard();
+        };
+      }
 
-if(document.getElementById("filterText").checked){
-  activeLabels.push("Text only");
-}
+      /* =========================
+         LOAD MESSAGES
+      ========================= */
+      function highlight(text, search) {
+        if (!search) return text;
 
-if(activeLabels.length > 0){
-  activeFiltersBar.style.display = "flex";
-  activeFiltersBar.innerHTML =
-    "<strong>Active filters:</strong> " +
-    activeLabels.map(f => `<span>${f}</span>`).join("");
-} else {
-  activeFiltersBar.style.display = "none";
-}
+        const escaped = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, "gi");
 
-  const container=document.getElementById("messages");
-  container.innerHTML="";
+        return text.replace(regex, "<mark>$1</mark>");
+      }
 
-/*========================================
-  MESSAGE RENDERING
-========================================*/
+      function isMapUrl(url) {
+        return url.includes("maps.apple.com") ||
+          url.includes("maps.app.goo.gl") ||
+          url.includes("google.com/maps");
+      }
 
-  filtered.forEach(m=>{
-    const div = document.createElement("div");
-div.className = "message";
-div.setAttribute("data-id", m.id);
-if(m.pinned) div.classList.add("pinned");
+      function parseAppleMaps(url) {
+        try {
+          const u = new URL(url);
+          const name = u.searchParams.get("name");
+          const ll = u.searchParams.get("ll");
 
-if (m.filename && m.filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
-  div.classList.add("image");
-  div.classList.add("actions-vertical");
-} 
+          return {
+            name: name ? decodeURIComponent(name) : "Posizione",
+            coords: ll || null
+          };
+        } catch {
+          return null;
+        }
+      }
 
-    const content=document.createElement("div");
+      /* =================================
+         CORE FUNCTIONS
+      ================================= */
 
-    if(m.filename){
-      if(m.filename.match(/\.(jpg|jpeg|png|gif)$/i)){
-    const displayName = m.original_filename ?? m.filename ?? "";
+      async function load() {
 
-content.innerHTML = `
+        const clipboardId = document.getElementById("clipboardSelect").value;
+
+        const favoriteId = localStorage.getItem("dm_favorite_clipboard");
+        const desktopFavoriteBtn = document.getElementById("favoriteClipboardBtn");
+
+        if (!navigator.onLine) {
+          console.log("Offline: skip load");
+          return;
+        }
+
+        if (desktopFavoriteBtn) {
+          desktopFavoriteBtn.classList.toggle(
+            "favorite-active",
+            clipboardId == favoriteId
+          );
+        }
+
+        const order = document.getElementById("order").value;
+        const isGlobal = document.getElementById("searchGlobal").checked;
+
+        let url = `${API}/messages?order=${order}`;
+
+        if (!isGlobal) {
+          url += `&clipboard_id=${clipboardId}`;
+        }
+
+        const res = await apiFetch(url);
+        if (!res.ok) return;
+
+        const messages = await res.json();
+        let filtered = messages;
+
+        // pinned filter
+        if (document.getElementById("filterPinned").checked) {
+          filtered = filtered.filter(m => m.pinned === 1);
+        }
+
+        // file filter
+        if (document.getElementById("filterFiles").checked) {
+          filtered = filtered.filter(m => m.filename);
+        }
+
+        // text filter
+        if (document.getElementById("filterText").checked) {
+          filtered = filtered.filter(m => !m.filename);
+        }
+
+        // search
+        const searchValue = document.getElementById("search").value.trim().toLowerCase();
+        if (searchValue) {
+          filtered = filtered.filter(m =>
+            (m.text && m.text.toLowerCase().includes(searchValue)) ||
+            (m.filename && m.filename.toLowerCase().includes(searchValue))
+          );
+        }
+
+        const activeFiltersBar = document.getElementById("activeFiltersBar");
+
+        let activeLabels = [];
+
+        if (document.getElementById("filterPinned").checked) {
+          activeLabels.push("Pinned only");
+        }
+
+        if (document.getElementById("filterFiles").checked) {
+          activeLabels.push("Files only");
+        }
+
+        if (document.getElementById("filterText").checked) {
+          activeLabels.push("Text only");
+        }
+
+        if (activeLabels.length > 0) {
+          activeFiltersBar.style.display = "flex";
+          activeFiltersBar.innerHTML =
+            "<strong>Active filters:</strong> " +
+            activeLabels.map(f => `<span>${f}</span>`).join("");
+        } else {
+          activeFiltersBar.style.display = "none";
+        }
+
+        const container = document.getElementById("messages");
+        container.innerHTML = "";
+
+        /*========================================
+          MESSAGE RENDERING
+        ========================================*/
+
+        filtered.forEach(m => {
+          const div = document.createElement("div");
+          div.className = "message";
+          div.setAttribute("data-id", m.id);
+          if (m.pinned) div.classList.add("pinned");
+
+          if (m.filename && m.filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            div.classList.add("image");
+            div.classList.add("actions-vertical");
+          }
+
+          const content = document.createElement("div");
+
+          if (m.filename) {
+            if (m.filename.match(/\.(jpg|jpeg|png|gif)$/i)) {
+              const displayName = m.original_filename ?? m.filename ?? "";
+
+              content.innerHTML = `
   <div class="image-wrapper">
     <img src="${API}/files/${m.filename}?token=${API_TOKEN}&t=${Date.now()}">
     ${m.text ? `<div class="file-text">${m.text}</div>` : ""}
   </div>
 `;
 
-setTimeout(() => {
-  const img = content.querySelector("img");
-  if (!img) return;
+              setTimeout(() => {
+                const img = content.querySelector("img");
+                if (!img) return;
 
-  img.addEventListener("click", () => {
-    const overlay = document.getElementById("imgOverlay");
-    const overlayImg = document.getElementById("imgOverlayContent");
+                img.addEventListener("click", () => {
+                  const overlay = document.getElementById("imgOverlay");
+                  const overlayImg = document.getElementById("imgOverlayContent");
 
-    overlayImg.src = img.src;
-    overlay.style.display = "flex";
-  });
-}, 0);
-      }else{
-    const displayName = m.original_filename || m.filename;
+                  overlayImg.src = img.src;
+                  overlay.style.display = "flex";
+                });
+              }, 0);
+            } else {
+              const displayName = m.original_filename || m.filename;
 
-const fileNameDisplay = searchValue
-  ? highlight(displayName, searchValue)
-  : displayName;
+              const fileNameDisplay = searchValue
+                ? highlight(displayName, searchValue)
+                : displayName;
 
-const sizeText = formatFileSize(m.file_size);
+              const sizeText = formatFileSize(m.file_size);
 
-content.innerHTML=`
+              content.innerHTML = `
   <div class="file-card">
     <span class="file-icon">
 <svg viewBox="0 0 24 24" width="18" height="18"
@@ -2260,43 +2472,43 @@ content.innerHTML=`
   </div>
   ${m.text ? `<div class="file-text">${m.text}</div>` : ""}
 `;
-      }
+            }
 
-}else{
+          } else {
 
-  const text = m.text || "";
-  const urlRegex = /^https?:\/\/[^\s]+$/i;
+            const text = m.text || "";
+            const urlRegex = /^https?:\/\/[^\s]+$/i;
 
-  const parts = text.split(/\n?---\n?/);
-  let urlPart = parts[0].trim();
+            const parts = text.split(/\n?---\n?/);
+            let urlPart = parts[0].trim();
 
-// Estrai eventuale URL dentro testo misto
-const urlMatch = urlPart.match(/https?:\/\/[^\s]+/);
-if (urlMatch) {
-  urlPart = urlMatch[0];
-}
-  const descriptionPart = parts[1] ? parts[1].trim() : "";
+            // Estrai eventuale URL dentro testo misto
+            const urlMatch = urlPart.match(/https?:\/\/[^\s]+/);
+            if (urlMatch) {
+              urlPart = urlMatch[0];
+            }
+            const descriptionPart = parts[1] ? parts[1].trim() : "";
 
-    if (isMapUrl(urlPart)) {
-    div.classList.add("location");
+            if (isMapUrl(urlPart)) {
+              div.classList.add("location");
 
-let locationName = "Posizione salvata";
-let coords = "";
+              let locationName = "Posizione salvata";
+              let coords = "";
 
-if (urlPart.includes("maps.apple.com")) {
-  try {
-    const u = new URL(urlPart);
-    locationName = u.searchParams.get("name") 
-      ? decodeURIComponent(u.searchParams.get("name")) 
-      : locationName;
+              if (urlPart.includes("maps.apple.com")) {
+                try {
+                  const u = new URL(urlPart);
+                  locationName = u.searchParams.get("name")
+                    ? decodeURIComponent(u.searchParams.get("name"))
+                    : locationName;
 
-    coords = u.searchParams.get("ll") ||
-         u.searchParams.get("coordinate") ||
-         "";
-  } catch {}
-}
+                  coords = u.searchParams.get("ll") ||
+                    u.searchParams.get("coordinate") ||
+                    "";
+                } catch { }
+              }
 
-content.innerHTML = `
+              content.innerHTML = `
   <div class="link-card">
     <div class="link-icon">${ICONS.map}</div>
     <div class="link-info">
@@ -2307,11 +2519,11 @@ content.innerHTML = `
   </div>
 `;
 
-} else if (urlRegex.test(urlPart)) {
+            } else if (urlRegex.test(urlPart)) {
 
-    div.classList.add("link");
+              div.classList.add("link");
 
-    content.innerHTML = `
+              content.innerHTML = `
       <div class="link-card">
         <div class="link-icon">${ICONS.link}</div>
         <div class="link-info">
@@ -2322,998 +2534,1066 @@ content.innerHTML = `
       </div>
     `;
 
-  } else {
+            } else {
 
-    const textElem = document.createElement("div");
-    textElem.classList.add("message-text");
+              const textElem = document.createElement("div");
+              textElem.classList.add("message-text");
 
-    if (searchValue) {
-      textElem.innerHTML = highlight(text, searchValue);
-    } else {
-      textElem.textContent = text;
-    }
+              if (searchValue) {
+                textElem.innerHTML = highlight(text, searchValue);
+              } else {
+                textElem.textContent = text;
+              }
 
-    content.appendChild(textElem);
+              content.appendChild(textElem);
 
-    setTimeout(() => {
+              setTimeout(() => {
 
-      if (textElem.scrollHeight > textElem.clientHeight) {
+                if (textElem.scrollHeight > textElem.clientHeight) {
 
-        const expandBtn = document.createElement("button");
-        expandBtn.classList.add("expand-btn");
-        expandBtn.textContent = "Expand";
+                  const expandBtn = document.createElement("button");
+                  expandBtn.classList.add("expand-btn");
+                  expandBtn.textContent = "Expand";
 
-        expandBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          textElem.classList.toggle("expanded");
+                  expandBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    textElem.classList.toggle("expanded");
 
-          expandBtn.textContent =
-            textElem.classList.contains("expanded")
-              ? "Collapse"
-              : "Expand";
+                    expandBtn.textContent =
+                      textElem.classList.contains("expanded")
+                        ? "Collapse"
+                        : "Expand";
+                  });
+
+                  content.appendChild(expandBtn);
+
+                }
+
+              }, 0);
+            }
+          }
+
+          div.appendChild(content);
+
+          /*========================================
+            CARD INTERACTIONS
+          ========================================*/
+
+          // Desktop double click on card
+          let clickTimer = null;
+
+          div.addEventListener("click", (e) => {
+
+            if (clickTimer) clearTimeout(clickTimer);
+
+            if (div.querySelector("textarea")) return;
+            if (div.classList.contains("move-active")) return;
+
+            if (clickTimer) {
+              clearTimeout(clickTimer);
+              clickTimer = null;
+
+              if (!div.classList.contains("image")) {
+                enterEditMode(m, content);
+              }
+
+            } else {
+              clickTimer = setTimeout(() => {
+                clickTimer = null;
+
+                // Open link only on desktop (mouse)
+                if (
+                  (div.classList.contains("link") || div.classList.contains("location")) &&
+                  window.matchMedia("(hover: hover) and (pointer: fine)").matches
+                ) {
+                  const url = m.text.match(/https?:\/\/[^\s]+/)?.[0];
+                  if (url) window.open(url, "_blank");
+                }
+              }, 250); // soglia doppio click
+            }
+
+          });
+
+          // Long press mobile
+          let pressTimer;
+          let startX = 0;
+          let startY = 0;
+          let isScrolling = false;
+
+          content.addEventListener("touchstart", (e) => {
+            if (div.classList.contains("image")) return;
+
+            isScrolling = false;
+
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+
+            pressTimer = setTimeout(() => {
+              if (!isScrolling && !div.classList.contains("image")) {
+                enterEditMode(m, content);
+              }
+            }, 600);
+          });
+
+          content.addEventListener("touchmove", (e) => {
+
+            const moveX = e.touches[0].clientX;
+            const moveY = e.touches[0].clientY;
+
+            const diffX = Math.abs(moveX - startX);
+            const diffY = Math.abs(moveY - startY);
+
+            // if movement > 10px → is scroll
+            if (diffX > 10 || diffY > 10) {
+              isScrolling = true;
+              clearTimeout(pressTimer);
+            }
+          });
+
+          content.addEventListener("touchend", () => {
+            clearTimeout(pressTimer);
+          });
+
+          /* Buttons */
+          const actions = document.createElement("div");
+          actions.className = "message-actions";
+
+          /* 🔗 LINKand LOCATION */
+          if (div.classList.contains("link") || div.classList.contains("location")) {
+            const openBtn = document.createElement("button");
+            openBtn.innerHTML = ICONS.link;
+            openBtn.title = "Open link";
+
+            openBtn.onclick = (e) => {
+              e.stopPropagation();
+              const url = m.text.match(/https?:\/\/[^\s]+/)?.[0];
+              if (url) window.open(url, "_blank");
+            };
+
+            actions.appendChild(openBtn);
+          }
+
+          const pinBtn = document.createElement("button");
+          pinBtn.innerHTML = ICONS.pin;
+          pinBtn.title = m.pinned ? "Unpin" : "Pin";
+
+          if (m.pinned) {
+            pinBtn.classList.add("pin-active");
+          }
+
+          pinBtn.onclick = (e) => {
+            e.stopPropagation();
+            pinMessage(m.id, !m.pinned);
+          };
+
+          /* COPY */
+          const copy = document.createElement("button");
+          copy.innerHTML = ICONS.copy;
+          copy.title = "Copy text";
+          copy.onclick = async (e) => {
+            e.stopPropagation();
+
+            try {
+              await navigator.clipboard.writeText(m.text || "");
+
+              copy.style.background = "rgba(59,130,246,0.35)";
+              copy.style.borderColor = "rgba(59,130,246,0.6)";
+
+              setTimeout(() => {
+                copy.style.background = "";
+                copy.style.borderColor = "";
+              }, 400);
+
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          actions.appendChild(copy);
+
+          if (m.filename) {
+            const downloadBtn = document.createElement("button");
+            downloadBtn.innerHTML = ICONS.download;
+            downloadBtn.title = "Download file";
+            downloadBtn.onclick = (e) => {
+              e.stopPropagation();
+              window.open(`${API}/files/${m.filename}?token=${API_TOKEN}`, "_blank");
+            };
+            actions.appendChild(downloadBtn);
+          }
+
+          const moveBtn = document.createElement("button");
+          moveBtn.innerHTML = ICONS.move;
+          moveBtn.title = "Move to another clipboard";
+          moveBtn.onclick = (e) => {
+            e.stopPropagation();
+            moveMessage(m.id);
+          };
+
+          const delBtn = document.createElement("button");
+          delBtn.innerHTML = ICONS.delete;
+          delBtn.title = "Delete message";
+          delBtn.onclick = (e) => {
+            e.stopPropagation();
+            deleteMessage(m.id);
+          };
+
+          actions.append(pinBtn, copy, moveBtn, delBtn);
+          div.appendChild(actions);
+
+          container.appendChild(div);
         });
-
-        content.appendChild(expandBtn);
-
       }
 
-    }, 0);
-  }
-}
-
-    div.appendChild(content);
-
-/*========================================
-  CARD INTERACTIONS
-========================================*/
-
-// Desktop double click on card
-let clickTimer = null;
-
-div.addEventListener("click", (e) => {
-
-  if (clickTimer) clearTimeout(clickTimer);
-
-  if (div.querySelector("textarea")) return;
-  if (div.classList.contains("move-active")) return;
-
-  if (clickTimer) {
-    clearTimeout(clickTimer);
-    clickTimer = null;
-
-    if (!div.classList.contains("image")) {
-      enterEditMode(m, content);
-    }
-
-  } else {
-    clickTimer = setTimeout(() => {
-      clickTimer = null;
-
-// Open link only on desktop (mouse)
-if (
-    (div.classList.contains("link") || div.classList.contains("location")) &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches
-) {
-    const url = m.text.match(/https?:\/\/[^\s]+/)?.[0];
-    if (url) window.open(url, "_blank");
-}
-    }, 250); // soglia doppio click
-  }
-
-});
-
-// Long press mobile
-let pressTimer;
-let startX = 0;
-let startY = 0;
-let isScrolling = false;
-
-content.addEventListener("touchstart", (e) => {
-  if (div.classList.contains("image")) return;  
-
-  isScrolling = false;
-
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
-
-  pressTimer = setTimeout(() => {
-    if (!isScrolling && !div.classList.contains("image")) {
-      enterEditMode(m, content);
-    }
-  }, 600);
-});
-
-content.addEventListener("touchmove", (e) => {
-
-  const moveX = e.touches[0].clientX;
-  const moveY = e.touches[0].clientY;
-
-  const diffX = Math.abs(moveX - startX);
-  const diffY = Math.abs(moveY - startY);
-
-  // if movement > 10px → is scroll
-  if (diffX > 10 || diffY > 10) {
-    isScrolling = true;
-    clearTimeout(pressTimer);
-  }
-});
-
-content.addEventListener("touchend", () => {
-  clearTimeout(pressTimer);
-});
-
-    /* Buttons */
-    const actions = document.createElement("div");
-    actions.className = "message-actions";
-
-/* 🔗 LINKand LOCATION */
-if(div.classList.contains("link") || div.classList.contains("location")){
-  const openBtn = document.createElement("button");
-  openBtn.innerHTML = ICONS.link;
-  openBtn.title = "Open link";
-
-  openBtn.onclick = (e) => {
-    e.stopPropagation();
-    const url = m.text.match(/https?:\/\/[^\s]+/)?.[0];
-    if (url) window.open(url, "_blank");
-  };
-
-  actions.appendChild(openBtn);
-}
-
-const pinBtn=document.createElement("button");
-pinBtn.innerHTML = ICONS.pin;
-pinBtn.title = m.pinned ? "Unpin" : "Pin";
-
-if(m.pinned){
-  pinBtn.classList.add("pin-active");
-}
-
-pinBtn.onclick = (e) => {
-  e.stopPropagation();
-  pinMessage(m.id,!m.pinned);
-};
-
-/* COPY */
-const copy = document.createElement("button");
-copy.innerHTML = ICONS.copy;
-copy.title = "Copy text";
-copy.onclick = async (e) => {
-  e.stopPropagation();
-
-  try {
-    await navigator.clipboard.writeText(m.text || "");
-
-    copy.style.background = "rgba(59,130,246,0.35)";
-    copy.style.borderColor = "rgba(59,130,246,0.6)";
-
-    setTimeout(() => {
-      copy.style.background = "";
-      copy.style.borderColor = "";
-    }, 400);
-
-  } catch (err) {
-    console.error(err);
-  }
-};
-actions.appendChild(copy);
-
-    if(m.filename){
-  const downloadBtn = document.createElement("button");
-  downloadBtn.innerHTML = ICONS.download;
-  downloadBtn.title = "Download file";
-  downloadBtn.onclick = (e) => {
-  e.stopPropagation();
-  window.open(`${API}/files/${m.filename}?token=${API_TOKEN}`, "_blank");
-};
-  actions.appendChild(downloadBtn);
-}
-
-    const moveBtn=document.createElement("button");
-    moveBtn.innerHTML = ICONS.move;
-    moveBtn.title = "Move to another clipboard";
-    moveBtn.onclick = (e) => {
-  e.stopPropagation();
-  moveMessage(m.id);
-};
-
-    const delBtn=document.createElement("button");
-    delBtn.innerHTML = ICONS.delete;
-    delBtn.title = "Delete message";
-    delBtn.onclick = (e) => {
-  e.stopPropagation();
-  deleteMessage(m.id);
-};
-
-    actions.append(pinBtn, copy, moveBtn, delBtn);
-    div.appendChild(actions);
-
-    container.appendChild(div);
-  });
-}
-
-/* =========================
-   SEND MESSAGE
-========================= */
-async function send(){
-
-  const textInput = document.getElementById("text");
-  const fileInput = document.getElementById("file");
-  const clipboardId = document.getElementById("clipboardSelect").value;
-
-  const text = textInput.value.trim();
-  const file = fileInput.files[0];
-
-  if (!navigator.onLine) return;
-
-  if (!file && !text) return;
-
-  let response;
-
-  try {
-
-    if (file) {
-
-      const form = new FormData();
-      form.append("file", file);
-      form.append("clipboard_id", clipboardId);
-      form.append("text", text || "");
-
-      response = await apiFetch(`${API}/messages/file`, {
-        method: "POST",
-        body: form
-      });
-
-    } else {
-
-response = await apiFetch(`${API}/messages`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    text: text,
-    clipboard_id: parseInt(clipboardId)
-  })
-});
-    }
-
-    if (!response.ok) {
-      console.error("Errore invio messaggio");
-      return;
-    }
-
-    // Reset input solo se OK
-    textInput.value = "";
-    textInput.style.height = "44px"; 
-    fileInput.value = "";
-    document.getElementById("filePreview").style.display = "none";
-
-    await load();
-
-    const container = document.getElementById("messages");
-    const order = document.getElementById("order").value;
-
-    if (order === "recent") {
-      container.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    if (order === "oldest") {
-      container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
-    }
-
-  } catch (err) {
-    console.error("Errore di rete:", err);
-  }
-}
-
-// ===============================
-// FILE PREVIEW
-// ===============================
-document.getElementById("file").addEventListener("change", (e)=>{
-  const preview = document.getElementById("filePreview");
-  const file = e.target.files[0];
-
-  if(file){
-    preview.innerHTML = ICONS.copy + " " + file.name;
-    preview.style.display = "block";
-  } else {
-    preview.style.display = "none";
-  }
-});
-
-/* =========================
-   PIN
-========================= */
-async function pinMessage(id,pinned){
-  await apiFetch(`${API}/messages/${id}/pin?pinned=${pinned}`,{
-    method:"POST"
-  });
-  load();
-}
-
-/* =========================
-   MOVE
-========================= */
-async function moveMessage(id){
-
-    // find message
-    const messageCard = document.querySelector(`[data-id="${id}"]`);
-    if (!messageCard) return;
-
-    const imageWrapper = messageCard.querySelector(".image-wrapper"); 
-    const img = imageWrapper?.querySelector("img");
-if (img) {
-  img.style.willChange = "transform";
-  img.style.transform = "translateZ(0)";
-  img.offsetHeight; // forza reflow
-  img.style.transform = "";
-  img.style.willChange = "";
-}
-
-    messageCard.classList.add("move-active");
-
-    messageCard.classList.remove("show-actions");
-
-    // avoid duoble menu
-    if (messageCard.querySelector(".move-select")) return;
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "move-select";
-
-    const select = document.createElement("select");
-    select.style.padding = "6px";
-    select.style.borderRadius = "6px";
-
-    CLIPBOARDS.forEach(c => {
-        const opt = document.createElement("option");
-        opt.value = c.id;
-        opt.textContent = c.name;
-        select.appendChild(opt);
-    });
-
-    const btn = document.createElement("button");
-btn.textContent = "Move";
-btn.classList.add("confirm-move");
-
-const cancelBtn = document.createElement("button");
-cancelBtn.textContent = "Cancel";
-
-cancelBtn.addEventListener("click", (e) => {
-
-  e.stopPropagation();
-
-  wrapper.remove();
-
-  messageCard.classList.remove("move-active");
-
-  const imageWrapper = messageCard.querySelector(".image-wrapper");
-  if (imageWrapper) {
-    imageWrapper.style.display = "";
-    const img = imageWrapper.querySelector("img");
-    if (img) img.style.display = "";
-  }
-});
-
-wrapper.appendChild(select);
-wrapper.appendChild(btn);
-wrapper.appendChild(cancelBtn);
-
-if (imageWrapper) {
-  const img = imageWrapper.querySelector("img");
-  if (img) img.style.display = "none";
-  imageWrapper.style.display = "none";
-}
-
-messageCard.style.transform = "translateZ(0)";
-messageCard.offsetHeight; // forza reflow
-messageCard.style.transform = "";
-
-messageCard.appendChild(wrapper);
-
-    btn.onclick = async () => {
-
-        await apiFetch(`${API}/messages/${id}/move?clipboard_id=${select.value}`, {
-            method: "POST"
-        });
- messageCard.classList.remove("move-active");
- load();
-};
-}
-
-/* ============================
-       Edit Mode
-=========================== */
-
-async function enterEditMode(m, contentDiv){
-
-const card = contentDiv.closest(".message");
-
-if (card && card.classList.contains("image")) return;
-
-if (card) {
-  card.classList.remove("show-actions");
-  card.classList.add("editing");
-}
-
-let originalText = m.text || "";
-
-let urlPart = originalText;
-let descriptionPart = originalText;
-
-// if is card link, divide URL and description
-if (card && (card.classList.contains("link") || card.classList.contains("location"))) {
-
-  const urlMatch = originalText.match(/https?:\/\/[^\s]+/);
-  urlPart = urlMatch ? urlMatch[0] : "";
-
-  if (originalText.includes("---")) {
-    const parts = originalText.split(/\n?---\n?/);
-    descriptionPart = parts[1] ? parts[1].trim() : "";
-  } else {
-    descriptionPart = "";
-  }
-}
-
-  const textarea = document.createElement("textarea");
-  textarea.value = descriptionPart;
-
-  textarea.style.width = "100%";
-  textarea.style.height = "44px";
-  textarea.style.minHeight = "44px";
-  textarea.style.maxHeight = "160px";
-
-  textarea.style.background = "#0f172a";
-  textarea.style.color = "#e5e7eb";
-  textarea.style.border = "1px solid #334155";
-  textarea.style.borderRadius = "14px";
-  textarea.style.padding = "10px 18px";
-
-  textarea.style.fontFamily = "inherit";
-  textarea.style.fontSize = "14px";
-  textarea.style.lineHeight = "1.4";
-
-  textarea.style.resize = "none";
-  textarea.style.overflowY = "auto";
-  textarea.style.boxSizing = "border-box";
-
-  const autoResize = () => {
-
-    if (!textarea.value.trim()) {
-      textarea.style.height = "44px";
-      return;
-    }
-
-    textarea.style.height = "auto";
-
-    const newHeight = Math.min(textarea.scrollHeight, 160);
-
-    textarea.style.height = newHeight + "px";
-  };
-
-  textarea.addEventListener("input", autoResize);
-
-  setTimeout(autoResize, 0);
-
-  const actions = document.createElement("div");
-  actions.style.marginTop = "8px";
-  actions.style.display = "flex";
-  actions.style.gap = "8px";
-
-  const saveBtn = document.createElement("button");
-  saveBtn.textContent = "Save";
-
-  const cancelBtn = document.createElement("button");
-  cancelBtn.textContent = "Cancel";
-
-  saveBtn.style.background = "#2563eb";
-saveBtn.style.color = "white";
-saveBtn.style.border = "none";
-saveBtn.style.padding = "6px 12px";
-saveBtn.style.borderRadius = "6px";
-
-cancelBtn.style.background = "#334155";
-cancelBtn.style.color = "white";
-cancelBtn.style.border = "none";
-cancelBtn.style.padding = "6px 12px";
-cancelBtn.style.borderRadius = "6px";
-
-  actions.appendChild(saveBtn);
-  actions.appendChild(cancelBtn);
-
-  contentDiv.innerHTML = "";
-  contentDiv.style.display = "block"; 
-  contentDiv.appendChild(textarea);
-  contentDiv.appendChild(actions);
-
-  textarea.focus();
-
-  cancelBtn.onclick = () => load();
-
-saveBtn.onclick = async () => {
-
-  const form = new FormData();
-
-  // If is link card
-  const card = contentDiv.closest(".message");
-
-  if (card && (card.classList.contains("link") || card.classList.contains("location"))) {
-
-    const parts = m.text.split(/\n?---\n?/);
-    const urlPart = parts[0].trim();
-
-    const newDescription = textarea.value.trim();
-
-    const currentDescription = parts[1] ? parts[1].trim() : "";
-
-    if (newDescription) {
-      form.append("text", urlPart + "\n---\n" + newDescription);
-    } else {
-      form.append("text", urlPart);
-    }
-
-  } else {
-    form.append("text", textarea.value.trim());
-  }
-
-  await apiFetch(`/api/messages/${m.id}`, {
-    method: "PUT",
-    body: form
-  });
-
-  load();
-};
-}
-
-
-/* =========================
-   DELETE
-========================= */
-async function deleteMessage(id){
-  await apiFetch(`${API}/messages/${id}`,{
-    method:"DELETE"
-  });
-  load();
-}
-
-// ==============================
-// ANDROID SHARE HANDLER
-// ==============================
-
-function handleSharedContent(){
-
-  if(window.__dropmindShareHandled) return;
-  window.__dropmindShareHandled = true;
-
-  const params = new URLSearchParams(window.location.search);
-
-  const shared =
-    params.get("share") ||
-    params.get("text") ||
-    params.get("url");
-
-  const sharedFile =
-    params.get("shared_file") ||
-    params.get("file");
-
-  const input = document.getElementById("text");
-
-  // text or link shared
-  if(shared && input){
-    input.value = decodeURIComponent(shared);
-    send();
-  }
-
-  // file shared (immage or document)
-  if(sharedFile){
-    load();
-  }
-
-  // clean URL
-  history.replaceState({}, document.title, window.location.pathname);
-}
-
-// ==============================
-// TEXTAREA AUTO EXPAND
-// ==============================
-
-const textInput = document.getElementById("text");
-
-if (textInput) {
-
-  const autoGrow = () => {
-
-    if (!textInput.value.trim()) {
-      textInput.style.height = "44px";
-      return;
-    }
-
-    textInput.style.height = "auto";
-
-    const newHeight = Math.min(textInput.scrollHeight, 160);
-
-    textInput.style.height = newHeight + "px";
-  };
-
-  textInput.addEventListener("input", autoGrow);
-
-}
-
-/* =========================
-   INIT
-========================= */
-(async ()=>{
-  await loadClipboards();
-  handleSharedContent();
-  load();
-
-  // autofocus input on start
-  const textInput = document.getElementById("text");
-  if (textInput) {
-    setTimeout(() => textInput.focus(), 100);
-  }
-
-})();
-
-/* ===============================
-   QUICK PASTE (CTRL+V)
-================================ */
-
-let lastPaste = 0;
-let pasteFromOutside = false;
-
-document.addEventListener("keydown", (e) => {
-
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
-
-    const textInput = document.getElementById("text");
-
-    pasteFromOutside = document.activeElement !== textInput;
-    lastPaste = Date.now();
-
-  }
-
-});
-
-// if input change after CTRL+V → send
-document.getElementById("text").addEventListener("input", () => {
-
-  const textInput = document.getElementById("text");
-
-  if (pasteFromOutside && Date.now() - lastPaste < 400) {
-
-    if (textInput.value.trim() !== "") {
-
-      send();
-      textInput.value = "";
-
-    }
-
-  }
-
-});
-
-/* =================================
-   KEYBOARD SHORTCUTS
-================================= */
-
-// ESC removes focus from textarea
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    const textInput = document.getElementById("text");
-    if (textInput) {
-      textInput.blur();
-    }
-  }
-});
-
-// CTRL+K focuses the input
-document.addEventListener("keydown", (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-    e.preventDefault();
-
-    const textInput = document.getElementById("text");
-    if (textInput) {
-      textInput.focus();
-    }
-  }
-});
-
-// CTRL+ENTER sends message
-document.addEventListener("keydown", (e) => {
-
-  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
-
-    const textInput = document.getElementById("text");
-
-    if (textInput && document.activeElement === textInput) {
-
-      e.preventDefault();
-
-      send();
-
-    }
-
-  }
-
-});
-
-// N focuses the input (new note)
-document.addEventListener("keydown", (e) => {
-
-  if (
-    e.key.toLowerCase() === "n" &&
-    !e.ctrlKey &&
-    !e.metaKey &&
-    !e.altKey
-  ) {
-
-    const active = document.activeElement;
-
-    if (
-      active.tagName !== "INPUT" &&
-      active.tagName !== "TEXTAREA"
-    ) {
-
-      e.preventDefault();
-
-      const textInput = document.getElementById("text");
-      if (textInput) {
-        textInput.focus();
+      /* =========================
+         SEND MESSAGE
+      ========================= */
+      async function send() {
+
+        const textInput = document.getElementById("text");
+        const fileInput = document.getElementById("file");
+        const clipboardId = document.getElementById("clipboardSelect").value;
+
+        const text = textInput.value.trim();
+        const file = fileInput.files[0];
+
+        if (!navigator.onLine) return;
+
+        if (!file && !text) return;
+
+        let response;
+
+        try {
+
+          if (file) {
+
+            const form = new FormData();
+            form.append("file", file);
+            form.append("clipboard_id", clipboardId);
+            form.append("text", text || "");
+
+            response = await apiFetch(`${API}/messages/file`, {
+              method: "POST",
+              body: form
+            });
+
+          } else {
+
+            response = await apiFetch(`${API}/messages`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                text: text,
+                clipboard_id: parseInt(clipboardId)
+              })
+            });
+          }
+
+          if (!response.ok) {
+            console.error("Errore invio messaggio");
+            return;
+          }
+
+          // Reset input solo se OK
+          textInput.value = "";
+          textInput.style.height = "44px";
+          fileInput.value = "";
+          document.getElementById("filePreview").style.display = "none";
+
+          await load();
+
+          const container = document.getElementById("messages");
+          const order = document.getElementById("order").value;
+
+          if (order === "recent") {
+            container.scrollTo({ top: 0, behavior: "smooth" });
+          }
+
+          if (order === "oldest") {
+            container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+          }
+
+        } catch (err) {
+          console.error("Errore di rete:", err);
+        }
       }
 
-    }
+      // ===============================
+      // FILE PREVIEW
+      // ===============================
+      document.getElementById("file").addEventListener("change", (e) => {
+        const preview = document.getElementById("filePreview");
+        const file = e.target.files[0];
 
-  }
-
-});
-
-// / focuses the search
-document.addEventListener("keydown", (e) => {
-
-  if (
-    (e.key === "/" || e.code === "Slash") &&
-    !e.ctrlKey &&
-    !e.metaKey &&
-    !e.altKey
-  ) {
-
-    const active = document.activeElement;
-
-    if (
-      active.tagName !== "INPUT" &&
-      active.tagName !== "TEXTAREA"
-    ) {
-
-      e.preventDefault();
-
-      const searchInput = document.getElementById("search");
-      if (searchInput) {
-        searchInput.focus();
-      }
-
-    }
-
-  }
-
-});
-
-// CTRL/CMD + V forces focus on input (Windows Chromium workaround)
-window.addEventListener("keydown", (e) => {
-
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
-
-    const input = document.getElementById("text");
-
-    if (input && document.activeElement !== input) {
-      input.focus();
-    }
-
-  }
-
-});
-
-/* =================================
-   CARD INTERACTIONS
-================================= */
-
-// close image overlay
-document.getElementById("imgOverlay").addEventListener("click", () => {
-  document.getElementById("imgOverlay").style.display = "none";
-});
-
-document.getElementById("order").addEventListener("change", load);
-document.getElementById("clipboardSelect").addEventListener("change", load);
-
-let searchTimer;
-
-document.getElementById("search").addEventListener("input", () => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(load, 250);
-});
-
-document.getElementById("searchGlobal").addEventListener("change", load);
-
-document.getElementById("filterPinned").addEventListener("change", load);
-document.getElementById("filterFiles").addEventListener("change", load);
-document.getElementById("filterText").addEventListener("change", load);
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    document.activeElement.blur();
-  }
-});
-
-// inibit contextual menu on images (iOS long press)
-document.addEventListener("contextmenu", function(e){
-  if (e.target.closest(".message.image")) {
-    e.preventDefault();
-  }
-});
-
-/* ==============================
-   TOUCH CARD ACTIONS
-============================== */
-
-document.addEventListener("click", (e) => {
-
-  const card = e.target.closest(".message");
-
-  const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  // === DESKTOP ===
-  if (isDesktop) {
-
-    if (!card) {
-      document.querySelectorAll(".message.show-actions")
-        .forEach(el => el.classList.remove("show-actions"));
-      return;
-    }
-
-    if (e.target.closest(".message-actions")) return;
-
-    // Close all others card
-    document.querySelectorAll(".message.show-actions")
-      .forEach(el => {
-        if (el !== card) {
-          el.classList.remove("show-actions");
+        if (file) {
+          preview.innerHTML = ICONS.copy + " " + file.name;
+          preview.style.display = "block";
+        } else {
+          preview.style.display = "none";
         }
       });
 
-    // Activate this card
-    card.classList.toggle("show-actions");
-    return;
-  }
-
-  // Click out → close everything
-  if (!card) {
-    document.querySelectorAll(".message.show-actions")
-      .forEach(el => el.classList.remove("show-actions"));
-    return;
-  }
-
-  // Click on buttons → do nothing
-  if (e.target.closest(".message-actions")) return;
-
-  // Close all others
-  document.querySelectorAll(".message.show-actions")
-    .forEach(el => {
-      if (el !== card) {
-        el.classList.remove("show-actions");
+      /* =========================
+         PIN
+      ========================= */
+      async function pinMessage(id, pinned) {
+        await apiFetch(`${API}/messages/${id}/pin?pinned=${pinned}`, {
+          method: "POST"
+        });
+        load();
       }
-    });
 
-  card.classList.toggle("show-actions");
+      /* =========================
+         MOVE
+      ========================= */
+      async function moveMessage(id) {
 
-});
+        // find message
+        const messageCard = document.querySelector(`[data-id="${id}"]`);
+        if (!messageCard) return;
 
-document.getElementById("mobileMenuBtn")
-  .addEventListener("click", (e) => {
+        const imageWrapper = messageCard.querySelector(".image-wrapper");
+        const img = imageWrapper?.querySelector("img");
+        if (img) {
+          img.style.willChange = "transform";
+          img.style.transform = "translateZ(0)";
+          img.offsetHeight; // forza reflow
+          img.style.transform = "";
+          img.style.willChange = "";
+        }
 
-    const menu = document.getElementById("mobileMenu");
-    menu.classList.toggle("open");
+        messageCard.classList.add("move-active");
 
-    e.currentTarget.blur();
-});
+        messageCard.classList.remove("show-actions");
 
-document.getElementById("refreshBtn")
-  .addEventListener("click", async (e) => {
+        // avoid duoble menu
+        if (messageCard.querySelector(".move-select")) return;
 
-    const btn = e.currentTarget;
+        const wrapper = document.createElement("div");
+        wrapper.className = "move-select";
 
-    btn.classList.add("spinning");
+        const select = document.createElement("select");
+        select.style.padding = "6px";
+        select.style.borderRadius = "6px";
 
-    await load();
+        CLIPBOARDS.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = c.id;
+          opt.textContent = c.name;
+          select.appendChild(opt);
+        });
 
-    setTimeout(() => {
-      btn.classList.remove("spinning");
-    }, 600);
-    btn.blur();
-  });
+        const btn = document.createElement("button");
+        btn.textContent = "Move";
+        btn.classList.add("confirm-move");
 
-// ==============================
-// SYNC MOBILE CONTROLS
-// ==============================
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
 
-document.getElementById("order-mobile").addEventListener("change", (e) => {
-  document.getElementById("order").value = e.target.value;
-  load();
-});
+        cancelBtn.addEventListener("click", (e) => {
 
-document.getElementById("filterPinnedMobile").addEventListener("change", (e)=>{
-  document.getElementById("filterPinned").checked = e.target.checked;
-  load();
-});
+          e.stopPropagation();
 
-document.getElementById("filterFilesMobile").addEventListener("change", (e)=>{
-  document.getElementById("filterFiles").checked = e.target.checked;
-  load();
-});
+          wrapper.remove();
 
-document.getElementById("filterTextMobile").addEventListener("change", (e)=>{
-  document.getElementById("filterText").checked = e.target.checked;
-  load();
-});
+          messageCard.classList.remove("move-active");
 
-document.getElementById("closeMobileMenuBtn")
-  .addEventListener("click", () => {
-    document.getElementById("mobileMenu").classList.remove("open");
-});
+          const imageWrapper = messageCard.querySelector(".image-wrapper");
+          if (imageWrapper) {
+            imageWrapper.style.display = "";
+            const img = imageWrapper.querySelector("img");
+            if (img) img.style.display = "";
+          }
+        });
 
-function updateOnlineStatus() {
-  const banner = document.getElementById("offline-banner");
-  const sendBtn = document.getElementById("sendBtn");
+        wrapper.appendChild(select);
+        wrapper.appendChild(btn);
+        wrapper.appendChild(cancelBtn);
 
-  if (!banner || !sendBtn) return;
+        if (imageWrapper) {
+          const img = imageWrapper.querySelector("img");
+          if (img) img.style.display = "none";
+          imageWrapper.style.display = "none";
+        }
 
-  if (!navigator.onLine) {
-    banner.style.display = "block";
-    sendBtn.disabled = true;
-  } else {
-    banner.style.display = "none";
-    sendBtn.disabled = false;
-  }
-}
+        messageCard.style.transform = "translateZ(0)";
+        messageCard.offsetHeight; // forza reflow
+        messageCard.style.transform = "";
 
-window.addEventListener("online", updateOnlineStatus);
-window.addEventListener("offline", updateOnlineStatus);
+        messageCard.appendChild(wrapper);
 
-// ==============================
-// CLOSE ACTIONS ON SCROLL
-// ==============================
+        btn.onclick = async () => {
 
-const messagesContainer = document.getElementById("messages");
+          await apiFetch(`${API}/messages/${id}/move?clipboard_id=${select.value}`, {
+            method: "POST"
+          });
+          messageCard.classList.remove("move-active");
+          load();
+        };
+      }
 
-if (messagesContainer) {
+      /* ============================
+             Edit Mode
+      =========================== */
 
-  let scrollTimer;
+      async function enterEditMode(m, contentDiv) {
 
-  messagesContainer.addEventListener("scroll", () => {
+        const card = contentDiv.closest(".message");
 
-    messagesContainer.classList.add("scrolling");
+        if (card && card.classList.contains("image")) return;
 
-    document.querySelectorAll(".message.show-actions")
-      .forEach(el => el.classList.remove("show-actions"));
+        if (card) {
+          card.classList.remove("show-actions");
+          card.classList.add("editing");
+        }
 
-    clearTimeout(scrollTimer);
+        let originalText = m.text || "";
 
-    scrollTimer = setTimeout(() => {
-      messagesContainer.classList.remove("scrolling");
-    }, 120);
+        let urlPart = originalText;
+        let descriptionPart = originalText;
 
-  });
+        // if is card link, divide URL and description
+        if (card && (card.classList.contains("link") || card.classList.contains("location"))) {
 
-}
+          const urlMatch = originalText.match(/https?:\/\/[^\s]+/);
+          urlPart = urlMatch ? urlMatch[0] : "";
 
-updateOnlineStatus();
+          if (originalText.includes("---")) {
+            const parts = originalText.split(/\n?---\n?/);
+            descriptionPart = parts[1] ? parts[1].trim() : "";
+          } else {
+            descriptionPart = "";
+          }
+        }
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js")
-    .then(() => console.log("Service Worker registrato"))
-    .catch(err => console.error("SW error:", err));
-}
+        const textarea = document.createElement("textarea");
+        textarea.value = descriptionPart;
 
-</script>
+        textarea.style.width = "100%";
+        textarea.style.height = "44px";
+        textarea.style.minHeight = "44px";
+        textarea.style.maxHeight = "160px";
+
+        textarea.style.background = "#0f172a";
+        textarea.style.color = "#e5e7eb";
+        textarea.style.border = "1px solid #334155";
+        textarea.style.borderRadius = "14px";
+        textarea.style.padding = "10px 18px";
+
+        textarea.style.fontFamily = "inherit";
+        textarea.style.fontSize = "14px";
+        textarea.style.lineHeight = "1.4";
+
+        textarea.style.resize = "none";
+        textarea.style.overflowY = "auto";
+        textarea.style.boxSizing = "border-box";
+
+        const autoResize = () => {
+
+          if (!textarea.value.trim()) {
+            textarea.style.height = "44px";
+            return;
+          }
+
+          textarea.style.height = "auto";
+
+          const newHeight = Math.min(textarea.scrollHeight, 160);
+
+          textarea.style.height = newHeight + "px";
+        };
+
+        textarea.addEventListener("input", autoResize);
+
+        setTimeout(autoResize, 0);
+
+        const actions = document.createElement("div");
+        actions.style.marginTop = "8px";
+        actions.style.display = "flex";
+        actions.style.gap = "8px";
+
+        const saveBtn = document.createElement("button");
+        saveBtn.textContent = "Save";
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = "Cancel";
+
+        saveBtn.style.background = "#2563eb";
+        saveBtn.style.color = "white";
+        saveBtn.style.border = "none";
+        saveBtn.style.padding = "6px 12px";
+        saveBtn.style.borderRadius = "6px";
+
+        cancelBtn.style.background = "#334155";
+        cancelBtn.style.color = "white";
+        cancelBtn.style.border = "none";
+        cancelBtn.style.padding = "6px 12px";
+        cancelBtn.style.borderRadius = "6px";
+
+        actions.appendChild(saveBtn);
+        actions.appendChild(cancelBtn);
+
+        contentDiv.innerHTML = "";
+        contentDiv.style.display = "block";
+        contentDiv.appendChild(textarea);
+        contentDiv.appendChild(actions);
+
+        textarea.focus();
+
+        cancelBtn.onclick = () => load();
+
+        saveBtn.onclick = async () => {
+
+          const form = new FormData();
+
+          // If is link card
+          const card = contentDiv.closest(".message");
+
+          if (card && (card.classList.contains("link") || card.classList.contains("location"))) {
+
+            const parts = m.text.split(/\n?---\n?/);
+            const urlPart = parts[0].trim();
+
+            const newDescription = textarea.value.trim();
+
+            const currentDescription = parts[1] ? parts[1].trim() : "";
+
+            if (newDescription) {
+              form.append("text", urlPart + "\n---\n" + newDescription);
+            } else {
+              form.append("text", urlPart);
+            }
+
+          } else {
+            form.append("text", textarea.value.trim());
+          }
+
+          await apiFetch(`/api/messages/${m.id}`, {
+            method: "PUT",
+            body: form
+          });
+
+          load();
+        };
+      }
+
+
+      /* =========================
+         DELETE
+      ========================= */
+      async function deleteMessage(id) {
+        await apiFetch(`${API}/messages/${id}`, {
+          method: "DELETE"
+        });
+        load();
+      }
+
+      // ==============================
+      // ANDROID SHARE HANDLER
+      // ==============================
+
+      function handleSharedContent() {
+
+        if (window.__dropmindShareHandled) return;
+        window.__dropmindShareHandled = true;
+
+        const params = new URLSearchParams(window.location.search);
+
+        const shared =
+          params.get("share") ||
+          params.get("text") ||
+          params.get("url");
+
+        const sharedFile =
+          params.get("shared_file") ||
+          params.get("file");
+
+        const input = document.getElementById("text");
+
+        // text or link shared
+        if (shared && input) {
+          input.value = decodeURIComponent(shared);
+          send();
+        }
+
+        // file shared (immage or document)
+        if (sharedFile) {
+          load();
+        }
+
+        // clean URL
+        history.replaceState({}, document.title, window.location.pathname);
+      }
+
+      // ==============================
+      // TEXTAREA AUTO EXPAND
+      // ==============================
+
+      const textInput = document.getElementById("text");
+
+      if (textInput) {
+
+        const autoGrow = () => {
+
+          if (!textInput.value.trim()) {
+            textInput.style.height = "44px";
+            return;
+          }
+
+          textInput.style.height = "auto";
+
+          const newHeight = Math.min(textInput.scrollHeight, 160);
+
+          textInput.style.height = newHeight + "px";
+        };
+
+        textInput.addEventListener("input", autoGrow);
+
+      }
+
+      /* =========================
+         INIT
+      ========================= */
+      (async () => {
+        await loadClipboards();
+        handleSharedContent();
+        load();
+
+        // autofocus input on start
+        const textInput = document.getElementById("text");
+        if (textInput) {
+          setTimeout(() => textInput.focus(), 100);
+        }
+
+      })();
+
+      /* ===============================
+         QUICK PASTE (CTRL+V)
+      ================================ */
+
+      let lastPaste = 0;
+      let pasteFromOutside = false;
+
+      document.addEventListener("keydown", (e) => {
+
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+
+          const textInput = document.getElementById("text");
+
+          pasteFromOutside = document.activeElement !== textInput;
+          lastPaste = Date.now();
+
+        }
+
+      });
+
+      // if input change after CTRL+V → send
+      document.getElementById("text").addEventListener("input", () => {
+
+        const textInput = document.getElementById("text");
+
+        if (pasteFromOutside && Date.now() - lastPaste < 400) {
+
+          if (textInput.value.trim() !== "") {
+
+            send();
+            textInput.value = "";
+
+          }
+
+        }
+
+      });
+
+      /* ===============================
+         DROPDOWN UI
+      ================================ */
+
+      // clipboard dropdown
+      document.getElementById("clipboardBtn").onclick = (e) => {
+
+        e.stopPropagation();
+
+        const menu = document.getElementById("clipboardMenu");
+        const isOpen = menu.style.display === "block";
+
+        document.querySelectorAll(".dm-dropdown-menu")
+          .forEach(m => m.style.display = "none");
+
+        if (!isOpen) {
+          menu.style.display = "block";
+        }
+
+      };
+
+      // order dropdown
+      document.getElementById("orderBtn").onclick = (e) => {
+
+        e.stopPropagation();
+
+        const menu = document.getElementById("orderMenu");
+        const isOpen = menu.style.display === "block";
+
+        document.querySelectorAll(".dm-dropdown-menu")
+          .forEach(m => m.style.display = "none");
+
+        if (!isOpen) {
+          menu.style.display = "block";
+        }
+
+      };
+
+      // order items
+      document.querySelectorAll("#orderMenu div").forEach(el => {
+
+        el.onclick = () => {
+
+          const value = el.dataset.value;
+
+          document.getElementById("order").value = value;
+
+          document.getElementById("orderBtn").textContent =
+            el.textContent + " ▾";
+
+          document.getElementById("orderMenu").style.display = "none";
+
+          load();
+        };
+
+      });
+
+      // close dropdown on click outside
+      document.addEventListener("click", (e) => {
+
+        if (!e.target.closest(".dm-dropdown")) {
+          document.querySelectorAll(".dm-dropdown-menu")
+            .forEach(m => m.style.display = "none");
+        }
+
+      });
+
+      /* =================================
+         KEYBOARD SHORTCUTS
+      ================================= */
+
+      // ESC removes focus from textarea
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const textInput = document.getElementById("text");
+          if (textInput) {
+            textInput.blur();
+          }
+        }
+      });
+
+      // CTRL+K focuses the input
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+
+          const textInput = document.getElementById("text");
+          if (textInput) {
+            textInput.focus();
+          }
+        }
+      });
+
+      // CTRL+ENTER sends message
+      document.addEventListener("keydown", (e) => {
+
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+
+          const textInput = document.getElementById("text");
+
+          if (textInput && document.activeElement === textInput) {
+
+            e.preventDefault();
+
+            send();
+
+          }
+
+        }
+
+      });
+
+      // N focuses the input (new note)
+      document.addEventListener("keydown", (e) => {
+
+        if (
+          e.key.toLowerCase() === "n" &&
+          !e.ctrlKey &&
+          !e.metaKey &&
+          !e.altKey
+        ) {
+
+          const active = document.activeElement;
+
+          if (
+            active.tagName !== "INPUT" &&
+            active.tagName !== "TEXTAREA"
+          ) {
+
+            e.preventDefault();
+
+            const textInput = document.getElementById("text");
+            if (textInput) {
+              textInput.focus();
+            }
+
+          }
+
+        }
+
+      });
+
+      // / focuses the search
+      document.addEventListener("keydown", (e) => {
+
+        if (
+          (e.key === "/" || e.code === "Slash") &&
+          !e.ctrlKey &&
+          !e.metaKey &&
+          !e.altKey
+        ) {
+
+          const active = document.activeElement;
+
+          if (
+            active.tagName !== "INPUT" &&
+            active.tagName !== "TEXTAREA"
+          ) {
+
+            e.preventDefault();
+
+            const searchInput = document.getElementById("search");
+            if (searchInput) {
+              searchInput.focus();
+            }
+
+          }
+
+        }
+
+      });
+
+      // CTRL/CMD + V forces focus on input (Windows Chromium workaround)
+      window.addEventListener("keydown", (e) => {
+
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+
+          const input = document.getElementById("text");
+
+          if (input && document.activeElement !== input) {
+            input.focus();
+          }
+
+        }
+
+      });
+
+      /* =================================
+         CARD INTERACTIONS
+      ================================= */
+
+      // close image overlay
+      document.getElementById("imgOverlay").addEventListener("click", () => {
+        document.getElementById("imgOverlay").style.display = "none";
+      });
+
+      document.getElementById("order").addEventListener("change", load);
+      document.getElementById("clipboardSelect").addEventListener("change", load);
+
+      let searchTimer;
+
+      document.getElementById("search").addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(load, 250);
+      });
+
+      document.getElementById("searchGlobal").addEventListener("change", load);
+
+      document.getElementById("filterPinned").addEventListener("change", load);
+      document.getElementById("filterFiles").addEventListener("change", load);
+      document.getElementById("filterText").addEventListener("change", load);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          document.activeElement.blur();
+        }
+      });
+
+      // inibit contextual menu on images (iOS long press)
+      document.addEventListener("contextmenu", function (e) {
+        if (e.target.closest(".message.image")) {
+          e.preventDefault();
+        }
+      });
+
+      /* ==============================
+         TOUCH CARD ACTIONS
+      ============================== */
+
+      document.addEventListener("click", (e) => {
+
+        const card = e.target.closest(".message");
+
+        const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+        // === DESKTOP ===
+        if (isDesktop) {
+
+          if (!card) {
+            document.querySelectorAll(".message.show-actions")
+              .forEach(el => el.classList.remove("show-actions"));
+            return;
+          }
+
+          if (e.target.closest(".message-actions")) return;
+
+          // Close all others card
+          document.querySelectorAll(".message.show-actions")
+            .forEach(el => {
+              if (el !== card) {
+                el.classList.remove("show-actions");
+              }
+            });
+
+          // Activate this card
+          card.classList.toggle("show-actions");
+          return;
+        }
+
+        // Click out → close everything
+        if (!card) {
+          document.querySelectorAll(".message.show-actions")
+            .forEach(el => el.classList.remove("show-actions"));
+          return;
+        }
+
+        // Click on buttons → do nothing
+        if (e.target.closest(".message-actions")) return;
+
+        // Close all others
+        document.querySelectorAll(".message.show-actions")
+          .forEach(el => {
+            if (el !== card) {
+              el.classList.remove("show-actions");
+            }
+          });
+
+        card.classList.toggle("show-actions");
+
+      });
+
+      document.getElementById("mobileMenuBtn")
+        .addEventListener("click", (e) => {
+
+          const menu = document.getElementById("mobileMenu");
+          menu.classList.toggle("open");
+
+          e.currentTarget.blur();
+        });
+
+      document.getElementById("refreshBtn")
+        .addEventListener("click", async (e) => {
+
+          const btn = e.currentTarget;
+
+          btn.classList.add("spinning");
+
+          await load();
+
+          setTimeout(() => {
+            btn.classList.remove("spinning");
+          }, 600);
+          btn.blur();
+        });
+
+      // ==============================
+      // SYNC MOBILE CONTROLS
+      // ==============================
+
+      document.getElementById("order-mobile").addEventListener("change", (e) => {
+        document.getElementById("order").value = e.target.value;
+        load();
+      });
+
+      document.getElementById("filterPinnedMobile").addEventListener("change", (e) => {
+        document.getElementById("filterPinned").checked = e.target.checked;
+        load();
+      });
+
+      document.getElementById("filterFilesMobile").addEventListener("change", (e) => {
+        document.getElementById("filterFiles").checked = e.target.checked;
+        load();
+      });
+
+      document.getElementById("filterTextMobile").addEventListener("change", (e) => {
+        document.getElementById("filterText").checked = e.target.checked;
+        load();
+      });
+
+      document.getElementById("closeMobileMenuBtn")
+        .addEventListener("click", () => {
+          document.getElementById("mobileMenu").classList.remove("open");
+        });
+
+      function updateOnlineStatus() {
+        const banner = document.getElementById("offline-banner");
+        const sendBtn = document.getElementById("sendBtn");
+
+        if (!banner || !sendBtn) return;
+
+        if (!navigator.onLine) {
+          banner.style.display = "block";
+          sendBtn.disabled = true;
+        } else {
+          banner.style.display = "none";
+          sendBtn.disabled = false;
+        }
+      }
+
+      window.addEventListener("online", updateOnlineStatus);
+      window.addEventListener("offline", updateOnlineStatus);
+
+      // ==============================
+      // CLOSE ACTIONS ON SCROLL
+      // ==============================
+
+      const messagesContainer = document.getElementById("messages");
+
+      if (messagesContainer) {
+
+        let scrollTimer;
+
+        messagesContainer.addEventListener("scroll", () => {
+
+          messagesContainer.classList.add("scrolling");
+
+          document.querySelectorAll(".message.show-actions")
+            .forEach(el => el.classList.remove("show-actions"));
+
+          clearTimeout(scrollTimer);
+
+          scrollTimer = setTimeout(() => {
+            messagesContainer.classList.remove("scrolling");
+          }, 120);
+
+        });
+
+      }
+
+      updateOnlineStatus();
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("Service Worker registrato"))
+          .catch(err => console.error("SW error:", err));
+      }
+
+    </script>
 </body>
+
 </html>
