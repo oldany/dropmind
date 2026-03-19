@@ -6,16 +6,12 @@
 ![Self Hosted](https://img.shields.io/badge/self--hosted-yes-green)
 ![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind)
 
-A lightweight **self-hosted capture inbox** for links, notes,
-screenshots and files across your devices.
+A lightweight **self-hosted capture layer** for links, notes, screenshots and files across your devices.
 
-An alternative to **Telegram "Saved Messages"** for quickly sending
-links, notes and files between your own devices.
+Most tools focus on organizing information.  
+DropMind focuses on **capturing it instantly**, from anywhere.
 
 **Drop something now. Organize it later.**
-
-Think of DropMind as a **personal memory cache** running on your own
-server.
 
 ## The idea
 
@@ -27,6 +23,16 @@ just drop it into DropMind.
 Phone → drop link / note / file  
 DropMind → temporary inbox  
 Desktop → review or archive
+
+## 🌐 Works everywhere
+
+DropMind is designed as a universal capture layer:
+
+- iOS → via Shortcuts  
+- Android → via Share system  
+- Desktop → via bookmarklet  
+
+Same backend. Same flow.
 
 ------------------------------------------------------------------------
 
@@ -44,13 +50,11 @@ If you're trying it or already using it, feel free to share your setup or ideas 
 
 ------------------------------------------------------------------------
 
-## ✨ Features
+## ✨ What you can capture
 
-DropMind focuses on one simple idea:
+DropMind is built for fast, frictionless capture.
 
-**capture things quickly and retrieve them later.**
-
-Typical things you can drop into DropMind:
+You can quickly drop:
 
 - links to read later
 - screenshots from mobile
@@ -122,6 +126,21 @@ After installation:
 You're ready.
 
 Fully local. Fully yours.
+
+------------------------------------------------------------------------
+
+## 🌐 Bookmarklet
+
+DropMind lets you capture anything from the web in one click.
+
+- select text → save instantly  
+- no selection → save page (title + URL)  
+- optional note when needed  
+
+Works in any browser. No extensions. No accounts.
+
+👉 Setup and full instructions:  
+https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind
 
 ------------------------------------------------------------------------
 
@@ -295,7 +314,7 @@ That said, these are some areas and ideas I would like to explore in the future:
 ### Integrations
 - API / webhook ingestion for external tools
 -  Automation integrations (Shortcuts, scripts, etc.)
-- Lightweight bookmarklet for quick capture from the browser
+- ~~Lightweight bookmarklet for quick capture from the browser~~ - Done
 
 ### UI improvements
 - Drag & drop support for desktop uploads
