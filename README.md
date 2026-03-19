@@ -129,17 +129,28 @@ Fully local. Fully yours.
 
 ------------------------------------------------------------------------
 
-## 🌐 Bookmarklet
+## 🌐 Universal Capture (Bookmarklet)
 
-DropMind lets you capture anything from the web in one click.
+Capture anything from any browser in one click.
 
-- select text → save instantly  
-- no selection → save page (title + URL)  
-- optional note when needed  
+- Select text → save instantly  
+- No selection → save page (title + URL)  
+- Add a quick note → optional  
 
-Works in any browser. No extensions. No accounts.
+👉 Works everywhere: desktop, mobile browsers, any OS  
+👉 No extensions. No accounts.
 
-👉 Setup and full instructions:  
+---
+
+⚡ Quick setup
+
+1. Create a new bookmark  
+2. Paste the code into the URL field  
+3. Edit URL and token directly in the bookmark  
+
+---
+
+👉 Full instructions and troubleshooting:  
 https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind
 
 ------------------------------------------------------------------------
