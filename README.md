@@ -17,7 +17,7 @@ DropMind focuses on **capturing it instantly**, from anywhere.
 
 ## ⚡ See it in action
 
-![DropMind Demo](docs/dropmind_demo.gif)
+![DropMind Demo](docs/demo_dropmind.gif)
 
 ---
 
@@ -161,7 +161,7 @@ Capture anything from any browser in one click.
 ---
 
 👉 Full instructions and troubleshooting:  
-[Bookmarklet setup](https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind)
+[📖 Bookmarklet setup](https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind)
 
 ---
 
