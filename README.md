@@ -11,7 +11,15 @@ A lightweight **self-hosted capture layer** for links, notes, screenshots and fi
 Most tools focus on organizing information.  
 DropMind focuses on **capturing it instantly**, from anywhere.
 
-**Drop something now. Organize it later.**
+**Capture anything instantly — no friction, no decisions.**
+
+---
+
+## ⚡ See it in action
+
+![DropMind Demo](docs/dropmind_demo.gif)
+
+---
 
 ## The idea
 
@@ -24,6 +32,8 @@ Phone → drop link / note / file
 DropMind → temporary inbox  
 Desktop → review or archive
 
+---
+
 ## 🌐 Works everywhere
 
 DropMind is designed as a universal capture layer:
@@ -34,11 +44,11 @@ DropMind is designed as a universal capture layer:
 
 Same backend. Same flow.
 
-------------------------------------------------------------------------
+---
 
 📖 **Documentation:** https://github.com/oldany/dropmind/wiki
 
-------------------------------------------------------------------------
+---
 
 💬 **How are people using DropMind?**
 
@@ -48,7 +58,7 @@ If you're trying it or already using it, feel free to share your setup or ideas 
 
 👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
 
-------------------------------------------------------------------------
+---
 
 ## ✨ What you can capture
 
@@ -74,7 +84,7 @@ You can quickly drop:
 - extremely lightweight
 - **Docker deployment**
 
-------------------------------------------------------------------------
+---
 
 💡 **Ideas or feedback welcome**
 
@@ -84,7 +94,7 @@ If you have ideas, workflow suggestions, or integrations that could make it more
 
 👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
 
-------------------------------------------------------------------------
+---
 
 ## 📸 Screenshots
 
@@ -96,20 +106,20 @@ If you have ideas, workflow suggestions, or integrations that could make it more
 
 ![Mobile UI](docs/mobile.png)
 
-------------------------------------------------------------------------
+---
 
 ## 🍎 Apple Shortcut
 
 DropMind can integrate with **Apple Shortcuts** to quickly send:
 
--   links
--   text
--   images
--   files
+- links
+- text
+- images
+- files
 
 directly from **iOS and iPadOS**.
 
-This makes DropMind behave like a **personal cross‑device inbox**.
+This makes DropMind behave like a **personal cross-device inbox**.
 
 ### Install the Shortcut
 
@@ -127,7 +137,7 @@ You're ready.
 
 Fully local. Fully yours.
 
-------------------------------------------------------------------------
+---
 
 ## 🌐 Universal Capture (Bookmarklet)
 
@@ -151,24 +161,24 @@ Capture anything from any browser in one click.
 ---
 
 👉 Full instructions and troubleshooting:  
-https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind
+[Bookmarklet setup](https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind)
 
-------------------------------------------------------------------------
+---
 
 ## 💡 Typical Workflow
 
-1.  Find something interesting on your phone
-2.  **Drop it into DropMind**
-3.  Later open it on your computer
-4.  Keep it, move it elsewhere, or delete it
+1. Find something interesting on your phone  
+2. **Drop it into DropMind**  
+3. Later open it on your computer  
+4. Keep it, move it elsewhere, or delete it  
 
-DropMind is **not a note‑taking system**.
+DropMind is **not a note-taking system**.
 
 It is a **temporary capture space** for your digital thoughts.
 
 Use it as the **front door for your ideas and resources**.
 
-------------------------------------------------------------------------
+---
 
 ## 🚀 Quick Start
 
