@@ -1669,7 +1669,7 @@
 
     <header>
       <div class="header-top">
-        <strong>DropMind</strong>
+        <strong id="appTitle" style="cursor:pointer;">DropMind</strong>
 
         <div class="dm-dropdown" id="clipboardDropdown">
 
@@ -2200,7 +2200,7 @@
         const current = CLIPBOARDS.find(c => c.id == id);
         if (!current) return;
 
-        if (current.name === "main") {
+        if (Number(id) === 1) {
           alert("You cannot delete the main clipboard");
           return;
         }
@@ -2282,6 +2282,22 @@
           handleDeleteClipboard();
         };
       }
+
+      /* =========================
+         DROPMIND INFO AND CLIPBOARD ID
+      ========================= */
+
+      document.getElementById("appTitle").onclick = () => {
+
+        const select = document.getElementById("clipboardSelect");
+        const id = select.value;
+
+        const current = CLIPBOARDS.find(c => c.id == id);
+
+        const version = "1.2.2"; // Manual update at every release
+
+        alert(`DropMind v${version}\n\nClipboard: ${current?.name || "Unknown"}\nID: ${id}`);
+      };
 
       /* =========================
          LOAD MESSAGES
