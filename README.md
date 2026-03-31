@@ -124,14 +124,14 @@ This makes DropMind behave like a **personal cross-device inbox**.
 ### Install the Shortcut
 
 👉 **Download here:**  
-[Add DropMind Shortcut](https://www.icloud.com/shortcuts/7e7c85fdd6a642058ca5cd0d76d69cd9)
+[Add DropMind Shortcut](https://www.icloud.com/shortcuts/bd25a3abcce048cea61ad8da6673dc95)
 
 After installation:
 
 1. Open the Shortcut once to grant permissions  
 2. Set your DropMind server URL  
 3. Insert your API token  
-4. Choose your default clipboard  
+4. Choose your default clipboard  (see "Find your Clipboard ID" in wiki under sharing section)
 
 You're ready.
 
