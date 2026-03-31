@@ -1473,6 +1473,25 @@
       min-width: 90px;
     }
 
+    #sendBtn {
+	    background: linear-gradient(135deg, #4f8cff, #2563eb);
+	    border-radius: 999px;
+	    border: none;
+	    outline: none;
+      color: white;
+      -webkit-text-fill-color: white;
+      font-size: 14px;
+      font-weight: 600;
+	  }
+
+	  #sendBtn:focus {
+	    outline: none;
+	  }
+
+	  #sendBtn:focus-visible {
+	    outline: none;
+	  }
+
     /* Dark select */
     .mobile-menu select {
       appearance: none;
@@ -2294,7 +2313,7 @@
 
         const current = CLIPBOARDS.find(c => c.id == id);
 
-        const version = "1.2.2"; // Manual update at every release
+        const version = "1.2.3"; // Manual update at every release
 
         alert(`DropMind v${version}\n\nClipboard: ${current?.name || "Unknown"}\nID: ${id}`);
       };
@@ -2335,6 +2354,11 @@
       /* =================================
          CORE FUNCTIONS
       ================================= */
+
+      async function refreshAll() {
+        await loadClipboards();
+        await load();
+      }
 
       async function load() {
 
@@ -2817,7 +2841,7 @@
           fileInput.value = "";
           document.getElementById("filePreview").style.display = "none";
 
-          await load();
+          await refreshAll();
 
           const container = document.getElementById("messages");
           const order = document.getElementById("order").value;
@@ -2857,7 +2881,7 @@
         await apiFetch(`${API}/messages/${id}/pin?pinned=${pinned}`, {
           method: "POST"
         });
-        load();
+        refreshAll();
       }
 
       /* =========================
@@ -2945,7 +2969,7 @@
             method: "POST"
           });
           messageCard.classList.remove("move-active");
-          load();
+          refreshAll();
         };
       }
 
@@ -3056,7 +3080,7 @@
 
         textarea.focus();
 
-        cancelBtn.onclick = () => load();
+        cancelBtn.onclick = () => refreshAll();
 
         saveBtn.onclick = async () => {
 
@@ -3089,7 +3113,7 @@
             body: form
           });
 
-          load();
+          refreshAll();
         };
       }
 
@@ -3101,7 +3125,7 @@
         await apiFetch(`${API}/messages/${id}`, {
           method: "DELETE"
         });
-        load();
+        refreshAll();
       }
 
       // ==============================
@@ -3518,7 +3542,7 @@
 
           btn.classList.add("spinning");
 
-          await load();
+          await refreshAll();
 
           setTimeout(() => {
             btn.classList.remove("spinning");

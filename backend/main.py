@@ -46,6 +46,20 @@ from pydantic import BaseModel
 
 DB_PATH = "/data/db/messages.db"
 
+ATTACHMENTS_DIR = "/data/attachments"
+
+def delete_file_if_exists(filename: Optional[str]):
+    if not filename:
+        return
+
+    file_path = os.path.join(ATTACHMENTS_DIR, filename)
+
+    if os.path.exists(file_path):
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"[WARN] Failed to delete file {file_path}: {e}")
+
 # ============================================================
 # AUTHENTICATION
 # ============================================================
@@ -229,7 +243,17 @@ def delete_clipboard(clipboard_id: int):
         raise HTTPException(status_code=400, detail="Cannot delete main clipboard")
     conn = get_db()
 
-    # Delete related messages first
+    # 1. Get all filenames
+    rows = conn.execute(
+        "SELECT filename FROM messages WHERE clipboard_id = ?",
+        (clipboard_id,)
+    ).fetchall()
+
+    # 2. Delete files
+    for r in rows:
+        delete_file_if_exists(r["filename"])
+
+    # 3. Delete messages
     conn.execute(
         "DELETE FROM messages WHERE clipboard_id = ?",
         (clipboard_id,)
@@ -369,9 +393,31 @@ def pin_message(message_id: int, pinned: bool):
 @api_router.delete("/messages/{message_id}")
 def delete_message(message_id: int):
     conn = get_db()
-    conn.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+
+    # 1. Get filename
+    row = conn.execute(
+        "SELECT filename FROM messages WHERE id = ?",
+        (message_id,)
+    ).fetchone()
+
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Message not found")
+
+    filename = row["filename"]
+
+    # 2. Delete file if exists
+    delete_file_if_exists(filename)
+
+    # 3. Delete DB record
+    conn.execute(
+        "DELETE FROM messages WHERE id = ?",
+        (message_id,)
+    )
+
     conn.commit()
     conn.close()
+
     return {"status": "deleted"}
 
 # ============================================
