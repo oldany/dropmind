@@ -6,43 +6,43 @@
 ![Self Hosted](https://img.shields.io/badge/self--hosted-yes-green)
 ![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind)
 
-A lightweight **self-hosted capture layer** for links, notes, screenshots and files across your devices.
+## Stop losing things between devices.
 
-Most tools focus on organizing information.  
-DropMind focuses on **capturing it instantly**, from anywhere.
+DropMind is a **self-hosted capture inbox** for links, notes, screenshots and files.
 
-**Capture anything instantly — no friction, no decisions.**
+No folders. No decisions. No friction.
+
+Just drop it — and deal with it later.
 
 ---
 
-## ⚡ See it in action
+Most tools focus on organizing information.  
+DropMind focuses on **capturing it instantly**, before it’s lost.
+
+👉 Phone → drop  
+👉 DropMind → holds it  
+👉 Desktop → process it  
+
+
+⚡ **Capture anything instantly — no friction, no decisions.**
+
+---
+
+## ⚡ See it in action (10 seconds)
 
 ![DropMind Demo](docs/demo_dropmind.gif)
 
 ---
 
-## The idea
-
-DropMind is a personal capture inbox.
-
-When you find something on one device and want to use it later on another,
-just drop it into DropMind.
-
-Phone → drop link / note / file  
-DropMind → temporary inbox  
-Desktop → review or archive
-
----
-
 ## 🌐 Works everywhere
 
-DropMind is designed as a universal capture layer:
+Capture from any device, instantly:
 
 - iOS → via Shortcuts  
 - Android → via Share system  
 - Desktop → via bookmarklet  
 
-Same backend. Same flow.
+Same backend. Same flow. No friction.
 
 ---
 
@@ -62,15 +62,13 @@ If you're trying it or already using it, feel free to share your setup or ideas 
 
 ## ✨ What you can capture
 
-DropMind is built for fast, frictionless capture.
+Quickly drop anything you don’t want to lose:
 
-You can quickly drop:
-
-- links to read later
-- screenshots from mobile
-- temporary files between devices
-- quick notes
-- ideas or reminders
+- links to read later  
+- screenshots from mobile  
+- files between devices  
+- quick notes  
+- ideas or reminders  
 
 ### Core capabilities
 
@@ -283,7 +281,7 @@ If running behind HTTPS (reverse proxy), use `https://` for the API URL.
 
 ------------------------------------------------------------------------
 
-⭐ If you like DropMind, consider starring the repo to support the project!
+⭐ If DropMind fits your workflow, consider starring the repo.
 
 ------------------------------------------------------------------------
 
