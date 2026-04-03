@@ -31,7 +31,7 @@ DropMind focuses on **capturing it instantly**, before it’s lost.
 ## ⚡ See it in action (10 seconds)
 
 Select text → save it  
-No selection → save the page (optional note)
+No selection → save the page + optional note
 
 Smart capture, no decisions.
 
