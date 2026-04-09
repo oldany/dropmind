@@ -108,6 +108,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def add_pna_headers(request: Request, call_next):
+    response = await call_next(request)
+
+    # Fix PNA
+    response.headers["Access-Control-Allow-Private-Network"] = "true"
+
+    # Hardening CORS (extra safety)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "*"
+
+    return response
+
 # ============================================================
 # DATABASE INITIALIZATION
 # ============================================================
