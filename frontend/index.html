@@ -386,8 +386,8 @@
     }
 
     /* ===============================
-   CUSTOM DROPDOWN
-================================ */
+      CUSTOM DROPDOWN
+    ================================ */
 
     .dm-dropdown {
       position: relative;
@@ -462,9 +462,69 @@
       background: rgba(59, 130, 246, 0.15);
     }
 
+    /* ===============================
+       MULTI SELECT BAR
+    ================================ */
+
+    #selectionBar {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      background: #020617;
+      border-bottom: 1px solid #334155;
+      font-size: 14px;
+      position: relative;
+      z-index: 200;
+    }
+
+    #selectionTarget {
+      min-width: 160px;
+      position: relative;
+      z-index: 500;
+    }
+
+    #selectionBar button {
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #selectionCancel {
+      background: #334155;
+    }
+
+    #selectionMove {
+      background: #2563eb;
+    }
+
+    #selectionDelete {
+      background: #ef4444;
+    }
+
+    #selectionTarget {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
+      border: 1px solid #334155;
+      display: none;
+    }
+
+    #selectionActions {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 12px;
+      background: #020617;
+    }
+
     /*========================================
-  DROP MIND — MESSAGE CARDS
-========================================*/
+      DROP MIND — MESSAGE CARDS
+    ========================================*/
 
     /* ================= MESSAGES ================= */
 
@@ -611,6 +671,24 @@
 
     .message.pinned:hover {
       background: #243049;
+    }
+
+    /* ===============================
+      MULTI SELECT
+    =============================== */
+
+    .message.selected {
+      background: rgba(59, 130, 246, 0.18) !important;
+      border: 1px solid rgba(59, 130, 246, 0.6);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4) inset;
+    }
+
+    .message.selected .message-actions {
+      display: none !important;
+    }
+
+    .selection-mode .message-actions {
+      display: none !important;
     }
 
     /* PIN also for image and link */
@@ -802,6 +880,7 @@
     .message-text {
       display: -webkit-box;
       -webkit-line-clamp: 4;
+      line-clamp: 4;
       -webkit-box-orient: vertical;
       overflow: hidden;
 
@@ -818,6 +897,7 @@
     /* expanded */
     .message-text.expanded {
       -webkit-line-clamp: unset;
+      line-clamp: unset;
       max-height: 1000px;
     }
 
@@ -1004,8 +1084,8 @@
     }
 
     /*========================================
-  DROP MIND — INPUT BAR
-========================================*/
+      DROP MIND — INPUT BAR
+    ========================================*/
 
     /* ================= INPUT ================= */
 
@@ -1013,12 +1093,133 @@
       display: flex;
       align-items: center;
       gap: 10px;
-
       padding: 12px;
-      border-top: 1px solid rgba(148, 163, 184, 0.15);
-
       flex-shrink: 0;
+      height: auto;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
       padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    #normalInput {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    #selectionActions {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      height: 46px;
+      padding: 0 12px;
+      background: #020617;
+
+      position: relative;
+    }
+
+    #selectionCount {
+      min-width: 90px;
+      text-align: center;
+    }
+
+    #selectionTarget {
+      width: 150px;
+      height: 36px;
+      border-radius: 999px;
+      padding: 0 12px;
+      background: #0f172a;
+      color: white;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      flex: 0 0 auto;
+    }
+
+    #selectionActions button {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      color: rgba(255, 255, 255, 0.85);
+
+      padding: 8px 14px;
+      border-radius: 12px;
+
+      font-weight: 500;
+      cursor: pointer;
+
+      box-shadow: none !important;
+      filter: none !important;
+
+      transition: all 0.15s ease;
+    }
+
+    #selectionActions button:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: white;
+    }
+
+    #selectionActions button:active {
+      transform: scale(0.97);
+    }
+
+    #selectionActions button:active {
+      transform: scale(0.96);
+    }
+
+    #selectionCancel {
+      opacity: 0.7;
+    }
+
+    #selectionCancel:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    #selectionActions #selectionMove {
+      border-color: rgba(59, 130, 246, 0.35) !important;
+    }
+
+    #selectionActions #selectionMove:hover {
+      background: rgba(59, 130, 246, 0.15) !important;
+      border-color: rgba(59, 130, 246, 0.6) !important;
+    }
+
+    #selectionActions #selectionDelete {
+      border-color: rgba(239, 68, 68, 0.35) !important;
+      color: rgba(255, 120, 120, 0.9) !important;
+    }
+
+    #selectionActions #selectionDelete:hover {
+      background: rgba(239, 68, 68, 0.15) !important;
+      border-color: rgba(239, 68, 68, 0.6) !important;
+      color: #ffb4b4 !important;
+    }
+
+    .move-menu {
+      position: absolute;
+      bottom: 60px;
+      right: 12px;
+
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 12px;
+
+      padding: 8px;
+
+      box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+      z-index: 50;
+    }
+
+    .move-menu button {
+      transition: transform 0.08s ease, background 0.15s ease;
+    }
+
+    .move-menu button:active {
+      transform: scale(0.96);
     }
 
     .input textarea {
@@ -1081,7 +1282,15 @@
       background: #475569;
     }
 
-    .input button {
+    textarea,
+    input {
+      -webkit-user-select: text;
+      user-select: text;
+
+      -webkit-touch-callout: default;
+    }
+
+    .input>button {
       background: linear-gradient(135deg, #4f8cff, #2563eb);
       border: none;
       height: 44px;
@@ -1396,7 +1605,12 @@
         padding: 14px 70px 14px 14px;
         margin: 0 12px 14px 12px;
         border-radius: 18px;
+        position: relative;
         overflow: visible;
+        -webkit-user-select: none;
+        user-select: none;
+
+        -webkit-touch-callout: none;
       }
 
       /* CARD IMAGE */
@@ -1508,6 +1722,75 @@
       color: #e5e7eb;
 
       font-size: 14px;
+    }
+
+    #moveMenu {
+      position: fixed;
+
+      background: #020617;
+      border-radius: 14px;
+
+      padding: 6px 0;
+      overflow: hidden;
+
+      display: inline-flex !important;
+      flex-direction: column;
+
+      right: auto !important;
+
+      /* ANIMAZIONE */
+      opacity: 0;
+      transform: translateY(4px) scale(0.96);
+      transform-origin: bottom center;
+
+      transition:
+        opacity 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+      pointer-events: none;
+    }
+
+    #moveMenu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    #moveMenu button {
+
+      all: unset;
+
+      display: block;
+      width: 100%;
+
+      box-sizing: border-box;
+
+      padding: 12px 18px;
+
+      color: #e6edf7;
+      font-size: 16px;
+      font-weight: 500;
+
+      cursor: pointer;
+    }
+
+    #moveMenu button:first-child:hover {
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+    }
+
+    #moveMenu button:last-child:hover {
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+
+    #moveMenu button {
+      transition: background 0.15s ease;
+    }
+
+    #moveMenu button:hover {
+      background: rgba(59, 130, 246, 0.12);
+      color: #ffffff;
     }
 
     .mobile-menu select {
@@ -1687,6 +1970,7 @@
     <!-- ============================= -->
 
     <header>
+
       <div class="header-top">
         <strong id="appTitle" style="cursor:pointer;">DropMind</strong>
 
@@ -1849,18 +2133,37 @@
     </div>
 
     <div class="input">
-      <label class="file-btn">
-        <svg viewBox="0 0 24 24" class="plus-icon">
-          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-        <input type="file" id="file" hidden>
-      </label>
 
-      <div id="filePreview" style="display:none; font-size:12px; opacity:.7;"></div>
+      <div id="normalInput">
 
-      <textarea id="text" placeholder="What's on your mind?" rows="1"></textarea>
+        <label class="file-btn">
+          <svg viewBox="0 0 24 24" class="plus-icon">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input type="file" id="file" hidden>
+        </label>
 
-      <button id="sendBtn" onclick="send()">Send</button>
+        <div id="filePreview" style="display:none; font-size:12px; opacity:.7;"></div>
+
+        <textarea id="text" placeholder="What's on your mind?" rows="1"></textarea>
+
+        <button id="sendBtn">Send</button>
+      </div>
+
+      <div id="selectionActions" style="display:none;">
+
+        <button id="selectionCancel">Cancel</button>
+
+        <span id="selectionCount">0 selected</span>
+
+        <button id="selectionMove">Move</button>
+
+        <button id="selectionDelete">Delete</button>
+
+        <div id="moveMenu" class="move-menu"></div>
+
+      </div>
+
     </div>
 
     <div id="imgOverlay" class="img-overlay" style="display:none;">
@@ -1872,7 +2175,7 @@
     <!-- ============================= -->
 
     <script src="config.js"></script>
-    <script>
+    <script type="module">
 
       /* =================================
          APP INITIALIZATION
@@ -2048,6 +2351,50 @@
 
       let CLIPBOARDS = [];
 
+
+      /* =========================
+         MULTI SELECT STATE
+      ========================= */
+
+      let selectionMode = false;
+      let selectedMessages = new Set();
+      let touchHandled = false;
+      let lastTouchTime = 0;
+
+      function updateSelectionUI() {
+
+        const normalInput = document.getElementById("normalInput");
+        const actions = document.getElementById("selectionActions");
+        const count = document.getElementById("selectionCount");
+
+        count.textContent = selectedMessages.size + " selected";
+
+        if (selectionMode) {
+
+          normalInput.style.display = "none";
+          actions.style.display = "flex";
+
+          document.querySelectorAll(".message").forEach(el => {
+            el.classList.remove("show-actions");
+          });
+
+        } else {
+
+          normalInput.style.display = "flex";
+          actions.style.display = "none";
+
+        }
+
+      }
+
+      function clearCardSelection() {
+
+        document.querySelectorAll(".message.selected").forEach(el => {
+          el.classList.remove("selected");
+        });
+
+      }
+
       /* =========================
          LOAD CLIPBOARDS
       ========================= */
@@ -2094,15 +2441,15 @@
           item.dataset.value = c.id;
 
           item.innerHTML = `
-  <span class="clipboard-name">
-  ${c.id == favoriteId ? "☆ " : ""}
-  ${c.name}
-  </span>
+            <span class="clipboard-name">
+              ${c.id == favoriteId ? "☆ " : ""}
+              ${c.name}
+            </span>
 
-  <span class="clipboard-count">
-  ${count ? `(${count})` : ""}
-  </span>
-  `;
+            <span class="clipboard-count">
+              ${count ? `(${count})` : ""}
+            </span>
+          `;
 
           item.onclick = () => {
 
@@ -2224,7 +2571,7 @@
           return;
         }
 
-        if (!confirm(`Delete "${current.name}"?`)) return;
+        if (!confirm("Delete \"" + current.name + "\"?")) return;
 
         await apiFetch(`${API}/clipboards/${id}`, {
           method: "DELETE"
@@ -2309,11 +2656,11 @@
       document.getElementById("appTitle").onclick = () => {
 
         const select = document.getElementById("clipboardSelect");
-        const id = select.value;
+        const id = select?.value;
 
-        const current = CLIPBOARDS.find(c => c.id == id);
+        const current = CLIPBOARDS?.find(c => c.id == id);
 
-        const version = "1.2.4"; // Manual update at every release
+        const version = "1.3.0"; // oppure 1.2.2 se sei ancora lì
 
         alert(`DropMind v${version}\n\nClipboard: ${current?.name || "Unknown"}\nID: ${id}`);
       };
@@ -2322,12 +2669,20 @@
          LOAD MESSAGES
       ========================= */
       function highlight(text, search) {
+
         if (!search) return text;
 
-        const escaped = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escaped})`, "gi");
+        // escape HTML per evitare che <mark> rompa il rendering
+        const escapedHtml = text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
 
-        return text.replace(regex, "<mark>$1</mark>");
+        const escapedSearch = search.replace(/[-\/\\^$*+?.()|[\]]/g, '\\$&');
+
+        const regex = new RegExp("(" + escapedSearch + ")", "gi");
+
+        return escapedHtml.replace(regex, "<mark>$1</mark>");
       }
 
       function isMapUrl(url) {
@@ -2356,9 +2711,14 @@
       ================================= */
 
       async function refreshAll() {
-        await loadClipboards();
-        await load();
-      }
+
+		const select = document.getElementById("clipboardSelect");
+		const currentValue = select ? select.value : null;
+
+		await loadClipboards(currentValue);
+		await load();
+
+		}
 
       async function load() {
 
@@ -2496,22 +2856,27 @@
               const sizeText = formatFileSize(m.file_size);
 
               content.innerHTML = `
-  <div class="file-card">
-    <span class="file-icon">
-<svg viewBox="0 0 24 24" width="18" height="18"
- stroke="currentColor" fill="none"
- stroke-width="2" stroke-linecap="round">
- <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
- <polyline points="14 2 14 8 20 8"/>
-</svg>
-</span>
-    <span class="file-name">
-      ${m.original_filename || m.filename}
-      ${sizeText ? `<span style="opacity:.6; font-size:12px; margin-left:6px;">(${sizeText})</span>` : ""}
-    </span>
-  </div>
-  ${m.text ? `<div class="file-text">${m.text}</div>` : ""}
-`;
+                <div class="file-card">
+                  <span class="file-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18"
+                      stroke="currentColor" fill="none"
+                      stroke-width="2" stroke-linecap="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                  </span>
+
+                  <span class="file-name">
+                    ${fileNameDisplay}
+                    ${sizeText
+                  ? `<span style="opacity:.6; font-size:12px; margin-left:6px;">(${sizeText})</span>`
+                  : ""
+                }
+                  </span>
+                </div>
+
+                ${m.text ? `<div class="file-text">${m.text}</div>` : ""}
+              `;
             }
 
           } else {
@@ -2522,14 +2887,40 @@
             const parts = text.split(/\n?---\n?/);
             let urlPart = parts[0].trim();
 
-            // Estrai eventuale URL dentro testo misto
-            const urlMatch = urlPart.match(/https?:\/\/[^\s]+/);
-            if (urlMatch) {
-              urlPart = urlMatch[0];
+            // Extract URL from mixed text
+            const urls = text.match(/https?:\/\/[^\s]+/g);
+
+            // 👉 case 1: only link
+            if (urls && urls.length === 1 && text.trim() === urls[0]) {
+              urlPart = urls[0];
+            }
+
+            // 👉 case 2: title + link (bookmarklet)
+            else if (
+              urls &&
+              urls.length === 1 &&
+              parts.length > 1 &&
+              parts[0].includes(urls[0])
+            ) {
+              urlPart = urls[0];
+            }
+
+            // 👉 case 3: title + link WITHOUT separation line (bookmarklet)
+            else if (
+              urls &&
+              urls.length === 1 &&
+              text.includes("\n")
+            ) {
+              urlPart = urls[0];
+            }
+
+            // 👉 case 4: mixed text
+            else {
+              urlPart = null;
             }
             const descriptionPart = parts[1] ? parts[1].trim() : "";
 
-            if (isMapUrl(urlPart)) {
+            if (urlPart && isMapUrl(urlPart)) {
               div.classList.add("location");
 
               let locationName = "Posizione salvata";
@@ -2549,30 +2940,30 @@
               }
 
               content.innerHTML = `
-  <div class="link-card">
-    <div class="link-icon">${ICONS.map}</div>
-    <div class="link-info">
-      <div class="link-domain">${locationName}</div>
-      ${coords ? `<div class="link-url">${coords}</div>` : ""}
-      ${descriptionPart ? `<div class="file-text">${descriptionPart}</div>` : ""}
-    </div>
-  </div>
-`;
+                <div class="link-card">
+                  <div class="link-icon">${ICONS.map}</div>
+                  <div class="link-info">
+                    <div class="link-domain">${locationName}</div>
+                    ${coords ? `<div class="link-url">${coords}</div>` : ""}
+                    ${descriptionPart ? `<div class="file-text">${descriptionPart}</div>` : ""}
+                  </div>
+                </div>
+              `;
 
-            } else if (urlRegex.test(urlPart)) {
+            } else if (urlPart && urlRegex.test(urlPart)) {
 
               div.classList.add("link");
 
               content.innerHTML = `
-      <div class="link-card">
-        <div class="link-icon">${ICONS.link}</div>
-        <div class="link-info">
-          <div class="link-domain">${new URL(urlPart).hostname}</div>
-          <div class="link-url">${urlPart}</div>
-          ${descriptionPart ? `<div class="file-text">${descriptionPart}</div>` : ""}
-        </div>
-      </div>
-    `;
+                <div class="link-card">
+                  <div class="link-icon">${ICONS.link}</div>
+                  <div class="link-info">
+                    <div class="link-domain">${new URL(urlPart).hostname}</div>
+                    <div class="link-url">${urlPart}</div>
+                    ${descriptionPart ? `<div class="file-text">${descriptionPart}</div>` : ""}
+                  </div>
+                </div>
+              `;
 
             } else {
 
@@ -2622,12 +3013,155 @@
           // Desktop double click on card
           let clickTimer = null;
 
+          /* LONG PRESS FOR MULTI SELECT */
+
+          // BLOCCA click fantasma dopo touch
+
+          let pressTimer = null;
+
+          div.addEventListener("touchstart", (e) => {
+
+            lastTouchTime = Date.now();
+
+            touchHandled = false;
+
+            // If already in selection mode → instant toggle
+            if (selectionMode) {
+
+              if (selectedMessages.has(m.id)) {
+                selectedMessages.delete(m.id);
+                div.classList.remove("selected");
+              } else {
+                selectedMessages.add(m.id);
+                div.classList.add("selected");
+              }
+
+              if (selectedMessages.size === 0) {
+                selectionMode = false;
+
+                document.body.classList.remove("selection-mode");
+
+                document.querySelectorAll(".message").forEach(el => {
+                  el.classList.remove("show-actions");
+                });
+              }
+
+              updateSelectionUI();
+              return;
+            }
+
+            // Long press to enter selection mode
+            pressTimer = setTimeout(() => {
+
+              e.preventDefault();
+
+              selectionMode = true;
+
+              document.body.classList.add("selection-mode");
+
+              selectedMessages.add(m.id);
+
+              div.classList.add("selected");
+
+              updateSelectionUI();
+
+              touchHandled = true;
+
+              console.log("Selection mode ON", selectedMessages);
+
+            }, 500);
+
+          }, { passive: false });
+
+          div.addEventListener("touchmove", () => {
+            clearTimeout(pressTimer);
+          });
+
+          div.addEventListener("touchend", () => {
+            clearTimeout(pressTimer);
+          });
+
           div.addEventListener("click", (e) => {
 
-            if (clickTimer) clearTimeout(clickTimer);
+            if (Date.now() - lastTouchTime < 500) {
+              return;
+            }
+
+            // MULTISELECT MODE
+            if (selectionMode) {
+
+              if (selectedMessages.has(m.id)) {
+                selectedMessages.delete(m.id);
+                div.classList.remove("selected");
+              } else {
+                selectedMessages.add(m.id);
+                div.classList.add("selected");
+              }
+
+              if (selectedMessages.size === 0) {
+                selectionMode = false;
+                document.body.classList.remove("selection-mode");
+              }
+
+              updateSelectionUI();
+              return;
+            }
+
+            if (touchHandled && !selectionMode) {
+              touchHandled = false;
+            } else if (touchHandled) {
+              touchHandled = false;
+              return;
+            }
+
+            // DESKTOP MULTI SELECT (CTRL/CMD + CLICK)
+
+            if (e.ctrlKey || e.metaKey) {
+
+              if (!selectionMode) {
+                selectionMode = true;
+              }
+
+              if (selectedMessages.has(m.id)) {
+                selectedMessages.delete(m.id);
+                div.classList.remove("selected");
+              } else {
+                selectedMessages.add(m.id);
+                div.classList.add("selected");
+              }
+
+              if (selectedMessages.size === 0) {
+                selectionMode = false;
+                document.body.classList.remove("selection-mode");
+              }
+
+              updateSelectionUI();
+              return;
+            }
 
             if (div.querySelector("textarea")) return;
             if (div.classList.contains("move-active")) return;
+
+            // MULTI SELECT MODE
+            if (selectionMode) {
+
+              if (selectedMessages.has(m.id)) {
+                selectedMessages.delete(m.id);
+                div.classList.remove("selected");
+              } else {
+                selectedMessages.add(m.id);
+                div.classList.add("selected");
+              }
+
+              // AUTO EXIT if nothing selected
+              if (selectedMessages.size === 0) {
+                selectionMode = false;
+              }
+
+              console.log("Selected:", selectedMessages);
+              updateSelectionUI();
+              return;
+            }
 
             if (clickTimer) {
               clearTimeout(clickTimer);
@@ -2649,45 +3183,9 @@
                   const url = m.text.match(/https?:\/\/[^\s]+/)?.[0];
                   if (url) window.open(url, "_blank");
                 }
-              }, 250); // soglia doppio click
+              }, 300); // double click timer
             }
 
-          });
-
-          // Long press mobile
-          let pressTimer;
-          let startX = 0;
-          let startY = 0;
-          let isScrolling = false;
-
-          content.addEventListener("touchstart", (e) => {
-            if (div.classList.contains("image")) return;
-
-            isScrolling = false;
-
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-
-            pressTimer = setTimeout(() => {
-              if (!isScrolling && !div.classList.contains("image")) {
-                enterEditMode(m, content);
-              }
-            }, 600);
-          });
-
-          content.addEventListener("touchmove", (e) => {
-
-            const moveX = e.touches[0].clientX;
-            const moveY = e.touches[0].clientY;
-
-            const diffX = Math.abs(moveX - startX);
-            const diffY = Math.abs(moveY - startY);
-
-            // if movement > 10px → is scroll
-            if (diffX > 10 || diffY > 10) {
-              isScrolling = true;
-              clearTimeout(pressTimer);
-            }
           });
 
           content.addEventListener("touchend", () => {
@@ -2859,6 +3357,8 @@
         }
       }
 
+	  document.getElementById("sendBtn").addEventListener("click", send);	
+
       // ===============================
       // FILE PREVIEW
       // ===============================
@@ -2965,12 +3465,36 @@
 
         btn.onclick = async () => {
 
-          await apiFetch(`${API}/messages/${id}/move?clipboard_id=${select.value}`, {
+          const targetId = select.value;
+
+          await apiFetch(`${API}/messages/${id}/move?clipboard_id=${targetId}`, {
             method: "POST"
           });
+
           messageCard.classList.remove("move-active");
-          refreshAll();
+
+          await loadClipboards(targetId);
+          await load();
+
         };
+      }
+
+      /* ============================
+             MOVE MULTISELECT
+      =========================== */
+
+      async function moveSelectedMessages(targetClipboard) {
+        const ids = Array.from(selectedMessages);
+
+        await Promise.all(
+          ids.map(id =>
+            apiFetch(`${API}/messages/${id}/move?clipboard_id=${targetClipboard}`, {
+              method: "POST"
+            })
+          )
+        );
+
+        await refreshAll();
       }
 
       /* ============================
@@ -3522,7 +4046,9 @@
             }
           });
 
-        card.classList.toggle("show-actions");
+        setTimeout(() => {
+          card.classList.toggle("show-actions");
+        }, 320);
 
       });
 
@@ -3579,23 +4105,144 @@
           document.getElementById("mobileMenu").classList.remove("open");
         });
 
-      function updateOnlineStatus() {
-        const banner = document.getElementById("offline-banner");
-        const sendBtn = document.getElementById("sendBtn");
+      document.getElementById("selectionCancel").onclick = () => {
 
-        if (!banner || !sendBtn) return;
+        selectionMode = false;
+        selectedMessages.clear();
 
-        if (!navigator.onLine) {
-          banner.style.display = "block";
-          sendBtn.disabled = true;
-        } else {
-          banner.style.display = "none";
-          sendBtn.disabled = false;
+        document.querySelectorAll(".message.selected")
+          .forEach(el => el.classList.remove("selected"));
+
+        updateSelectionUI();
+
+      };
+
+      /* =========================
+        MULTI DELETE
+      ========================= */
+
+      document.getElementById("selectionDelete").onclick = async () => {
+        if (selectedMessages.size === 0) return;
+
+        const ids = Array.from(selectedMessages);
+
+        await Promise.all(
+          ids.map(id =>
+            apiFetch(`/api/messages/${id}`, {
+              method: "DELETE"
+            })
+          )
+        );
+
+        selectedMessages.clear();
+        selectionMode = false;
+        clearCardSelection();
+        updateSelectionUI();
+
+        await refreshAll();
+      };
+
+      /* =========================
+         MULTI MOVE
+      ========================= */
+
+      const moveBtn = document.getElementById("selectionMove");
+      const moveMenu = document.getElementById("moveMenu");
+
+      moveBtn.onclick = () => {
+
+        if (selectedMessages.size === 0) return;
+
+        if (moveMenu.style.display === "flex") {
+          moveMenu.style.display = "none";
+          return;
         }
-      }
 
-      window.addEventListener("online", updateOnlineStatus);
-      window.addEventListener("offline", updateOnlineStatus);
+        moveMenu.innerHTML = "";
+
+        moveMenu.style.top = "";
+        moveMenu.style.transform = "";
+
+        const current = document.getElementById("clipboardSelect").value;
+
+        CLIPBOARDS.forEach(c => {
+
+          if (String(c.id) === String(current)) return;
+
+          const btn = document.createElement("button");
+          btn.textContent = c.name;
+
+          btn.onclick = async () => {
+
+            await moveSelectedMessages(c.id);
+
+            selectedMessages.clear();
+            selectionMode = false;
+            clearCardSelection();
+            updateSelectionUI();
+
+            const select = document.getElementById("clipboardSelect");
+            select.value = c.id;
+
+            document.getElementById("clipboardBtn").textContent =
+              c.name + " ▾";
+
+            document.querySelectorAll("#clipboardMenu div")
+              .forEach(el => el.style.background = "");
+
+            document.querySelectorAll("#clipboardMenu div")
+              .forEach(el => {
+                if (el.dataset.value == c.id) {
+                  el.style.background = "rgba(59,130,246,0.15)";
+                }
+              });
+
+            await load();
+
+            moveMenu.style.display = "none";
+
+          };
+
+          moveMenu.appendChild(btn);
+
+        });
+
+        const rect = moveBtn.getBoundingClientRect();
+
+        moveMenu.style.display = "flex";
+        moveMenu.style.position = "fixed";
+
+        requestAnimationFrame(() => {
+          const menuHeight = moveMenu.offsetHeight;
+          const menuWidth = moveMenu.offsetWidth;
+
+          moveMenu.style.top = (rect.top - menuHeight - 12) + "px";
+          moveMenu.style.left =
+            rect.left + rect.width / 2 - menuWidth / 2 + "px";
+
+          moveMenu.classList.add("open");
+        });
+
+      };
+
+      /* =========================
+        CLOSE MOVE MENU
+      ========================= */
+
+      document.addEventListener("click", e => {
+
+        const menu = document.getElementById("moveMenu");
+        const btn = document.getElementById("selectionMove");
+
+        if (!menu.contains(e.target) && e.target !== btn) {
+          moveMenu.classList.remove("open");
+
+          setTimeout(() => {
+            moveMenu.style.display = "none";
+          }, 150);
+        }
+
+      });
 
       // ==============================
       // CLOSE ACTIONS ON SCROLL
@@ -3624,7 +4271,7 @@
 
       }
 
-      updateOnlineStatus();
+      // updateOnlineStatus();
 
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
@@ -3632,6 +4279,19 @@
           .then(() => console.log("Service Worker registrato"))
           .catch(err => console.error("SW error:", err));
       }
+
+      document.addEventListener("click", e => {
+
+        const menu = document.getElementById("moveMenu");
+        const btn = document.getElementById("selectionMove");
+
+        if (!menu) return;
+
+        if (!menu.contains(e.target) && e.target !== btn) {
+          menu.style.display = "none";
+        }
+
+      });
 
     </script>
 </body>
