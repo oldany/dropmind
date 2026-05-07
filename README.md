@@ -330,10 +330,11 @@ That said, these are some areas and ideas I would like to explore in the future:
 
 ### Capture & workflow improvements
 
-- Multi-select actions (move / delete multiple items)
+- ~~Multi-select actions (move / delete multiple items)~~ - Done
 - Temporary clipboards with automatic expiration
 - ~~Faster quick-capture shortcuts~~ — Done
 - Improved link parsing and smart cards
+- Better image handling
 
 ### Integrations
 - API / webhook ingestion for external tools
