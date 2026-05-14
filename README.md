@@ -142,6 +142,22 @@ Fully local. Fully yours.
 
 ---
 
+## 🤖 Android Share
+
+On Android you can send content directly to DropMind using the system share menu.
+
+Examples:
+
+- links from a browser
+- images
+- selected text
+
+Select:
+
+Share → DropMind
+
+---
+
 ## 🌐 Universal Capture (Bookmarklet)
 
 Capture anything from any browser in one click.
