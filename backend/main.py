@@ -40,6 +40,16 @@ from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+try:
+
+    from PIL import Image, ImageOps
+
+    PIL_AVAILABLE = True
+
+except ImportError:
+
+    PIL_AVAILABLE = False
+
 # ============================================================
 # CONFIGURATION
 # ============================================================
@@ -47,6 +57,10 @@ from pydantic import BaseModel
 DB_PATH = "/data/db/messages.db"
 
 ATTACHMENTS_DIR = "/data/attachments"
+
+THUMBS_DIR = "/data/thumbs"
+
+PREVIEWS_DIR = "/data/previews"
 
 def delete_file_if_exists(filename: Optional[str]):
     if not filename:
@@ -59,6 +73,64 @@ def delete_file_if_exists(filename: Optional[str]):
             os.remove(file_path)
         except Exception as e:
             print(f"[WARN] Failed to delete file {file_path}: {e}")
+
+# ============================================================
+# IMAGE THUMBNAILS
+# ============================================================
+
+def build_thumbnail(filename: str):
+
+    if not PIL_AVAILABLE:
+        return None
+
+    source_path = os.path.join(ATTACHMENTS_DIR, filename)
+    thumb_path = os.path.join(THUMBS_DIR, filename)
+    preview_path = os.path.join(PREVIEWS_DIR, filename)
+
+    if not os.path.exists(source_path):
+        return None
+
+    thumb_exists = os.path.exists(thumb_path)
+    preview_exists = os.path.exists(preview_path)
+
+    if thumb_exists and preview_exists:
+        return thumb_path
+
+    try:
+        with Image.open(source_path) as img:
+
+            img = ImageOps.exif_transpose(img)
+            img.thumbnail((320, 320))
+
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+
+            img.save(
+                thumb_path,
+                format="JPEG",
+                quality=75,
+                optimize=True
+            )
+
+            preview = ImageOps.exif_transpose(Image.open(source_path))
+
+            preview.thumbnail((1600, 1600))
+
+            if preview.mode in ("RGBA", "P"):
+                preview = preview.convert("RGB")
+
+            preview.save(
+                preview_path,
+                format="JPEG",
+                quality=82,
+                optimize=True
+            )
+
+        return thumb_path
+
+    except Exception as e:
+        print(f"[WARN] Thumbnail failed: {filename} -> {e}")
+        return None
 
 # ============================================================
 # AUTHENTICATION
@@ -138,8 +210,26 @@ def get_db():
 def startup():
     os.makedirs("/data/db", exist_ok=True)
     os.makedirs("/data/attachments", exist_ok=True)
+    os.makedirs(THUMBS_DIR, exist_ok=True)
+    os.makedirs(PREVIEWS_DIR, exist_ok=True)
 
     conn = get_db()
+
+    # Build missing thumbnails/previews
+    try:
+
+        for filename in os.listdir(ATTACHMENTS_DIR):
+
+            if filename.lower().endswith((
+                ".jpg",
+                ".jpeg",
+                ".png",
+                ".webp"
+            )):
+                build_thumbnail(filename)
+
+    except Exception as e:
+        print(f"[WARN] Preview rebuild failed: {e}")
 
     # Create tables if they do not exist
     conn.execute("""
@@ -691,3 +781,52 @@ def get_file(
         raise HTTPException(status_code=404, detail="File not found")
 
     return FileResponse(file_path)
+
+@app.get("/api/thumbs/{filename}")
+def get_thumb(
+    filename: str,
+    token: str = Query(None),
+    authorization: str = Header(None)
+):
+
+    if token:
+        if token != API_TOKEN:
+            raise HTTPException(status_code=403)
+    else:
+        verify_token(authorization)
+
+    thumb_path = build_thumbnail(filename)
+
+    # Se thumbs non disponibili → fallback originale
+    if not thumb_path:
+        original = os.path.join(ATTACHMENTS_DIR, filename)
+
+        if not os.path.exists(original):
+            raise HTTPException(status_code=404)
+
+        return FileResponse(original)
+
+    return FileResponse(thumb_path, media_type="image/jpeg")
+
+@app.get("/api/previews/{filename}")
+def get_preview(
+    filename: str,
+    token: str = Query(None),
+    authorization: str = Header(None)
+):
+
+    if token:
+        if token != API_TOKEN:
+            raise HTTPException(status_code=403)
+    else:
+        verify_token(authorization)
+
+    preview_path = os.path.join(PREVIEWS_DIR, filename)
+
+    if not os.path.exists(preview_path):
+        build_thumbnail(filename)
+
+    if not os.path.exists(preview_path):
+        raise HTTPException(status_code=404)
+
+    return FileResponse(preview_path, media_type="image/jpeg")
