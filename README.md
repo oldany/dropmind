@@ -266,6 +266,8 @@ services:
     volumes:
       - ./data/db:/data/db
       - ./data/attachments:/data/attachments
+      - ./data/thumbs:/data/thumbs
+      - ./data/previews:/data/previews
     ports:
       - "8000:8000"
     environment:
@@ -350,7 +352,7 @@ That said, these are some areas and ideas I would like to explore in the future:
 - Temporary clipboards with automatic expiration
 - ~~Faster quick-capture shortcuts~~ — Done
 - Improved link parsing and smart cards
-- Better image handling
+- ~~Better image handling~~ - Done
 
 ### Integrations
 - API / webhook ingestion for external tools
