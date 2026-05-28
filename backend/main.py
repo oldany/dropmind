@@ -18,6 +18,7 @@ import uuid
 import mimetypes
 from datetime import datetime
 from typing import Optional
+from pathlib import Path
 
 # ============================================================
 # THIRD PARTY IMPORTS
@@ -62,11 +63,28 @@ THUMBS_DIR = "/data/thumbs"
 
 PREVIEWS_DIR = "/data/previews"
 
+def safe_path(base_dir: str, filename: str) -> str:
+
+    if not filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
+
+    base = Path(base_dir).resolve()
+
+    target = (base / filename).resolve()
+
+    # Ensure resolved path stays inside base directory
+    try:
+        target.relative_to(base)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid path")
+
+    return str(target)
+
 def delete_file_if_exists(filename: Optional[str]):
     if not filename:
         return
 
-    file_path = os.path.join(ATTACHMENTS_DIR, filename)
+    file_path = safe_path(ATTACHMENTS_DIR, filename)
 
     if os.path.exists(file_path):
         try:
@@ -83,9 +101,9 @@ def build_thumbnail(filename: str):
     if not PIL_AVAILABLE:
         return None
 
-    source_path = os.path.join(ATTACHMENTS_DIR, filename)
-    thumb_path = os.path.join(THUMBS_DIR, filename)
-    preview_path = os.path.join(PREVIEWS_DIR, filename)
+    source_path = safe_path(ATTACHMENTS_DIR, filename)
+    thumb_path = safe_path(THUMBS_DIR, filename)
+    preview_path = safe_path(PREVIEWS_DIR, filename)
 
     if not os.path.exists(source_path):
         return None
@@ -775,7 +793,7 @@ def get_file(
     else:
         verify_token(authorization)
 
-    file_path = f"/data/attachments/{filename}"
+    file_path = safe_path(ATTACHMENTS_DIR, filename)
 
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
@@ -799,7 +817,7 @@ def get_thumb(
 
     # Se thumbs non disponibili → fallback originale
     if not thumb_path:
-        original = os.path.join(ATTACHMENTS_DIR, filename)
+        original = safe_path(ATTACHMENTS_DIR, filename)
 
         if not os.path.exists(original):
             raise HTTPException(status_code=404)
@@ -821,7 +839,7 @@ def get_preview(
     else:
         verify_token(authorization)
 
-    preview_path = os.path.join(PREVIEWS_DIR, filename)
+    preview_path = safe_path(PREVIEWS_DIR, filename)
 
     if not os.path.exists(preview_path):
         build_thumbnail(filename)
