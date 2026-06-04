@@ -1,4 +1,4 @@
-const CACHE_NAME = "dropmind-shell-v1";
+const CACHE_NAME = "dropmind-shell-v1.4.2";
 
 const FILES_TO_CACHE = [
   "/",
