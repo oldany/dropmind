@@ -2660,7 +2660,7 @@
 
         const current = CLIPBOARDS?.find(c => c.id == id);
 
-        const version = "1.4.3";
+        const version = "1.4.4";
 
         alert(`DropMind v${version}\n\nClipboard: ${current?.name || "Unknown"}\nID: ${id}`);
       };
@@ -3286,7 +3286,16 @@
               console.error(err);
             }
           };
-          actions.appendChild(copy);
+          // actions.appendChild(copy);
+
+          const moveBtn = document.createElement("button");
+          moveBtn.innerHTML = ICONS.move;
+          moveBtn.title = "Move to another clipboard";
+
+          moveBtn.onclick = (e) => {
+            e.stopPropagation();
+            moveMessage(m.id);
+          };
 
           if (m.filename) {
 
