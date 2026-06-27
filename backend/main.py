@@ -262,6 +262,7 @@ def startup():
     conn.execute("""
     CREATE TABLE IF NOT EXISTS messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
         text TEXT,
         filename TEXT,
         clipboard_id INTEGER,
@@ -271,6 +272,15 @@ def startup():
         FOREIGN KEY (clipboard_id) REFERENCES clipboards(id)
     )
     """)
+
+    # Database migration: add title column if missing
+    columns = [
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(messages)")
+    ]
+
+    if "title" not in columns:
+        conn.execute("ALTER TABLE messages ADD COLUMN title TEXT")
 
     # Create clipboard main if not exist
     now = datetime.utcnow().isoformat()
@@ -287,12 +297,14 @@ def startup():
 # =========================
 
 class MessageIn(BaseModel):
+    title: Optional[str] = None
     text: Optional[str] = None
     clipboard_id: int
 
 
 class MessageOut(BaseModel):
     id: int
+    title: Optional[str] = None
     text: Optional[str]
     filename: Optional[str]
     clipboard_id: int
@@ -392,13 +404,19 @@ def delete_clipboard(clipboard_id: int):
     return {"status": "deleted"}
 
 @api_router.put("/messages/{message_id}", response_model=MessageOut)
-def update_message(message_id: int, text: str = Form(...)):
+def update_message(
+    message_id: int,
+    title: Optional[str] = Form(None),
+    text: str = Form(...)
+):
     conn = get_db()
     now = datetime.utcnow().isoformat()
 
+    title = title.strip() if title else None
+
     conn.execute(
-        "UPDATE messages SET text = ?, updated_at = ? WHERE id = ?",
-        (text, now, message_id)
+        "UPDATE messages SET title = ?, text = ?, updated_at = ? WHERE id = ?",
+        (title, text, now, message_id)
     )
 
     conn.commit()
@@ -476,10 +494,10 @@ def create_message(msg: MessageIn):
 
     cur = conn.execute(
         """
-        INSERT INTO messages (text, filename, clipboard_id, created_at, updated_at, pinned)
-        VALUES (?, ?, ?, ?, ?, 0)
+        INSERT INTO messages (title, text, filename, clipboard_id, created_at, updated_at, pinned)
+        VALUES (?, ?, ?, ?, ?, ?, 0)
         """,
-        (msg.text, None, msg.clipboard_id, now, now)
+        (msg.title, msg.text, None, msg.clipboard_id, now, now)
     )
 
     conn.commit()
@@ -488,6 +506,7 @@ def create_message(msg: MessageIn):
 
     return {
         "id": msg_id,
+        "title": msg.title,
         "text": msg.text,
         "filename": None,
         "original_filename": None,

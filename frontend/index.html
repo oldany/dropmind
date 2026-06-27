@@ -874,6 +874,16 @@
       word-break: break-all;
     }
 
+    .message-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #ffffff;
+
+      margin-bottom: 6px;
+
+      word-break: break-word;
+    }
+
     /* ================= TEXT EXPAND ================= */
 
     /* compressed */
@@ -2660,7 +2670,7 @@
 
         const current = CLIPBOARDS?.find(c => c.id == id);
 
-        const version = "1.4.4";
+        const version = "1.5.0";
 
         alert(`DropMind v${version}\n\nClipboard: ${current?.name || "Unknown"}\nID: ${id}`);
       };
@@ -2980,6 +2990,19 @@
               `;
 
             } else {
+
+              if (m.title && !m.filename && !div.classList.contains("link") && !div.classList.contains("location")) {
+                const titleElem = document.createElement("div");
+                titleElem.classList.add("message-title");
+
+                if (searchValue) {
+                  titleElem.innerHTML = highlight(m.title, searchValue);
+                } else {
+                  titleElem.textContent = m.title;
+                }
+
+                content.appendChild(titleElem);
+              }
 
               const textElem = document.createElement("div");
               textElem.classList.add("message-text");
@@ -3600,6 +3623,35 @@
           }
         }
 
+        let titleInput = null;
+
+        const isTextCard =
+          !card.classList.contains("link") &&
+          !card.classList.contains("location") &&
+          !m.filename;
+
+        if (isTextCard) {
+
+          titleInput = document.createElement("input");
+
+          titleInput.type = "text";
+          titleInput.placeholder = "Title (optional)";
+          titleInput.value = m.title || "";
+
+          titleInput.style.width = "100%";
+          titleInput.style.height = "44px";
+          titleInput.style.marginBottom = "10px";
+
+          titleInput.style.background = "#0f172a";
+          titleInput.style.color = "#e5e7eb";
+          titleInput.style.border = "1px solid #334155";
+          titleInput.style.borderRadius = "14px";
+          titleInput.style.padding = "0 18px";
+          titleInput.style.fontFamily = "inherit";
+          titleInput.style.fontSize = "14px";
+          titleInput.style.boxSizing = "border-box";
+        }
+
         const textarea = document.createElement("textarea");
         textarea.value = descriptionPart;
 
@@ -3668,6 +3720,11 @@
 
         contentDiv.innerHTML = "";
         contentDiv.style.display = "block";
+
+        if (titleInput) {
+          contentDiv.appendChild(titleInput);
+        }
+
         contentDiv.appendChild(textarea);
         contentDiv.appendChild(actions);
 
@@ -3678,6 +3735,12 @@
         saveBtn.onclick = async () => {
 
           const form = new FormData();
+
+          const title = titleInput
+            ? titleInput.value.trim()
+            : "";
+
+          form.append("title", title);
 
           // If is link card
           const card = contentDiv.closest(".message");
