@@ -1,0 +1,13 @@
+# --- DropMind runtime data ---
+data/
+
+# --- Local configuration / secrets ---
+frontend/config.js
+
+# --- Local backups ---
+frontend-backup-*/
+backend-backup-*/
+
+# --- Old / temporary files ---
+frontend/*_OLD.*
+frontend/**/_OLD.*
