@@ -2,102 +2,114 @@
 
 ![Docker](https://img.shields.io/badge/Docker-ready-blue)
 ![Multi-Arch](https://img.shields.io/badge/arch-amd64%20%7C%20arm64-success)
-![License](https://img.shields.io/badge/license-AGPL--3.0-red)
-![Self Hosted](https://img.shields.io/badge/self--hosted-yes-green)
-![GitHub stars](https://img.shields.io/github/stars/oldany/dropmind)
+![License](https://img.shields.io/badge/license-AGPL--3.0-red) ![Self
+Hosted](https://img.shields.io/badge/self--hosted-yes-green) ![GitHub
+stars](https://img.shields.io/github/stars/oldany/dropmind)
 
 ## Stop losing things between devices.
 
-DropMind is a **self-hosted capture inbox** for links, notes, screenshots and files.
+DropMind is a **self-hosted capture inbox** for links, notes,
+screenshots and files.
 
 No folders. No decisions. No friction.
 
-Just drop it — and deal with it later.
+Just drop it --- and deal with it later.
 
----
+------------------------------------------------------------------------
 
-Most tools focus on organizing information.  
-DropMind focuses on **capturing it instantly**, before it’s lost.
+Most tools focus on organizing information.\
+DropMind focuses on **capturing it instantly**, before it's lost.
 
-👉 Phone → drop  
-👉 DropMind → holds it  
-👉 Desktop → process it  
+👉 Phone → drop\
+👉 DropMind → holds it\
+👉 Desktop → process it
 
+⚡ **Capture anything instantly --- no friction, no decisions.**
 
-⚡ **Capture anything instantly — no friction, no decisions.**
-
----
+------------------------------------------------------------------------
 
 ## ⚡ See it in action (10 seconds)
 
-Select text → save it  
+Select text → save it\
 No selection → save the page + optional note
 
 Smart capture, no decisions.
 
 ![DropMind Demo](docs/demo_dropmind.gif)
 
----
+------------------------------------------------------------------------
 
 ## 🌐 Works everywhere
 
 Capture from any device, instantly:
 
-- iOS → via Shortcuts  
-- Android → via Share system  
-- Desktop → via bookmarklet  
+-   iOS → via Shortcuts\
+-   Android → via Share system\
+-   Desktop → via bookmarklet
 
 Same backend. Same flow. No friction.
 
----
+------------------------------------------------------------------------
 
 📖 **Documentation:** https://github.com/oldany/dropmind/wiki
 
----
+------------------------------------------------------------------------
 
 💬 **How are people using DropMind?**
 
 I'm curious how others are integrating DropMind into their workflows.
 
-If you're trying it or already using it, feel free to share your setup or ideas in the discussion:
+If you're trying it or already using it, feel free to share your setup
+or ideas in the discussion:
 
-👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
+👉 [Join the
+discussion](https://github.com/oldany/dropmind/discussions/3)
 
----
+------------------------------------------------------------------------
 
 ## ✨ What you can capture
 
-Quickly drop anything you don’t want to lose:
+Quickly drop anything you don't want to lose:
 
-- links to read later  
-- screenshots from mobile  
-- files between devices  
-- quick notes  
-- ideas or reminders  
+-   links to read later\
+-   screenshots from mobile\
+-   files between devices\
+-   quick notes\
+-   ideas or reminders
 
 ### Core capabilities
 
-- simple message-style interface
-- send **text, links, images and files**
-- **multi-clipboard organization**
-- global search
-- installable **PWA** (mobile & desktop)
-- **Android share support**
-- **Apple Shortcut support for instant sharing**
-- extremely lightweight
-- **Docker deployment**
+-   simple message-style interface
+-   send **text, links, images and files**
+-   **multi-clipboard organization**
+-   global search
+-   **light and dark mode**
+-   installable **PWA** (mobile & desktop)
+-   **Android share support**
+-   **Apple Shortcut support for instant sharing**
+-   extremely lightweight
+-   **Docker deployment**
 
----
+### DropMind 2.0
+
+DropMind 2.0 introduces a more modular frontend architecture, light/dark
+mode, improved multi-selection and usability, and incremental background
+detection of newly captured messages.
+
+------------------------------------------------------------------------
 
 💡 **Ideas or feedback welcome**
 
-DropMind is intentionally minimal and focused on doing one thing well: capturing things quickly.
+DropMind is intentionally minimal and focused on doing one thing well:
+capturing things quickly.
 
-If you have ideas, workflow suggestions, or integrations that could make it more useful, feel free to open an issue or join the discussion.
+If you have ideas, workflow suggestions, or integrations that could make
+it more useful, feel free to open an issue or join the discussion.
 
-👉 [Join the discussion](https://github.com/oldany/dropmind/discussions/3)
+👉 [Join the
+discussion](https://github.com/oldany/dropmind/discussions/3)
 
----
+------------------------------------------------------------------------
 
 ## 📸 Screenshots
 
@@ -109,16 +121,16 @@ If you have ideas, workflow suggestions, or integrations that could make it more
 
 ![Mobile UI](docs/mobile.png)
 
----
+------------------------------------------------------------------------
 
 ## 🍎 Apple Shortcut
 
 DropMind can integrate with **Apple Shortcuts** to quickly send:
 
-- links
-- text
-- images
-- files
+-   links
+-   text
+-   images
+-   files
 
 directly from **iOS and iPadOS**.
 
@@ -126,70 +138,74 @@ This makes DropMind behave like a **personal cross-device inbox**.
 
 ### Install the Shortcut
 
-👉 **Download here:**  
-[Add DropMind Shortcut](https://www.icloud.com/shortcuts/bd25a3abcce048cea61ad8da6673dc95)
+👉 **Download here:**\
+[Add DropMind
+Shortcut](https://www.icloud.com/shortcuts/bd25a3abcce048cea61ad8da6673dc95)
 
 After installation:
 
-1. Open the Shortcut once to grant permissions  
-2. Set your DropMind server URL  
-3. Insert your API token  
-4. Choose your default clipboard  (see "Find your Clipboard ID" in wiki under sharing section)
+1.  Open the Shortcut once to grant permissions\
+2.  Set your DropMind server URL\
+3.  Insert your API token\
+4.  Choose your default clipboard (see "Find your Clipboard ID" in wiki
+    under sharing section)
 
 You're ready.
 
 Fully local. Fully yours.
 
----
+------------------------------------------------------------------------
 
 ## 🤖 Android Share
 
-On Android you can send content directly to DropMind using the system share menu.
+On Android you can send content directly to DropMind using the system
+share menu.
 
 Examples:
 
-- links from a browser
-- images
-- selected text
+-   links from a browser
+-   images
+-   selected text
 
 Select:
 
 Share → DropMind
 
----
+------------------------------------------------------------------------
 
 ## 🌐 Universal Capture (Bookmarklet)
 
 Capture anything from any browser in one click.
 
-- Select text → save instantly  
-- No selection → save page (title + URL)  
-- Add a quick note → optional  
+-   Select text → save instantly\
+-   No selection → save page (title + URL)\
+-   Add a quick note → optional
 
-👉 Works everywhere: desktop, mobile browsers, any OS  
+👉 Works everywhere: desktop, mobile browsers, any OS\
 👉 No extensions. No accounts.
 
----
+------------------------------------------------------------------------
 
 ⚡ Quick setup
 
-1. Create a new bookmark  
-2. Paste the code into the URL field  
-3. Edit URL and token directly in the bookmark  
+1.  Create a new bookmark\
+2.  Paste the code into the URL field\
+3.  Edit URL and token directly in the bookmark
 
----
+------------------------------------------------------------------------
 
-👉 Full instructions and troubleshooting:  
-[📖 Bookmarklet setup](https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind)
+👉 Full instructions and troubleshooting:\
+[📖 Bookmarklet
+setup](https://github.com/oldany/dropmind/wiki/Sharing%E2%80%90to%E2%80%90DropMind)
 
----
+------------------------------------------------------------------------
 
 ## 💡 Typical Workflow
 
-1. Find something interesting on your phone  
-2. **Drop it into DropMind**  
-3. Later open it on your computer  
-4. Keep it, move it elsewhere, or delete it  
+1.  Find something interesting on your phone\
+2.  **Drop it into DropMind**\
+3.  Later open it on your computer\
+4.  Keep it, move it elsewhere, or delete it
 
 DropMind is **not a note-taking system**.
 
@@ -197,7 +213,7 @@ It is a **temporary capture space** for your digital thoughts.
 
 Use it as the **front door for your ideas and resources**.
 
----
+------------------------------------------------------------------------
 
 ## 🚀 Quick Start
 
@@ -339,42 +355,45 @@ decisions were human‑driven**.
 
 ## 🛣 Roadmap
 
-DropMind is developed in my free time, primarily to solve my own personal workflow needs.
+DropMind is developed in my free time, primarily to solve my own
+personal workflow needs.
 
 Because of this, there are no fixed timelines or guaranteed features.
 Development happens when time and ideas align.
 
-That said, these are some areas and ideas I would like to explore in the future:
+Current areas I may explore in future releases:
 
 ### Capture & workflow improvements
 
-- ~~Multi-select actions (move / delete multiple items)~~ - Done
-- Temporary clipboards with automatic expiration
-- ~~Faster quick-capture shortcuts~~ — Done
-- Improved link parsing and smart cards
-- ~~Better image handling~~ - Done
+-   Temporary clipboards with automatic expiration
+-   Improved link parsing and smart cards
 
 ### Integrations
-- API / webhook ingestion for external tools
--  Automation integrations (Shortcuts, scripts, etc.)
-- ~~Lightweight bookmarklet for quick capture from the browser~~ - Done
 
-### UI improvements
-- Drag & drop support for desktop uploads
-- Live drop / quick file capture
-- ~~Additional keyboard shortcuts and small UX improvements~~ — Done
+-   API / webhook ingestion for external tools
+-   Automation integrations (Shortcuts, scripts, etc.)
+
+### UI & usability
+
+-   Drag & drop support for desktop uploads
+-   Live drop / quick file capture
+-   Further small UX improvements
 
 ### Architecture
-At some point the frontend will likely be refactored to split the current single index.html into smaller modular files to make the codebase easier to maintain.
+
+-   ~~Frontend refactoring and modularization~~ --- Done
+
+The frontend has been modularized as part of DropMind 2.0. Future
+architectural changes will focus on maintainability and reusability,
+without adding unnecessary complexity.
 
 ------------------------------------------------------------------------
 
 ## Why AGPL?
 
 To ensure that DropMind remains open if modified and offered as a public
-service.
-To prevent closed commercial forks of DropMind while keeping the project
-fully open.
+service. To prevent closed commercial forks of DropMind while keeping
+the project fully open.
 
 ------------------------------------------------------------------------
 
