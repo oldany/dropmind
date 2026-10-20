@@ -2112,6 +2112,14 @@
       box-shadow: 0 16px 36px var(--shadow);
     }
 
+    /* Light: la barra multiselect deve integrarsi col fondo dell'app
+       come nel tema scuro (background #020617 == app-background), quindi
+       non usa il bianco "raised" dei menu flottanti, né la loro ombra. */
+    :root[data-theme="light"] #selectionActions {
+      background: var(--app-background);
+      box-shadow: none;
+    }
+
     :root[data-theme="light"] .dm-dropdown-menu div,
     :root[data-theme="light"] #moveMenu button,
     :root[data-theme="light"] .mobile-filter,
@@ -2332,4 +2340,15 @@
 
     :root[data-theme="light"] select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23475569' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5l4.75 4.75L14.75 7.5' stroke='%23475569' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    }
+
+    /* Light: ripristina le proprietà di posizionamento della freccia custom.
+       `.move-select select` usa lo shorthand `background`, che azzera
+       background-repeat/position/size; la regola light reinserisce solo
+       background-image, quindi il chevron veniva disegnato a piastrella. */
+    :root[data-theme="light"] .move-select select {
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 30px !important;
     }

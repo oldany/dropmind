@@ -294,7 +294,9 @@ services:
     image: ghcr.io/oldany/dropmind-frontend:latest
     container_name: dropmind_frontend
     volumes:
-      # Optional: external config.js
+      # REQUIRED with the prebuilt image (frontend auth): without this mount,
+      # config.js is missing and every /api call returns 401. Not needed only
+      # if you bind-mount the whole frontend/ folder from the host.
       - ./frontend/config.js:/usr/share/nginx/html/config.js
     ports:
       - "8080:80"

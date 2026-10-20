@@ -2,10 +2,10 @@
          APP INITIALIZATION
       ================================= */
 
-import { createApiClient } from "../../dany-framework/frontend/data/api-client.js";
+import { createApiClient } from "../client/api-client.js";
 import { ICONS } from "../ui/icons.js";
-import { SelectionManager } from "../../dany-framework/frontend/core/selection-manager.js";
-import { bindLongPress } from "../../dany-framework/frontend/interaction/long-press.js";
+import { SelectionManager } from "../core/selection-manager.js";
+import { bindLongPress } from "../interaction/long-press.js";
 
 const API_BASE_URL = "/api";
 
@@ -1782,9 +1782,9 @@ document.getElementById("createClipboardBtn").innerHTML = `
           titleInput.style.height = "44px";
           titleInput.style.marginBottom = "10px";
 
-          titleInput.style.background = "#0f172a";
-          titleInput.style.color = "#e5e7eb";
-          titleInput.style.border = "1px solid #334155";
+          titleInput.style.background = "var(--control-background)";
+          titleInput.style.color = "var(--text-primary)";
+          titleInput.style.border = "1px solid var(--border)";
           titleInput.style.borderRadius = "14px";
           titleInput.style.padding = "0 18px";
           titleInput.style.fontFamily = "inherit";
@@ -1800,9 +1800,9 @@ document.getElementById("createClipboardBtn").innerHTML = `
         textarea.style.minHeight = "44px";
         textarea.style.maxHeight = "160px";
 
-        textarea.style.background = "#0f172a";
-        textarea.style.color = "#e5e7eb";
-        textarea.style.border = "1px solid #334155";
+        textarea.style.background = "var(--control-background)";
+        textarea.style.color = "var(--text-primary)";
+        textarea.style.border = "1px solid var(--border)";
         textarea.style.borderRadius = "14px";
         textarea.style.padding = "10px 18px";
 
